@@ -1,8 +1,8 @@
 import { hash } from "bcryptjs";
-import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
-import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
+import { InMemoryUsersRepository } from "../repositories/in-memory/InMemoryUsersRepository";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
-import { IncorrectEmailOrPasswordError } from "./IncorrectEmailOrPasswordError";
+import { IncorrectEmailOrPasswordError } from "../err/IncorrectEmailOrPasswordError";
+import { CreateUserUseCase } from "./CreateUserUseCase";
 
 let authenticateUserUseCase: AuthenticateUserUseCase;
 let inMemoryUsersRepository: InMemoryUsersRepository;

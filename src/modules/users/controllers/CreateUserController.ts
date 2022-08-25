@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-
-import { CreateUserUseCase } from "../useCases/createUser/CreateUserUseCase";
+import { CreateUserUseCase } from "../useCases/CreateUserUseCase";
 
 export class CreateUserController {
-  // DEVERÁ CHAMAR A ROTA DE CREATE USER
+  // CONFERIR O TIPO DE RETORNO
 
   async execute(request: Request, response: Response) {
     const { name, email, password } = request.body;
