@@ -1,22 +1,14 @@
-import { injectable, inject } from "tsyringe";
-
-import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { ShowUserProfileError } from "./ShowUserProfileError";
+import { inject, injectable } from "tsyringe";
+import ShowUserProfileService from "../services/showUserProfile.service";
 
 @injectable()
 export class ShowUserProfileUseCase {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject("ShowUserProfileService")
+    private showUserProfileService: ShowUserProfileService
   ) {}
 
-  async execute(user_id: string) {
-    const user = await this.usersRepository.findById(user_id);
-
-    if (!user) {
-      throw new ShowUserProfileError();
-    }
-
-    return user;
+  execute(user_id: string) {
+    this.showUserProfileService.execute(user_id);
   }
 }
