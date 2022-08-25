@@ -1,6 +1,5 @@
 import { hash } from "bcryptjs";
-import { Request, Response } from "express";
-import { container, inject, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { CreateUserError } from "../err/CreateUserError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
