@@ -7,8 +7,7 @@ import { IUsersRepository } from "../repositories/IUsersRepository";
 @injectable()
 export class CreateUserService {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    @inject("UsersRepository") private usersRepository: IUsersRepository
   ) {}
 
   async execute({ name, email, password }: ICreateUserDTO) {
