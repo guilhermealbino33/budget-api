@@ -1,53 +1,14 @@
 import { inject, injectable } from "tsyringe";
-import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
-
-import authConfig from "../../../config/auth";
-
-import { IncorrectEmailOrPasswordError } from "../err/IncorrectEmailOrPasswordError";
-import { IUsersRepository } from "../repositories/IUsersRepository";
-import { IAuthenticateUserResponseDTO } from "../dtos/IAuthenticateUserResponseDTO";
-
-interface IRequest {
-  email: string;
-  password: string;
-}
+import AuthenticateUserService from "../services/authenticateUser.service";
 
 @injectable()
 export class AuthenticateUserUseCase {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    @inject("AuthenticateUserService")
+    private authenticateUserService: AuthenticateUserService
   ) {}
 
-  async execute({
-    email,
-    password,
-  }: IRequest): Promise<IAuthenticateUserResponseDTO> {
-    const user = await this.usersRepository.findByEmail(email);
-
-    if (!user) {
-      throw new IncorrectEmailOrPasswordError();
-    }
-
-    if (password !== user.password) {
-      throw new IncorrectEmailOrPasswordError();
-    }
-
-    const { secret, expiresIn } = authConfig.jwt;
-
-    const token = sign({ user }, String(secret), {
-      subject: user.id,
-      expiresIn,
-    });
-
-    return {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-      token,
-    };
+  async execute(email: string, password: string) {
+    return this.authenticateUserService.execute({ email, password });
   }
 }

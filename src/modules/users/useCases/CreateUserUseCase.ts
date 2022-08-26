@@ -9,7 +9,7 @@ export class CreateUserUseCase {
   ) {}
 
   async execute({ name, email, password }: ICreateUserDTO) {
-    this.createUserService.execute({ name, email, password });
+    return this.createUserService.execute({ name, email, password });
   }
 }
 

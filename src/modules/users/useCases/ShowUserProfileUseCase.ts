@@ -8,7 +8,7 @@ export class ShowUserProfileUseCase {
     private showUserProfileService: ShowUserProfileService
   ) {}
 
-  execute(user_id: string) {
-    this.showUserProfileService.execute(user_id);
+  async execute(user_id: string) {
+    return this.showUserProfileService.execute(user_id);
   }
 }
