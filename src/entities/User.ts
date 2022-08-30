@@ -7,8 +7,6 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-import { Statement } from "./Statement";
-
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -22,6 +20,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  is_admin: boolean;
 
   @CreateDateColumn()
   created_at: Date;
