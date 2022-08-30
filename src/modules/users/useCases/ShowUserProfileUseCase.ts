@@ -1,14 +1,18 @@
 import { inject, injectable } from "tsyringe";
-import ShowUserProfileService from "../services/showUserProfile.service";
+import { ShowUserProfileError } from "../err/ShowUserProfileError";
+import IUsersService from "../services/IUsersService";
 
 @injectable()
 export class ShowUserProfileUseCase {
-  constructor(
-    @inject("ShowUserProfileService")
-    private showUserProfileService: ShowUserProfileService
-  ) {}
+  constructor(@inject("UsersService") private usersService: IUsersService) {}
 
-  async execute(user_id: string) {
-    return this.showUserProfileService.execute(user_id);
+  async execute(userId: string) {
+    const user = await this.usersService.findById(userId);
+
+    if (!user) {
+      throw new ShowUserProfileError();
+    }
+
+    return user;
   }
 }

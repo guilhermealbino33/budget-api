@@ -1,14 +1,11 @@
 import { inject, injectable } from "tsyringe";
-import AuthenticateUserService from "../services/authenticateUser.service";
+import IUsersService from "../services/IUsersService";
 
 @injectable()
 export class AuthenticateUserUseCase {
-  constructor(
-    @inject("AuthenticateUserService")
-    private authenticateUserService: AuthenticateUserService
-  ) {}
+  constructor(@inject("UsersService") private usersService: IUsersService) {}
 
   async execute(email: string, password: string) {
-    return this.authenticateUserService.execute({ email, password });
+    return this.usersService.authenticateUser({ email, password });
   }
 }
