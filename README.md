@@ -1,4 +1,16 @@
-## API Orçamentos
+## Budget API
+
+# TODO
+
+[] - Fazer rodar
+[] - Resolver auto-indentar ao salvar
+[] - Docker & Docker-compose
+
+# DONE
+
+[x] - Nodemon
+[x] - Eslint
+[x] - Prettier
 
 # Models
 
