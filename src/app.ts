@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import "express-async-errors";
 
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 
 import createDbConnection from "./database";
@@ -18,12 +18,7 @@ app.use(express.json());
 app.use("/api/v1", router);
 
 app.use(
-  (
-    err: Error,
-    request: express.Request,
-    response: express.Response,
-    _next: express.NextFunction
-  ) => {
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof AppError) {
       return response.status(err.statusCode).json({
         message: err.message,
@@ -32,7 +27,7 @@ app.use(
 
     return response.status(500).json({
       status: "error",
-      message: `Internal server error - ${err.message} `,
+      message: `Internal server error - ${err.message}`,
     });
   }
 );
