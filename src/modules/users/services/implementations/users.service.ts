@@ -1,14 +1,11 @@
 import { inject } from "tsyringe";
 import { IAuthenticateUserResponseDTO } from "../../dtos/IAuthenticateUserResponseDTO";
-import { IncorrectEmailOrPasswordError } from "../../err/IncorrectEmailOrPasswordError";
+import { IncorrectEmailOrPasswordError } from "../../errors/IncorrectEmailOrPasswordError";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import IUsersService from "../IUsersService";
 import { sign } from "jsonwebtoken";
 import authConfig from "../../../../config/auth";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { CreateUserError } from "../../err/CreateUserError";
-import { hash } from "bcryptjs";
-import { ShowUserProfileError } from "../../err/ShowUserProfileError";
 import { User } from "../../../../entities/User";
 
 interface IRequest {

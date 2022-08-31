@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { ShowUserProfileError } from "../err/ShowUserProfileError";
+import { ShowUserProfileError } from "../errors/ShowUserProfileError";
 import IUsersService from "../services/IUsersService";
 
 @injectable()
