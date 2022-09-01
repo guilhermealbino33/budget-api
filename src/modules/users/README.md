@@ -2,6 +2,7 @@
 
 # TODO
 
+[] - Refatorar usersTokens repositories
 [] - Criar o banco de dados local para testes
 [] - Verificar questão dos mappers e sua necessidade
 [] - Converter sistema de erros para um centralizado
