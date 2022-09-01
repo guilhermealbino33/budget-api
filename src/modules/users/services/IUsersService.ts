@@ -1,6 +1,6 @@
-import { User } from "../../../entities/User";
-import { IAuthenticateUserResponseDTO } from "../dtos/IAuthenticateUserResponseDTO";
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
+import { User } from '../../../entities/user';
+import { IAuthenticateUserResponseDTO } from '../dtos/IAuthenticateUserResponseDTO';
+import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
 
 interface IRequest {
   email: string;

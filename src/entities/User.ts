@@ -4,12 +4,12 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { v4 as uuid } from "uuid";
+} from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
-@Entity("users")
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id?: string;
 
   @Column()

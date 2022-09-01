@@ -1,12 +1,12 @@
-import { inject } from "tsyringe";
-import { IAuthenticateUserResponseDTO } from "../../dtos/IAuthenticateUserResponseDTO";
-import { IncorrectEmailOrPasswordError } from "../../errors/IncorrectEmailOrPasswordError";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
-import IUsersService from "../IUsersService";
-import { sign } from "jsonwebtoken";
-import authConfig from "../../../../config/auth";
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { User } from "../../../../entities/User";
+import { inject } from 'tsyringe';
+import { sign } from 'jsonwebtoken';
+import { IAuthenticateUserResponseDTO } from '../../dtos/IAuthenticateUserResponseDTO';
+import { IncorrectEmailOrPasswordError } from '../../errors/IncorrectEmailOrPasswordError';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
+import IUsersService from '../IUsersService';
+import authConfig from '../../../../config/auth';
+import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
+import { User } from '../../../../entities/user';
 
 interface IRequest {
   email: string;
@@ -15,7 +15,7 @@ interface IRequest {
 
 export default class UsersService implements IUsersService {
   constructor(
-    @inject("UsersRepository")
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository
   ) {}
 

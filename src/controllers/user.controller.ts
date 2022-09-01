@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import { AppError } from "../shared/errors/AppError";
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+import { AppError } from '../shared/errors/AppError';
 
-import { ProfileMap } from "../modules/users/mappers/ProfileMap";
-import { AuthenticateUserUseCase } from "../modules/users/useCases/AuthenticateUserUseCase";
-import { CreateUserUseCase } from "../modules/users/useCases/CreateUserUseCase";
-import { ShowUserProfileUseCase } from "../modules/users/useCases/ShowUserProfileUseCase";
+import { ProfileMap } from '../modules/users/mappers/ProfileMap';
+import { AuthenticateUserUseCase } from '../modules/users/useCases/AuthenticateUserUseCase';
+import { CreateUserUseCase } from '../modules/users/useCases/CreateUserUseCase';
+import { ShowUserProfileUseCase } from '../modules/users/useCases/ShowUserProfileUseCase';
 
 // CONFERIR O TIPO DE RETORNO
 
@@ -25,9 +25,9 @@ export async function showUserProfileHandler(
   request: Request,
   response: Response
 ) {
-  const { id } = request.user;
+  const userId = request.body.user.id;
   const showUserProfile = container.resolve(ShowUserProfileUseCase);
-  const user = await showUserProfile.execute(id);
+  const user = await showUserProfile.execute(userId);
   const profileDTO = ProfileMap.toDTO(user);
 
   return response.json(profileDTO);
@@ -45,8 +45,9 @@ export async function authenticateUserHandler(
     return response.json({ user, token });
   } catch (error) {
     console.log(error);
+
     return response
       .status(401)
-      .json(new AppError("Incorrect e-mail or password", 401));
+      .json(new AppError('Incorrect e-mail or password', 401));
   }
 }

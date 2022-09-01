@@ -1,7 +1,7 @@
-import { User } from "../../../../entities/User";
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
+import { User } from '../../../../entities/user';
+import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 
-import { IUsersRepository } from "../IUsersRepository";
+import { IUsersRepository } from '../IUsersRepository';
 
 export class InMemoryUsersRepository implements IUsersRepository {
   private users: User[] = [];
@@ -18,6 +18,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
     const user = new User();
     Object.assign(user, data);
     this.users.push(user);
+
     return user;
   }
 }
