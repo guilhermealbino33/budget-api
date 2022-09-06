@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
@@ -35,4 +34,14 @@ export class User {
       this.id = uuid();
     }
   }
+}
+
+export interface IUser {
+  id?: string;
+  name: string;
+  email: string;
+  password: string;
+  is_admin?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 }

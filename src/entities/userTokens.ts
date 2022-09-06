@@ -11,7 +11,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { User } from './user';
 
 @Entity('users_tokens')
-class UserTokens {
+export class UserTokens {
   @PrimaryColumn()
   id: string;
 
@@ -38,4 +38,9 @@ class UserTokens {
   }
 }
 
-export { UserTokens };
+export interface IUserToken {
+  id?: string;
+  user_id: string;
+  expires_date: Date;
+  refresh_token: string;
+}

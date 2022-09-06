@@ -1,8 +1,9 @@
-import { User } from '../../../entities/user';
-import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
+import { IUser, User } from '../../../entities/user';
 
 export interface IUsersRepository {
-  create(data: ICreateUserDTO): Promise<User>;
-  findByEmail(email: string): Promise<User | undefined>;
-  findById(user_id: string): Promise<User | undefined>;
+  create(user: IUser): Promise<void>;
+  updateUser(user: IUser): Promise<void>;
+  deleteUser(userID: string): Promise<void>;
+  findByEmail(email: string): Promise<User>;
+  findById(user_id: string): Promise<User>;
 }

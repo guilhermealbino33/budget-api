@@ -1,15 +1,18 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../shared/infra/http/middlewares/ensureAuthenticated';
 import {
   createUserHandler,
-  authenticateUserHandler,
-  showUserProfileHandler,
-} from '../controllers/user.controller';
+  deleteUserHandler,
+  showUserHandler,
+  updateUserHandler,
+} from '../modules/users/controllers/user.controller';
+
+import { ensureAdmin } from '../shared/middlewares/ensureAdmin';
+import { ensureAuthenticated } from '../shared/middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
-
-usersRouter.post('/create', createUserHandler);
-usersRouter.post('/sessions', authenticateUserHandler);
-usersRouter.get('/profile', showUserProfileHandler);
+usersRouter.post('/', createUserHandler);
+usersRouter.patch('/:id', updateUserHandler);
+usersRouter.delete('/:id', ensureAuthenticated, ensureAdmin, deleteUserHandler);
+usersRouter.get('/:id', showUserHandler);
 
 export { usersRouter };

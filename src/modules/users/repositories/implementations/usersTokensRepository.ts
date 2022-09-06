@@ -1,52 +1,51 @@
-import { getRepository, Repository } from 'typeorm';
-import { UserTokens } from '../../../../entities/UserTokens';
-import { ICreateUserTokenDTO } from '../../dtos/ICreateUserTokenDTO';
+import { Repository } from 'typeorm';
+import { AppDataSource } from '../../../../data-source';
+import { IUserToken, UserTokens } from '../../../../entities/userTokens';
 import { IUsersTokensRepository } from '../IUsersTokensRepository';
 
-class UsersTokensRepository implements IUsersTokensRepository {
+export class UsersTokensRepository implements IUsersTokensRepository {
   private repository: Repository<UserTokens>;
 
   constructor() {
-    this.repository = getRepository(UserTokens);
+    this.repository = AppDataSource.getRepository(UserTokens);
   }
 
-  async create({
-    user_id,
-    expires_date,
-    refresh_token,
-  }: ICreateUserTokenDTO): Promise<UserTokens> {
-    const userToken = this.repository.create({
-      user_id,
-      expires_date,
-      refresh_token,
-    });
+  async create(token: IUserToken): Promise<IUserToken> {
+    const userToken = this.repository.create(token);
     await this.repository.save(userToken);
 
     return userToken;
   }
+
+  async deleteById(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
+
   async findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string
-  ): Promise<UserTokens | undefined> {
+  ): Promise<IUserToken> {
     const usersTokens = await this.repository.findOne({
-      user_id,
-      refresh_token,
+      where: [
+        {
+          refresh_token,
+          user_id,
+        },
+      ],
     });
 
     return usersTokens;
   }
-  async deleteById(id: string): Promise<void> {
-    await this.repository.delete(id);
-  }
-  async findByRefreshToken(
-    refresh_token: string
-  ): Promise<UserTokens | undefined> {
+
+  async findByRefreshToken(refresh_token: string): Promise<IUserToken> {
     const usersToken = await this.repository.findOne({
-      refresh_token,
+      where: [
+        {
+          refresh_token,
+        },
+      ],
     });
 
     return usersToken;
   }
 }
-
-export { UsersTokensRepository };

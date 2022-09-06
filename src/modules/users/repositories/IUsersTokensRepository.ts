@@ -1,18 +1,11 @@
-import { UserTokens } from '../../../entities/UserTokens';
-import { ICreateUserTokenDTO } from '../dtos/ICreateUserTokenDTO';
+import { IUserToken } from '../../../entities/userTokens';
 
-interface IUsersTokensRepository {
-  create({
-    expires_date,
-    refresh_token,
-    user_id,
-  }: ICreateUserTokenDTO): Promise<UserTokens>;
+export interface IUsersTokensRepository {
+  create(token: IUserToken): Promise<IUserToken>;
+  findByRefreshToken(refresh_token: string): Promise<IUserToken>;
   findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string
-  ): Promise<UserTokens | undefined>;
-  findByRefreshToken(refresh_token: string): Promise<UserTokens | undefined>;
+  ): Promise<IUserToken>;
   deleteById(id: string): Promise<void>;
 }
-
-export { IUsersTokensRepository };
