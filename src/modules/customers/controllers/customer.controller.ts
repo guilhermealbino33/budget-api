@@ -9,16 +9,26 @@ export async function createCustomerHandler(
   request: Request,
   response: Response
 ) {
-  const { name, cpf, city, state, address, number, cep, birthday } =
-    request.body;
-  const createCustomerUseCase = container.resolve(CreateCustomerUseCase);
-  const customer = await createCustomerUseCase.execute({
+  const {
     name,
+    email,
     cpf,
     city,
     state,
     address,
-    number,
+    address_number,
+    cep,
+    birthday,
+  } = request.body;
+  const createCustomerUseCase = container.resolve(CreateCustomerUseCase);
+  const customer = await createCustomerUseCase.execute({
+    name,
+    email,
+    cpf,
+    city,
+    state,
+    address,
+    address_number,
     cep,
     birthday,
   });
@@ -32,17 +42,27 @@ export async function updateCustomerHandler(
 ) {
   const { id } = request.params;
 
-  const { name, cpf, city, state, address, number, cep, birthday } =
-    request.body;
-
-  const updateCustomerUseCase = container.resolve(UpdateCustomerUseCase);
-  const customer = await updateCustomerUseCase.execute(id, {
+  const {
     name,
+    email,
     cpf,
     city,
     state,
     address,
-    number,
+    address_number,
+    cep,
+    birthday,
+  } = request.body;
+
+  const updateCustomerUseCase = container.resolve(UpdateCustomerUseCase);
+  const customer = await updateCustomerUseCase.execute(id, {
+    name,
+    email,
+    cpf,
+    city,
+    state,
+    address,
+    address_number,
     cep,
     birthday,
   });

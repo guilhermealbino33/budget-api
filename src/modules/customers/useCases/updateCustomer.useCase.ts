@@ -6,11 +6,12 @@ import { ICustomersRepository } from '../repositories/ICustomersRepository';
 
 interface UpdateCustomerRequest {
   name?: string;
+  email?: string;
   cpf?: string;
   city?: string;
   state?: string;
   address?: string;
-  number?: string;
+  address_number?: string;
   cep?: string;
   birthday?: Date;
 }
@@ -26,11 +27,12 @@ export default class UpdateCustomerUseCase {
     id: string,
     {
       name,
+      email,
       cpf,
       city,
       state,
       address,
-      number,
+      address_number,
       cep,
       birthday,
     }: UpdateCustomerRequest
@@ -46,11 +48,14 @@ export default class UpdateCustomerUseCase {
     }
 
     customerToUpdate.name = name ? name : customerToUpdate.name;
+    customerToUpdate.email = email ? email : customerToUpdate.email;
     customerToUpdate.cpf = cpf ? cpf : customerToUpdate.cpf;
     customerToUpdate.city = city;
     customerToUpdate.state = state ? state : customerToUpdate.state;
     customerToUpdate.address = address ? address : customerToUpdate.address;
-    customerToUpdate.number = number ? number : customerToUpdate.number;
+    customerToUpdate.address_number = address_number
+      ? address_number
+      : customerToUpdate.address_number;
     customerToUpdate.cep = cep ? cep : customerToUpdate.cep;
     customerToUpdate.birthday = birthday ? birthday : customerToUpdate.birthday;
 
