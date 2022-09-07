@@ -18,7 +18,13 @@ export class Product {
   category: string;
 
   @Column()
+  sku: string;
+
+  @Column()
   value: number;
+
+  @Column()
+  size: string;
 
   @Column()
   description: string;
@@ -40,7 +46,9 @@ export interface IProduct {
   id?: string;
   name: string;
   category: string;
+  sku: string;
   value: number;
+  size: string;
   description?: string;
   created_at?: Date;
   updated_at?: Date;
