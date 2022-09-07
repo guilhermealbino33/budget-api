@@ -33,4 +33,14 @@ export default class ProductsRepository implements IProductsRepository {
       ],
     });
   }
+
+  async findBySku(sku: string): Promise<Product> {
+    return this.repository.findOne({
+      where: [
+        {
+          sku,
+        },
+      ],
+    });
+  }
 }

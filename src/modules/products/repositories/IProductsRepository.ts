@@ -5,4 +5,5 @@ export interface IProductsRepository {
   updateProduct(product: IProduct): Promise<void>;
   deleteProduct(productID: string): Promise<void>;
   findById(product_id: string): Promise<Product>;
+  findBySku(sku: string): Promise<Product>;
 }
