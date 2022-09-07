@@ -7,6 +7,8 @@ import { IUsersTokensRepository } from '../../modules/users/repositories/IUsersT
 import { UsersTokensRepository } from '../../modules/users/repositories/implementations/usersTokensRepository';
 import ProductsRepository from '../../modules/products/repositories/implementations/productsRepository';
 import { IProductsRepository } from '../../modules/products/repositories/IProductsRepository';
+import { ICustomersRepository } from '../../modules/customers/repositories/ICustomersRepository';
+import CustomersRepository from '../../modules/customers/repositories/implementations/customerRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -22,4 +24,10 @@ container.registerSingleton<IUsersTokensRepository>(
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
   ProductsRepository
+);
+
+// Customers
+container.registerSingleton<ICustomersRepository>(
+  'CustomersRepository',
+  CustomersRepository
 );
