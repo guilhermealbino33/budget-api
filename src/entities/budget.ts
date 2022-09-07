@@ -7,13 +7,17 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Customer } from './customer';
 import { Product } from './product';
 import { Salesman } from './salesman';
 
-@Entity('customers')
-export class Customer {
+@Entity('budgets')
+export class Budget {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
+
+  @Column()
+  code: string;
 
   @Column()
   customer_id: string;
@@ -64,16 +68,17 @@ export class Customer {
   }
 }
 
-export interface ICustomer {
+export interface IBudget {
   id?: string;
-  name: string;
-  cpf: string;
-  city: string;
-  state: string;
-  address: string;
-  number: string;
-  cep: string;
-  birthday: Date;
+  code: string;
+  customer_id: string;
+  product_id: string;
+  salesman_id: string;
+  quantity: number;
+  delivery_type: string;
+  delivery_value?: string;
+  observations: string;
+  additional_items: string;
   created_at?: Date;
   updated_at?: Date;
 }

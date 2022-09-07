@@ -11,6 +11,8 @@ import { ICustomersRepository } from '../../modules/customers/repositories/ICust
 import CustomersRepository from '../../modules/customers/repositories/implementations/customerRepository';
 import { ISalesmanRepository } from '../../modules/salesman/repositories/ISalesmanRepository';
 import SalesmanRepository from '../../modules/salesman/repositories/implementations/salesmanRepository';
+import { IBudgetsRepository } from '../../modules/budgets/repositories/IBudgetsRepository';
+import BudgetsRepository from '../../modules/budgets/repositories/implementations/budgetsRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -38,4 +40,10 @@ container.registerSingleton<ICustomersRepository>(
 container.registerSingleton<ISalesmanRepository>(
   'SalesmanRepository',
   SalesmanRepository
+);
+
+// Budgets
+container.registerSingleton<IBudgetsRepository>(
+  'BudgetsRepository',
+  BudgetsRepository
 );
