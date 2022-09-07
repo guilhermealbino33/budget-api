@@ -15,6 +15,9 @@ export class Customer {
   name: string;
 
   @Column()
+  email: string;
+
+  @Column()
   cpf: string;
 
   @Column()
@@ -27,7 +30,7 @@ export class Customer {
   address: string;
 
   @Column()
-  number: string;
+  address_number: string;
 
   @Column()
   cep: string;
@@ -51,11 +54,12 @@ export class Customer {
 export interface ICustomer {
   id?: string;
   name: string;
+  email: string;
   cpf: string;
   city: string;
   state: string;
   address: string;
-  number: string;
+  address_number: string;
   cep: string;
   birthday: Date;
   created_at?: Date;
