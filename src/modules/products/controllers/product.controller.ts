@@ -11,7 +11,7 @@ export async function createProductHandler(
 ) {
   const { name, category, sku, value, size, description } = request.body;
   const createProductUseCase = container.resolve(CreateProductUseCase);
-  const user = await createProductUseCase.execute({
+  const product = await createProductUseCase.execute({
     name,
     category,
     sku,
@@ -20,7 +20,7 @@ export async function createProductHandler(
     description,
   });
 
-  return response.status(201).json(user);
+  return response.status(201).json(product);
 }
 
 export async function updateProductHandler(
@@ -32,7 +32,7 @@ export async function updateProductHandler(
   const { name, category, value, size, description } = request.body;
 
   const updateProductUseCase = container.resolve(UpdateProductUseCase);
-  const user = await updateProductUseCase.execute(id, {
+  const product = await updateProductUseCase.execute(id, {
     name,
     category,
     value,
@@ -40,7 +40,7 @@ export async function updateProductHandler(
     description,
   });
 
-  return response.status(200).json(user);
+  return response.status(200).json(product);
 }
 
 export async function deleteProductHandler(
@@ -57,7 +57,7 @@ export async function deleteProductHandler(
 export async function showProductHandler(request: Request, response: Response) {
   const { id } = request.params;
   const showProductUseCase = container.resolve(ShowProductUseCase);
-  const user = await showProductUseCase.execute(id);
+  const product = await showProductUseCase.execute(id);
 
-  return response.status(200).json(user);
+  return response.status(200).json(product);
 }
