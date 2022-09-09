@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { additionalItemsRouter } from './additionalItems.routes';
 import { budgetsRouter } from './budgets.routes';
 import { customersRouter } from './customers.routes';
 import { productsRouter } from './products.routes';
@@ -15,5 +16,6 @@ router.use('/api/products', productsRouter);
 router.use('/api/customers', customersRouter);
 router.use('/api/salesman', salesmanRouter);
 router.use('/api/budgets', budgetsRouter);
+router.use('/api/additional-items', additionalItemsRouter);
 
 export { router };

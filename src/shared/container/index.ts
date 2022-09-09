@@ -13,6 +13,8 @@ import { ISalesmanRepository } from '../../modules/salesman/repositories/ISalesm
 import SalesmanRepository from '../../modules/salesman/repositories/implementations/salesmanRepository';
 import { IBudgetsRepository } from '../../modules/budgets/repositories/IBudgetsRepository';
 import BudgetsRepository from '../../modules/budgets/repositories/implementations/budgetsRepository';
+import AdditionalItemsRepository from '../../modules/additionalItems/repositories/implementations/AdditionalItemsRepository';
+import { IAdditionalItemsRepository } from '../../modules/additionalItems/repositories/IAdditionalItemsRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -46,4 +48,10 @@ container.registerSingleton<ISalesmanRepository>(
 container.registerSingleton<IBudgetsRepository>(
   'BudgetsRepository',
   BudgetsRepository
+);
+
+// AdditionalItems
+container.registerSingleton<IAdditionalItemsRepository>(
+  'AdditionalItemsRepository',
+  AdditionalItemsRepository
 );
