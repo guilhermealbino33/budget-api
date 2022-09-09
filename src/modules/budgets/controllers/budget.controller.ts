@@ -11,9 +11,9 @@ export async function createBudgetHandler(
 ) {
   const {
     code,
-    customer_id,
-    product_id,
-    salesman_id,
+    customer,
+    products,
+    salesman,
     quantity,
     delivery_type,
     delivery_value,
@@ -23,9 +23,9 @@ export async function createBudgetHandler(
   const createBudgetUseCase = container.resolve(CreateBudgetUseCase);
   const budget = await createBudgetUseCase.execute({
     code,
-    customer_id,
-    product_id,
-    salesman_id,
+    customer,
+    products,
+    salesman,
     quantity,
     delivery_type,
     delivery_value,
@@ -88,3 +88,8 @@ export async function showBudgetHandler(request: Request, response: Response) {
 
   return response.status(200).json(budget);
 }
+
+// export async function convertToPdfHandler(
+//   request: Request,
+//   response: Response
+// ) {}

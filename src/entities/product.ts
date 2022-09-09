@@ -3,10 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Budget } from './budget';
 import { Category } from './category';
 
 @Entity('products')
@@ -17,7 +20,7 @@ export class Product {
   @Column()
   name: string;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, (category) => category.products)
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
@@ -30,14 +33,17 @@ export class Product {
   @Column()
   value: number;
 
-  @Column()
+  @Column({ nullable: true })
   size: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   img?: string;
+
+  @ManyToMany(() => Budget, (budget) => budget.products)
+  budgets: Budget[];
 
   @CreateDateColumn()
   created_at: Date;

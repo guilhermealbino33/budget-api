@@ -3,7 +3,10 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
@@ -20,24 +23,25 @@ export class Budget {
   @Column()
   code: string;
 
-  @Column()
-  customer_id: string;
-
-  @ManyToOne(() => Customer)
+  @ManyToOne(() => Customer, (customer) => customer.budgets)
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
-  @Column()
-  product_id: string;
+  @ManyToMany(() => Product, (product) => product.budgets)
+  @JoinTable({
+    name: 'budget_product',
+    joinColumn: {
+      name: 'product_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'budget_id',
+      referencedColumnName: 'id',
+    },
+  })
+  products: Product[];
 
-  @ManyToOne(() => Product)
-  @JoinColumn({ name: 'product_id' })
-  product: Product;
-
-  @Column()
-  salesman_id: string;
-
-  @ManyToOne(() => Salesman)
+  @ManyToOne(() => Salesman, (salesman) => salesman.budgets)
   @JoinColumn({ name: 'salesman_id' })
   salesman: Salesman;
 
@@ -47,18 +51,14 @@ export class Budget {
   @Column()
   delivery_type: string;
 
-  @Column()
+  @Column({ nullable: true })
   delivery_value?: string;
 
-  @Column()
+  @Column({ nullable: true })
   observations: string;
 
-  @Column()
-  additional_items_id: string;
-
-  @ManyToOne(() => AdditionalItem)
-  @JoinColumn({ name: 'additional_items_id' })
-  additional_items: string;
+  @OneToMany(() => AdditionalItem, (additional_item) => additional_item.budget)
+  additional_items?: AdditionalItem[];
 
   @CreateDateColumn()
   created_at: Date;
@@ -76,14 +76,14 @@ export class Budget {
 export interface IBudget {
   id?: string;
   code: string;
-  customer_id: string;
-  product_id: string;
-  salesman_id: string;
+  customer: Customer;
+  products: Product[];
+  salesman: Salesman;
   quantity: number;
   delivery_type: string;
   delivery_value?: string;
   observations: string;
-  additional_items: string;
+  additional_items?: AdditionalItem[];
   created_at?: Date;
   updated_at?: Date;
 }
