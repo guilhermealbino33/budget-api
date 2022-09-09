@@ -6,10 +6,11 @@ import { IProductsRepository } from '../repositories/IProductsRepository';
 
 interface UpdateProductRequest {
   name?: string;
-  category?: string;
+  category_id?: string;
   size?: string;
   description?: string;
   value?: number;
+  img?: string;
 }
 
 @injectable()
@@ -21,7 +22,7 @@ export default class UpdateProductUseCase {
 
   async execute(
     id: string,
-    { name, category, description, size, value }: UpdateProductRequest
+    { name, category_id, description, size, value, img }: UpdateProductRequest
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid product id!', 400);
@@ -34,10 +35,13 @@ export default class UpdateProductUseCase {
     }
 
     productToUpdate.name = name ? name : productToUpdate.name;
-    productToUpdate.category = category ? category : productToUpdate.category;
+    productToUpdate.category_id = category_id
+      ? category_id
+      : productToUpdate.category_id;
     productToUpdate.description = description;
     productToUpdate.value = value ? value : productToUpdate.value;
     productToUpdate.size = size ? size : productToUpdate.size;
+    productToUpdate.img = img ? img : productToUpdate.img;
 
     productToUpdate.updated_at = new Date();
 
