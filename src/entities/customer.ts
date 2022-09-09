@@ -18,7 +18,13 @@ export class Customer {
   email: string;
 
   @Column()
-  cpf: string;
+  cpf?: string;
+
+  @Column()
+  cnpj?: string;
+
+  @Column()
+  ie?: string;
 
   @Column()
   city: string;
@@ -56,6 +62,8 @@ export interface ICustomer {
   name: string;
   email: string;
   cpf: string;
+  cnpj: string;
+  ie: string;
   city: string;
   state: string;
   address: string;

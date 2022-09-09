@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { AdditionalItem } from './additionalItem';
 import { Customer } from './customer';
 import { Product } from './product';
 import { Salesman } from './salesman';
@@ -53,6 +54,10 @@ export class Budget {
   observations: string;
 
   @Column()
+  additional_items_id: string;
+
+  @ManyToOne(() => AdditionalItem)
+  @JoinColumn({ name: 'additional_items_id' })
   additional_items: string;
 
   @CreateDateColumn()
