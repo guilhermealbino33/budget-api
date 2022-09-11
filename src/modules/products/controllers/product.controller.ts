@@ -9,14 +9,14 @@ export async function createProductHandler(
   request: Request,
   response: Response
 ) {
-  const { name, category_id, sku, value, size, description } = request.body;
+  const { name, category_id, code, value, size, description } = request.body;
   const img = request.file.filename;
 
   const createProductUseCase = container.resolve(CreateProductUseCase);
   const product = await createProductUseCase.execute({
     name,
     category_id,
-    sku,
+    code,
     value,
     size,
     description,

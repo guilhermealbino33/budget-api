@@ -11,8 +11,8 @@ export default class CreateProductUseCase {
   ) {}
 
   async execute(product: IProduct) {
-    const productAlreadyExists = await this.productsRepository.findBySku(
-      product.sku
+    const productAlreadyExists = await this.productsRepository.findByCode(
+      product.code
     );
 
     if (productAlreadyExists) {
