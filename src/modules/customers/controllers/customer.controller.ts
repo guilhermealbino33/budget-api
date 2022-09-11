@@ -9,31 +9,45 @@ export async function createCustomerHandler(
   request: Request,
   response: Response
 ) {
-  const {
-    name,
-    email,
-    cpf,
-    city,
-    state,
-    address,
-    address_number,
-    cep,
-    birthday,
-  } = request.body;
-  const createCustomerUseCase = container.resolve(CreateCustomerUseCase);
-  const customer = await createCustomerUseCase.execute({
-    name,
-    email,
-    cpf,
-    city,
-    state,
-    address,
-    address_number,
-    cep,
-    birthday,
-  });
+  try {
+    const {
+      name,
+      email,
+      cpf,
+      cnpj,
+      ie,
+      city_code,
+      state,
+      address,
+      address_number,
+      cep,
+      phone_number_1,
+      phone_number_2,
+      birthday,
+    } = request.body;
+    const createCustomerUseCase = container.resolve(CreateCustomerUseCase);
+    const customer = await createCustomerUseCase.execute({
+      name,
+      email,
+      cpf,
+      cnpj,
+      ie,
+      city_code,
+      state,
+      address,
+      address_number,
+      cep,
+      phone_number_1,
+      phone_number_2,
+      birthday,
+    });
 
-  return response.status(201).json(customer);
+    return response.sendStatus(201).json(customer);
+  } catch (error) {
+    console.log(error);
+
+    return 'error';
+  }
 }
 
 export async function updateCustomerHandler(
@@ -46,11 +60,15 @@ export async function updateCustomerHandler(
     name,
     email,
     cpf,
-    city,
+    cnpj,
+    ie,
+    city_code,
     state,
     address,
     address_number,
     cep,
+    phone_number_1,
+    phone_number_2,
     birthday,
   } = request.body;
 
@@ -59,11 +77,15 @@ export async function updateCustomerHandler(
     name,
     email,
     cpf,
-    city,
+    cnpj,
+    ie,
+    city_code,
     state,
     address,
     address_number,
     cep,
+    phone_number_1,
+    phone_number_2,
     birthday,
   });
 
