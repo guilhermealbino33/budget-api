@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Budget } from './budget';
+import { City } from './city';
 
 @Entity('customers')
 export class Customer {
@@ -28,8 +30,12 @@ export class Customer {
   @Column({ nullable: true })
   ie?: string;
 
+  @ManyToOne(() => City)
+  @JoinColumn({ name: 'city_code' })
+  city: City;
+
   @Column()
-  city: string;
+  city_code: string;
 
   @Column()
   state: string;
@@ -52,9 +58,6 @@ export class Customer {
   @Column({ nullable: true })
   birthday: Date;
 
-  @OneToMany(() => Budget, (budget) => budget.customer)
-  budgets: Budget[];
-
   @CreateDateColumn()
   created_at: Date;
 
@@ -75,7 +78,7 @@ export interface ICustomer {
   cpf?: string;
   cnpj?: string;
   ie?: string;
-  city: string;
+  city_code: string;
   state: string;
   address: string;
   address_number: string;

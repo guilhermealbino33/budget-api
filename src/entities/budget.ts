@@ -6,7 +6,6 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
@@ -23,11 +22,14 @@ export class Budget {
   @Column()
   code: string;
 
-  @ManyToOne(() => Customer, (customer) => customer.budgets)
+  @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
-  @ManyToMany(() => Product, (product) => product.budgets)
+  @Column()
+  customer_id: string;
+
+  @ManyToMany(() => Product)
   @JoinTable({
     name: 'budget_product',
     joinColumn: {
@@ -41,9 +43,12 @@ export class Budget {
   })
   products: Product[];
 
-  @ManyToOne(() => Salesman, (salesman) => salesman.budgets)
+  @ManyToOne(() => Salesman)
   @JoinColumn({ name: 'salesman_id' })
   salesman: Salesman;
+
+  @Column()
+  salesman_id: string;
 
   @Column()
   quantity: number;
@@ -57,8 +62,22 @@ export class Budget {
   @Column({ nullable: true })
   observations: string;
 
-  @OneToMany(() => AdditionalItem, (additional_item) => additional_item.budget)
+  @ManyToMany(() => AdditionalItem)
+  @JoinTable({
+    name: 'budget_additional_item',
+    joinColumn: {
+      name: 'additional_item_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'budget_id',
+      referencedColumnName: 'id',
+    },
+  })
   additional_items?: AdditionalItem[];
+
+  @Column()
+  total_value: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -76,14 +95,15 @@ export class Budget {
 export interface IBudget {
   id?: string;
   code: string;
-  customer: Customer;
+  customer_id: string;
   products: Product[];
-  salesman: Salesman;
+  salesman_id: string;
   quantity: number;
   delivery_type: string;
   delivery_value?: string;
-  observations: string;
+  observations?: string;
   additional_items?: AdditionalItem[];
+  total_value: number;
   created_at?: Date;
   updated_at?: Date;
 }

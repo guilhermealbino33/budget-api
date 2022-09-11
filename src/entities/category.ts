@@ -2,12 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
-import { Product } from './product';
 
 @Entity('categories')
 class Category {
@@ -26,8 +24,6 @@ class Category {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Product, (product) => product.category)
-  products?: Product[];
   constructor() {
     if (!this.id) {
       this.id = uuidV4();

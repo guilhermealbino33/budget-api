@@ -2,12 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { Budget } from './budget';
 
 @Entity('additional_items')
 export class AdditionalItem {
@@ -22,10 +19,6 @@ export class AdditionalItem {
 
   @Column()
   value: number;
-
-  @ManyToOne(() => Budget, (budget) => budget.additional_items)
-  @JoinColumn({ name: 'budget_id' })
-  budget: Budget;
 
   @CreateDateColumn()
   created_at: Date;
