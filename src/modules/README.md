@@ -12,7 +12,7 @@
 
 ## Fazer
 
-[] - loop ao criar customer
+[] - Validar se é PJ ou PF e ai exigir CPF ou CNPJ
 [] - seed de usuarios
 [] - Metodo de find all
 [] - Adicionar valor do frete no calculo de value
@@ -37,6 +37,7 @@
 [x] - createBudgetProduct
 [x] - createBudgetAdditionalItems
 [x] - Add phone_number1 e phone_number2 (customers e salesman)
+[x] - Resolver loop ao criar customer
 
 ## Testar
 
