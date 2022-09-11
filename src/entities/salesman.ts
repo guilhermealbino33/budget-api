@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { City } from './city';
+import { City, ICity } from './city';
 
-@Entity('users')
+@Entity('salesman')
 export class Salesman {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
@@ -78,6 +78,7 @@ export interface ISalesman {
   cnpj?: string;
   ie?: string;
   city_code: string;
+  city?: ICity;
   state: string;
   address: string;
   address_number: string;

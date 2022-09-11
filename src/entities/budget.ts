@@ -96,14 +96,14 @@ export interface IBudget {
   id?: string;
   code: string;
   customer_id: string;
-  products: Product[];
+  products?: Product[];
   salesman_id: string;
   quantity: number;
   delivery_type: string;
   delivery_value?: string;
   observations?: string;
   additional_items?: AdditionalItem[];
-  total_value: number;
+  total_value?: number;
   created_at?: Date;
   updated_at?: Date;
 }

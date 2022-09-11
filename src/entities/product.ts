@@ -25,7 +25,7 @@ export class Product {
   category_id: string;
 
   @Column()
-  sku: string;
+  code: string;
 
   @Column()
   value: number;
@@ -56,9 +56,9 @@ export interface IProduct {
   id?: string;
   name: string;
   category_id: string;
-  sku: string;
+  code: string;
   value: number;
-  size: string;
+  size?: string;
   description?: string;
   img?: string;
   created_at?: Date;

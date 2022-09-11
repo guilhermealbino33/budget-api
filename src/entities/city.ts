@@ -17,8 +17,9 @@ export class City {
   state_code: string;
 }
 
-export interface IState {
+export interface ICity {
   code: string;
   name: string;
+  state: State;
   state_code: string;
 }

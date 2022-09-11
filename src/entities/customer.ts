@@ -7,8 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { Budget } from './budget';
-import { City } from './city';
+import { City, ICity } from './city';
 
 @Entity('customers')
 export class Customer {
@@ -79,6 +78,7 @@ export interface ICustomer {
   cnpj?: string;
   ie?: string;
   city_code: string;
+  city?: ICity;
   state: string;
   address: string;
   address_number: string;
@@ -86,7 +86,6 @@ export interface ICustomer {
   phone_number_1: string;
   phone_number_2: string;
   birthday: Date;
-  budgets: Budget[];
   created_at?: Date;
   updated_at?: Date;
 }
