@@ -1,18 +1,28 @@
 import { inject, injectable } from 'tsyringe';
-import { IAdditionalItem } from '../../../entities/additionalItem';
 import { IBudget } from '../../../entities/budget';
-import { IProduct } from '../../../entities/product';
 import { AppError } from '../../../shared/errors/AppError';
+import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
+import { IProductsRepository } from '../../products/repositories/IProductsRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
+import { calculateTotalValue } from '../services/calculateTotalValue';
+
+interface ICreateBudget extends IBudget {
+  products_id: string[];
+  additional_items_id: string[];
+}
 
 @injectable()
 export default class CreateBudgetUseCase {
   constructor(
     @inject('BudgetsRepository')
-    private budgetsRepository: IBudgetsRepository
+    private budgetsRepository: IBudgetsRepository,
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
+    @inject('AdditionalItemsRepository')
+    private additionalItemsRepository: IAdditionalItemsRepository
   ) {}
 
-  async execute(budget: IBudget) {
+  async execute(budget: ICreateBudget) {
     const budgetAlreadyExists = await this.budgetsRepository.findByCode(
       budget.code
     );
@@ -21,29 +31,29 @@ export default class CreateBudgetUseCase {
       throw new AppError('Budget already exists!', 409);
     }
 
-    budget.total_value = await this.calculateTotalValue(
+    const products = await this.productsRepository.findByIds(
+      budget.products_id
+    );
+
+    if (!products) {
+      throw new AppError('Budget must have at least one product!', 400);
+    } else {
+      budget.products = products;
+    }
+
+    const additionalItems = await this.additionalItemsRepository.findByIds(
+      budget.additional_items_id
+    );
+
+    if (additionalItems) {
+      budget.additional_items = additionalItems;
+    }
+
+    budget.total_value = await calculateTotalValue(
       budget.products,
       budget.additional_items
     );
 
     await this.budgetsRepository.create(budget);
-  }
-
-  private async calculateTotalValue(
-    products: IProduct[],
-    additionalItems?: IAdditionalItem[]
-  ): Promise<number> {
-    const sum = [];
-    const productsValue = products.map((product) => product.value);
-    sum.push(...productsValue);
-
-    if (additionalItems) {
-      const additionalItemsValue = additionalItems.map(
-        (additionalItem) => additionalItem.value
-      );
-      sum.push(...additionalItemsValue);
-    }
-
-    return sum.reduce((partialSum, a) => partialSum + a, 0);
   }
 }
