@@ -15,6 +15,12 @@ import { IBudgetsRepository } from '../../modules/budgets/repositories/IBudgetsR
 import BudgetsRepository from '../../modules/budgets/repositories/implementations/budgetsRepository';
 import AdditionalItemsRepository from '../../modules/additionalItems/repositories/implementations/AdditionalItemsRepository';
 import { IAdditionalItemsRepository } from '../../modules/additionalItems/repositories/IAdditionalItemsRepository';
+import { ICategoriesRepository } from '../../modules/categories/repositories/ICategoriesRepository';
+import CategoriesRepository from '../../modules/categories/repositories/implementations/categoriesRepository';
+import { ICitiesRepository } from '../../modules/address/repositories/ICitiesRepository';
+import CitiesRepository from '../../modules/address/repositories/implementations/citiesRepository';
+import StatesRepository from '../../modules/address/repositories/implementations/statesRepository';
+import { IStatesRepository } from '../../modules/address/repositories/IStatesRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -30,6 +36,10 @@ container.registerSingleton<IUsersTokensRepository>(
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
   ProductsRepository
+);
+container.registerSingleton<ICategoriesRepository>(
+  'CategoriesRepository',
+  CategoriesRepository
 );
 
 // Customers
@@ -54,4 +64,14 @@ container.registerSingleton<IBudgetsRepository>(
 container.registerSingleton<IAdditionalItemsRepository>(
   'AdditionalItemsRepository',
   AdditionalItemsRepository
+);
+
+// Address
+container.registerSingleton<ICitiesRepository>(
+  'CitiesRepository',
+  CitiesRepository
+);
+container.registerSingleton<IStatesRepository>(
+  'StatesRepository',
+  StatesRepository
 );
