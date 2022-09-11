@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { IProduct, Product } from '../../../../entities/product';
 
@@ -29,6 +29,16 @@ export default class ProductsRepository implements IProductsRepository {
       where: [
         {
           id: product_id,
+        },
+      ],
+    });
+  }
+
+  async findByIds(product_id: string[]): Promise<Product[]> {
+    return this.repository.find({
+      where: [
+        {
+          id: In([product_id]),
         },
       ],
     });

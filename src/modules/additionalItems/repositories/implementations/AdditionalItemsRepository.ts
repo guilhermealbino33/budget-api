@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import {
   IAdditionalItem,
@@ -29,11 +29,21 @@ export default class AdditionalItemsRepository
     this.repository.delete(additionalItemID);
   }
 
-  async findById(additionalItem_id: string): Promise<AdditionalItem> {
+  async findById(additional_item_id: string): Promise<AdditionalItem> {
     return this.repository.findOne({
       where: [
         {
-          id: additionalItem_id,
+          id: additional_item_id,
+        },
+      ],
+    });
+  }
+
+  async findByIds(additional_item_id: string[]): Promise<AdditionalItem[]> {
+    return this.repository.find({
+      where: [
+        {
+          id: In([additional_item_id]),
         },
       ],
     });
