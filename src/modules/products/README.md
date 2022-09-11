@@ -2,7 +2,11 @@
 
 ## Duvidas
 
-[] - Cidades e estados serão enumered?
+[x] - Cidades e estados serão enumered?
+
+## TODO
+
+[x] - Adicionar img ao produto
 
 ## Tests
 
