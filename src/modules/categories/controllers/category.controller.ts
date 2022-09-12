@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateCategoryUseCase from '../useCases/createCategory.useCase';
 import DeleteCategoryUseCase from '../useCases/deleteCategory.useCase';
-import ShowCategoryUseCase from '../useCases/showCategory.useCase';
+import ListCategoriesUseCase from '../useCases/listCategories.useCase';
 import UpdateCategoryUseCase from '../useCases/updateCategory.useCase';
 
 export async function createCategoryHandler(
@@ -44,13 +44,12 @@ export async function deleteCategoryHandler(
   return response.status(204);
 }
 
-export async function showCategoryHandler(
+export async function listCategoriesHandler(
   request: Request,
   response: Response
 ) {
-  const { id } = request.params;
-  const showCategoryUseCase = container.resolve(ShowCategoryUseCase);
-  const category = await showCategoryUseCase.execute(id);
+  const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
+  const category = await listCategoriesUseCase.execute();
 
   return response.status(200).json(category);
 }

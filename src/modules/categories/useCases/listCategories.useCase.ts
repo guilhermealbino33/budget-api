@@ -3,14 +3,14 @@ import { AppError } from '../../../shared/errors/AppError';
 import { ICategoriesRepository } from '../repositories/ICategoriesRepository';
 
 @injectable()
-export default class ShowCategoryUseCase {
+export default class ListCategoriesUseCase {
   constructor(
     @inject('CategoriesRepository')
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  async execute(categoryId: string) {
-    const category = await this.categoriesRepository.findById(categoryId);
+  async execute() {
+    const category = await this.categoriesRepository.list();
 
     if (!category) {
       throw new AppError('Category not found!', 404);

@@ -10,6 +10,9 @@ export default class CategoriesRepository implements ICategoriesRepository {
   constructor() {
     this.repository = AppDataSource.getRepository(Category);
   }
+  async list(): Promise<Category[]> {
+    return this.repository.find();
+  }
 
   async create(category: ICategory): Promise<void> {
     const categoryToCreate = this.repository.create(category);
