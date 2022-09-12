@@ -1,13 +1,17 @@
 import express, { NextFunction, Request, Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { AppDataSource } from './data-source';
 import { router } from './routes';
 import logging from './shared/config/logging';
 import { AppError } from './shared/errors/AppError';
 
+import swagger from './swagger.json';
+
 AppDataSource.initialize().then(() => {
   const app = express();
   app.use(express.json());
   app.use(router);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swagger));
   app.use(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (err: Error, request: Request, response: Response, next: NextFunction) => {

@@ -13,8 +13,9 @@
 ## Fazer
 
 [] - Validar se é PJ ou PF e ai exigir CPF ou CNPJ
+[] - Swagger
 [] - seed de usuarios
-[] - Metodo de find all
+[] - Metodo de find all/get all
 [] - Adicionar valor do frete no calculo de value
 [] - Adicionar imagem ao produto deve ser separado do criar produto
 [] - Resolver relações da tabela budget -> customer
@@ -28,7 +29,6 @@
 [] - Diferença entre PF e PJ
 [] - Categoria, Tipo de Frete, Cidade/Estado, serão enumereds ou tabelas em banco?
 [] - Salvar como pdf
-[] - Swagger
 
 ## Feito
 
