@@ -2,14 +2,50 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Budget API Documentation",
-    "description": "This is an Budget API",
+    "description": "This is an Budget API. You'll need to create a session before run the tests.",
     "version": "1.0.0",
     "contact": {
       "email": "guilhermealbino33@gmail.com.br"
     }
   },
   "paths": {
-    "api/categories": {
+    "/sessions": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Create a session",
+        "description": "Login with your user to get a token and run API tests.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "Enter your user email",
+                  "description": "Enter your password"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/categories": {
       "post": {
         "tags": ["Category"],
         "summary": "Create a category",
@@ -40,7 +76,10 @@
           "201": {
             "description": "Created"
           },
-          "500": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
             "description": "Category already exists"
           }
         }
@@ -73,43 +112,60 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "Specification": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      }
     },
-    "Car": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+    "/products": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "Create a product",
+        "description": "Create a new product",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
         },
-        "description": {
-          "type": "string"
-        },
-        "daily_rate": {
-          "type": "number"
-        },
-        "license_plate": {
-          "type": "string"
-        },
-        "fine_amount": {
-          "type": "number"
-        },
-        "brand": {
-          "type": "string"
-        },
-        "category_id": {
-          "type": "string"
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Product already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Product"],
+        "summary": "List all products",
+        "description": "List all products",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -121,6 +177,34 @@
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
+    },
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "size": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
     }
-  }
+  },
+  "servers": [
+    { "url": "http://localhost:3033/api", "description": "API for tests" }
+  ]
 }
