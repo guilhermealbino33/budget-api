@@ -43,4 +43,18 @@ export default class SalesmanRepository implements ISalesmanRepository {
       ],
     });
   }
+
+  async findByCnpj(cnpj: string): Promise<Salesman> {
+    return this.repository.findOne({
+      where: [
+        {
+          cnpj,
+        },
+      ],
+    });
+  }
+
+  async list(): Promise<Salesman[]> {
+    return this.repository.find();
+  }
 }

@@ -6,4 +6,6 @@ export interface ISalesmanRepository {
   deleteSalesman(salesmanID: string): Promise<void>;
   findById(salesman_id: string): Promise<Salesman>;
   findByCpf(cpf: string): Promise<Salesman>;
+  findByCnpj(cnpj: string): Promise<Salesman>;
+  list(): Promise<Salesman[]>;
 }

@@ -43,4 +43,18 @@ export default class CustomersRepository implements ICustomersRepository {
       ],
     });
   }
+
+  async findByCnpj(cnpj: string): Promise<Customer> {
+    return this.repository.findOne({
+      where: [
+        {
+          cnpj,
+        },
+      ],
+    });
+  }
+
+  async list(): Promise<Customer[]> {
+    return this.repository.find();
+  }
 }
