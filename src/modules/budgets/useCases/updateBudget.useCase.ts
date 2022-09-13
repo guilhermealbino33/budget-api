@@ -15,7 +15,7 @@ interface UpdateBudgetRequest {
   salesman_id?: string;
   quantity?: number;
   delivery_type?: string;
-  delivery_value?: string;
+  delivery_value?: number;
   observations?: string;
   additional_items_id?: string[];
   updated_at?: Date;
@@ -71,10 +71,7 @@ export default class UpdateBudgetUseCase {
       budgetToUpdate.additional_items = additionalItems;
     }
 
-    budgetToUpdate.total_value = await calculateTotalValue(
-      budgetToUpdate.products,
-      budgetToUpdate.additional_items
-    );
+    budgetToUpdate.total_value = await calculateTotalValue(budgetToUpdate);
 
     budgetToUpdate.code = code ? code : budgetToUpdate.code;
     budgetToUpdate.customer_id = customer_id

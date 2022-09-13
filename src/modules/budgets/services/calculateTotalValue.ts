@@ -1,19 +1,19 @@
-import { IAdditionalItem } from '../../../entities/additionalItem';
-import { IProduct } from '../../../entities/product';
+import { IBudget } from '../../../entities/budget';
 
-export async function calculateTotalValue(
-  products: IProduct[],
-  additionalItems?: IAdditionalItem[]
-): Promise<number> {
+export async function calculateTotalValue(budget: IBudget): Promise<number> {
   const sum = [];
-  const productsValue = products.map((product) => product.value);
+  const productsValue = budget.products.map((product) => product.value);
   sum.push(...productsValue);
 
-  if (additionalItems) {
-    const additionalItemsValue = additionalItems.map(
+  if (budget.additional_items) {
+    const additionalItemsValue = budget.additional_items.map(
       (additionalItem) => additionalItem.value
     );
     sum.push(...additionalItemsValue);
+  }
+
+  if (budget.delivery_value) {
+    sum.push(budget.delivery_value);
   }
 
   return sum.reduce((partialSum, a) => partialSum + a, 0);

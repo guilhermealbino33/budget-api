@@ -49,10 +49,7 @@ export default class CreateBudgetUseCase {
       budget.additional_items = additionalItems;
     }
 
-    budget.total_value = await calculateTotalValue(
-      budget.products,
-      budget.additional_items
-    );
+    budget.total_value = await calculateTotalValue(budget);
 
     await this.budgetsRepository.create(budget);
   }
