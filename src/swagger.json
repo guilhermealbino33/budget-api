@@ -125,7 +125,7 @@
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
-            "schema": { "type": "object" },
+            "schema": { "type": "string" },
             "name": "id",
             "in": "path",
             "description": "Category ID",
@@ -154,7 +154,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Success"
           }
         }
@@ -225,7 +225,7 @@
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
-            "schema": { "type": "object" },
+            "schema": { "type": "string" },
             "name": "id",
             "in": "path",
             "description": "Product ID",
@@ -250,7 +250,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Success"
           }
         }
@@ -339,7 +339,7 @@
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
-            "schema": { "type": "object" },
+            "schema": { "type": "string" },
             "name": "id",
             "in": "path",
             "description": "Customer ID",
@@ -364,7 +364,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Success"
           }
         }
@@ -416,7 +416,7 @@
         }
       },
       "get": {
-        "tags": ["salesman"],
+        "tags": ["Salesman"],
         "summary": "List all salesmen",
         "description": "List all salesmen",
         "security": [{ "bearerAuth": [] }],
@@ -453,7 +453,7 @@
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
-            "schema": { "type": "object" },
+            "schema": { "type": "string" },
             "name": "id",
             "in": "path",
             "description": "Salesman ID",
@@ -478,7 +478,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Success"
           }
         }
@@ -519,6 +519,7 @@
       },
       "Person": {
         "type": "object",
+        "description": "Used in Salesman and Customer",
         "properties": {
           "name": {
             "type": "string"
