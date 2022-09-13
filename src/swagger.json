@@ -28,8 +28,8 @@
                   }
                 },
                 "example": {
-                  "email": "Enter your user email",
-                  "description": "Enter your password"
+                  "email": "user_alt@email.com",
+                  "password": "1234"
                 }
               }
             }
@@ -40,6 +40,9 @@
             "description": "Created"
           },
           "400": {
+            "description": "Bad request"
+          },
+          "409": {
             "description": "Not found"
           }
         }
@@ -88,6 +91,7 @@
         "tags": ["Category"],
         "summary": "List all categories",
         "description": "List all categories",
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "Success",
@@ -144,6 +148,7 @@
         "tags": ["Product"],
         "summary": "List all products",
         "description": "List all products",
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "Success",
@@ -165,6 +170,156 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/customers": {
+      "post": {
+        "tags": ["Customer"],
+        "summary": "Create a customer",
+        "description": "Create a new customer",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                },
+                "example": {
+                  "name": "John Doe",
+                  "email": "john@email.com",
+                  "cpf": "00.000.000-00",
+                  "city_code": "4218707",
+                  "address": "Av. Marcolino Martins Cabral",
+                  "address_number": "111",
+                  "cep": "88.700-000",
+                  "phone_number_1": "3626-5555"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "Customer already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Customer"],
+        "summary": "List all customers",
+        "description": "List all customers",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "$ref": "#/components/schemas/Person"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No customer not found!"
+          }
+        }
+      }
+    },
+    "/salesmen": {
+      "post": {
+        "tags": ["Salesman"],
+        "summary": "Create a salesman",
+        "description": "Create a new salesman",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                },
+                "example": {
+                  "name": "John Sales",
+                  "email": "john_sales@email.com",
+                  "cpf": "88.999.000-00",
+                  "city_code": "4218707",
+                  "address": "Rua Marechal Teodoro",
+                  "address_number": "1000",
+                  "cep": "88.700-000",
+                  "phone_number_1": "3626-4444"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "Salesman already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Salesman"],
+        "summary": "List all salesmen",
+        "description": "List all salesmen",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "$ref": "#/components/schemas/Person"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No salesmen not found!"
           }
         }
       }
@@ -198,6 +353,38 @@
             "type": "string"
           },
           "description": {
+            "type": "string"
+          }
+        }
+      },
+      "Person": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "city_code": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "address_number": {
+            "type": "string"
+          },
+          "cep": {
+            "type": "string"
+          },
+          "phone_number_1": {
             "type": "string"
           }
         }
