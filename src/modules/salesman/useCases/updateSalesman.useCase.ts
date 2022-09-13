@@ -84,6 +84,12 @@ export default class UpdateSalesmanUseCase {
     salesmanToUpdate.birthday = salesman.birthday
       ? salesman.birthday
       : salesmanToUpdate.birthday;
+    salesmanToUpdate.phone_number_1 = salesman.phone_number_1
+      ? salesman.phone_number_1
+      : salesmanToUpdate.phone_number_1;
+    salesmanToUpdate.phone_number_2 = salesman.phone_number_2
+      ? salesman.phone_number_2
+      : salesmanToUpdate.phone_number_2;
     salesmanToUpdate.updated_at = new Date();
 
     return salesmanToUpdate;

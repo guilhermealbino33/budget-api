@@ -84,6 +84,12 @@ export default class UpdateCustomerUseCase {
     customerToUpdate.birthday = customer.birthday
       ? customer.birthday
       : customerToUpdate.birthday;
+    customerToUpdate.phone_number_1 = customer.phone_number_1
+      ? customer.phone_number_1
+      : customerToUpdate.phone_number_1;
+    customerToUpdate.phone_number_2 = customer.phone_number_2
+      ? customer.phone_number_2
+      : customerToUpdate.phone_number_2;
     customerToUpdate.updated_at = new Date();
 
     return customerToUpdate;
