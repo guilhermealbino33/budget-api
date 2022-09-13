@@ -117,6 +117,49 @@
         }
       }
     },
+    "/categories/{id}": {
+      "patch": {
+        "tags": ["Category"],
+        "summary": "Update a category",
+        "description": "Update a category by id",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "object" },
+            "name": "id",
+            "in": "path",
+            "description": "Category ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Altered Category",
+                  "description": "Altered category description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/products": {
       "post": {
         "tags": ["Product"],
@@ -170,6 +213,45 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "patch": {
+        "tags": ["Product"],
+        "summary": "Update a product",
+        "description": "Update a product by id",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "object" },
+            "name": "id",
+            "in": "path",
+            "description": "Product ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                },
+                "example": {
+                  "name": "Altered Product"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
           }
         }
       }
@@ -249,9 +331,48 @@
         }
       }
     },
+    "/customers/{id}": {
+      "patch": {
+        "tags": ["Customer"],
+        "summary": "Update a customer",
+        "description": "Update a customer by id",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "object" },
+            "name": "id",
+            "in": "path",
+            "description": "Customer ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                },
+                "example": {
+                  "name": "João Silva"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/salesmen": {
       "post": {
-        "tags": ["Salesmen"],
+        "tags": ["Salesman"],
         "summary": "Create a salesman",
         "description": "Create a new salesman",
         "security": [{ "bearerAuth": [] }],
@@ -295,7 +416,7 @@
         }
       },
       "get": {
-        "tags": ["Salesmen"],
+        "tags": ["salesman"],
         "summary": "List all salesmen",
         "description": "List all salesmen",
         "security": [{ "bearerAuth": [] }],
@@ -320,6 +441,45 @@
           },
           "404": {
             "description": "No salesmen not found!"
+          }
+        }
+      }
+    },
+    "/salesmen/{id}": {
+      "patch": {
+        "tags": ["Salesman"],
+        "summary": "Update a salesman",
+        "description": "Update a salesman by id",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "object" },
+            "name": "id",
+            "in": "path",
+            "description": "Salesman ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                },
+                "example": {
+                  "name": "João Sales"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
           }
         }
       }
@@ -386,6 +546,35 @@
           },
           "phone_number_1": {
             "type": "string"
+          }
+        }
+      },
+      "Budget": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "customer_id": {
+            "type": "string"
+          },
+          "salesman_id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "delivery_type": {
+            "type": "string"
+          },
+          "delivery_value": {
+            "type": "number"
+          },
+          "observations": {
+            "type": "string"
+          },
+          "total_value": {
+            "type": "number"
           }
         }
       }
