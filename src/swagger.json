@@ -251,7 +251,7 @@
     },
     "/salesmen": {
       "post": {
-        "tags": ["Salesman"],
+        "tags": ["Salesmen"],
         "summary": "Create a salesman",
         "description": "Create a new salesman",
         "security": [{ "bearerAuth": [] }],
@@ -295,7 +295,7 @@
         }
       },
       "get": {
-        "tags": ["Salesman"],
+        "tags": ["Salesmen"],
         "summary": "List all salesmen",
         "description": "List all salesmen",
         "security": [{ "bearerAuth": [] }],

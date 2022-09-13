@@ -16,7 +16,7 @@ router.use('/api/sessions', sessionsRouter);
 router.use('/api/products', productsRouter);
 router.use('/api/categories', categoriesRouter);
 router.use('/api/customers', customersRouter);
-router.use('/api/salesman', salesmenRouter);
+router.use('/api/salesmen', salesmenRouter);
 router.use('/api/budgets', budgetsRouter);
 router.use('/api/additional-items', additionalItemsRouter);
 
