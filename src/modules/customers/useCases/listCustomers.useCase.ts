@@ -3,17 +3,17 @@ import { AppError } from '../../../shared/errors/AppError';
 import { ICustomersRepository } from '../repositories/ICustomersRepository';
 
 @injectable()
-export default class ShowCustomerUseCase {
+export default class ListCustomersUseCase {
   constructor(
     @inject('CustomersRepository')
     private customersRepository: ICustomersRepository
   ) {}
 
-  async execute(customerId: string) {
-    const customer = await this.customersRepository.findById(customerId);
+  async execute() {
+    const customer = await this.customersRepository.list();
 
-    if (!customer) {
-      throw new AppError('Customer not found!', 404);
+    if (!customer || !customer.length) {
+      throw new AppError('No customer found!', 404);
     }
 
     return customer;

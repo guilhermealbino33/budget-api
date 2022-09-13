@@ -17,11 +17,11 @@ export default class CreateSalesmanUseCase {
   ) {}
 
   async execute(salesman: ISalesman) {
-    const salesmanAlreadyExists = await this.salesmanRepository.findByCpf(
-      salesman.cpf
-    );
+    if (!salesman.cpf && !salesman.cnpj) {
+      throw new AppError('CPF or CNPJ must be informed!', 400);
+    }
 
-    if (salesmanAlreadyExists) {
+    if (await this.salesmanAlreadyExists(salesman)) {
       throw new AppError('Salesman already exists!', 409);
     }
 
@@ -36,5 +36,21 @@ export default class CreateSalesmanUseCase {
     salesman.state = state.uf;
 
     await this.salesmanRepository.create(salesman);
+  }
+
+  private async salesmanAlreadyExists(salesman: ISalesman): Promise<ISalesman> {
+    let salesmanAlreadyExists: ISalesman;
+
+    if (salesman.cpf) {
+      salesmanAlreadyExists = await this.salesmanRepository.findByCpf(
+        salesman.cpf
+      );
+    } else {
+      salesmanAlreadyExists = await this.salesmanRepository.findByCnpj(
+        salesman.cnpj
+      );
+    }
+
+    return salesmanAlreadyExists;
   }
 }

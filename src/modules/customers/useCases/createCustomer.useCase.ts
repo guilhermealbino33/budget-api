@@ -17,11 +17,11 @@ export default class CreateCustomerUseCase {
   ) {}
 
   async execute(customer: ICustomer) {
-    const customerAlreadyExists = await this.customersRepository.findByCpf(
-      customer.cpf
-    );
+    if (!customer.cpf && !customer.cnpj) {
+      throw new AppError('CPF or CNPJ must be informed!', 400);
+    }
 
-    if (customerAlreadyExists) {
+    if (await this.customerAlreadyExists(customer)) {
       throw new AppError('Customer already exists!', 409);
     }
 
@@ -36,5 +36,21 @@ export default class CreateCustomerUseCase {
     customer.state = state.uf;
 
     await this.customersRepository.create(customer);
+  }
+
+  private async customerAlreadyExists(customer: ICustomer): Promise<ICustomer> {
+    let customerAlreadyExists: ICustomer;
+
+    if (customer.cpf) {
+      customerAlreadyExists = await this.customersRepository.findByCpf(
+        customer.cpf
+      );
+    } else {
+      customerAlreadyExists = await this.customersRepository.findByCnpj(
+        customer.cnpj
+      );
+    }
+
+    return customerAlreadyExists;
   }
 }

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateSalesmanUseCase from '../useCases/createSalesman.useCase';
 import DeleteSalesmanUseCase from '../useCases/deleteSalesman.useCase';
-import ShowSalesmanUseCase from '../useCases/showSalesman.useCase';
+import ListSalesmenUseCase from '../useCases/listSalesmen.useCase';
 import UpdateSalesmanUseCase from '../useCases/updateSalesman.useCase';
 
 export async function createSalesmanHandler(
@@ -97,13 +97,12 @@ export async function deleteSalesmanHandler(
   return response.status(204);
 }
 
-export async function showSalesmanHandler(
+export async function listSalesmenHandler(
   request: Request,
   response: Response
 ) {
-  const { id } = request.params;
-  const showSalesmanUseCase = container.resolve(ShowSalesmanUseCase);
-  const salesman = await showSalesmanUseCase.execute(id);
+  const listSalesmenUseCase = container.resolve(ListSalesmenUseCase);
+  const salesman = await listSalesmenUseCase.execute();
 
   return response.status(200).json(salesman);
 }

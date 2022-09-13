@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   createCustomerHandler,
   deleteCustomerHandler,
-  showCustomerHandler,
+  listCustomersHandler,
   updateCustomerHandler,
 } from '../modules/customers/controllers/customer.controller';
 
@@ -13,6 +13,6 @@ const customersRouter = Router();
 customersRouter.post('/', auth, createCustomerHandler);
 customersRouter.patch('/:id', auth, updateCustomerHandler);
 customersRouter.delete('/:id', auth, ensureAdmin, deleteCustomerHandler);
-customersRouter.get('/:id', auth, showCustomerHandler);
+customersRouter.get('/', auth, listCustomersHandler);
 
 export { customersRouter };

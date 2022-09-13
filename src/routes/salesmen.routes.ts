@@ -2,17 +2,17 @@ import { Router } from 'express';
 import {
   createSalesmanHandler,
   deleteSalesmanHandler,
-  showSalesmanHandler,
+  listSalesmenHandler,
   updateSalesmanHandler,
 } from '../modules/salesman/controllers/salesman.controller';
 
 import { ensureAdmin } from '../shared/middlewares/ensureAdmin';
 import { ensureAuthenticated as auth } from '../shared/middlewares/ensureAuthenticated';
 
-const salesmanRouter = Router();
-salesmanRouter.post('/', auth, createSalesmanHandler);
-salesmanRouter.patch('/:id', auth, updateSalesmanHandler);
-salesmanRouter.delete('/:id', auth, ensureAdmin, deleteSalesmanHandler);
-salesmanRouter.get('/:id', auth, showSalesmanHandler);
+const salesmenRouter = Router();
+salesmenRouter.post('/', auth, createSalesmanHandler);
+salesmenRouter.patch('/:id', auth, updateSalesmanHandler);
+salesmenRouter.delete('/:id', auth, ensureAdmin, deleteSalesmanHandler);
+salesmenRouter.get('/', auth, listSalesmenHandler);
 
-export { salesmanRouter };
+export { salesmenRouter };
