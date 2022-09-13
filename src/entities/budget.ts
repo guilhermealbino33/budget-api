@@ -57,7 +57,7 @@ export class Budget {
   delivery_type: string;
 
   @Column({ nullable: true })
-  delivery_value?: string;
+  delivery_value?: number;
 
   @Column({ nullable: true })
   observations: string;
@@ -100,7 +100,7 @@ export interface IBudget {
   salesman_id: string;
   quantity: number;
   delivery_type: string;
-  delivery_value?: string;
+  delivery_value?: number;
   observations?: string;
   additional_items?: AdditionalItem[];
   total_value?: number;
