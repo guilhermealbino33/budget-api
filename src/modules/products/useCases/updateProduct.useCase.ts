@@ -10,7 +10,6 @@ interface UpdateProductRequest {
   size?: string;
   description?: string;
   value?: number;
-  img?: string;
 }
 
 @injectable()
@@ -22,7 +21,7 @@ export default class UpdateProductUseCase {
 
   async execute(
     id: string,
-    { name, category_id, description, size, value, img }: UpdateProductRequest
+    { name, category_id, description, size, value }: UpdateProductRequest
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid product id!', 400);
@@ -41,7 +40,6 @@ export default class UpdateProductUseCase {
     productToUpdate.description = description;
     productToUpdate.value = value ? value : productToUpdate.value;
     productToUpdate.size = size ? size : productToUpdate.size;
-    productToUpdate.img = img ? img : productToUpdate.img;
 
     productToUpdate.updated_at = new Date();
 

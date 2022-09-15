@@ -45,7 +45,7 @@ export async function uploadProductImageHandler(
 
   await uploadProductImageUseCase.execute(id, imagesNames);
 
-  return response.status(200);
+  return response.status(200).send();
 }
 
 export async function updateProductHandler(
@@ -55,7 +55,6 @@ export async function updateProductHandler(
   const { id } = request.params;
 
   const { name, category_id, value, size, description } = request.body;
-  const img = request.file.filename;
 
   const updateProductUseCase = container.resolve(UpdateProductUseCase);
   const product = await updateProductUseCase.execute(id, {
@@ -64,7 +63,6 @@ export async function updateProductHandler(
     value,
     size,
     description,
-    img,
   });
 
   return response.status(200).json(product);

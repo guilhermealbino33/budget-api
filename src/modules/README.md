@@ -12,12 +12,13 @@
 
 ## Fazer
 
-[] - Validar se é PJ ou PF e ai exigir CPF ou CNPJ
-[] - Swagger
-[] - seed de usuarios
-[] - Metodo de find all/get all
-[] - Adicionar valor do frete no calculo de value
+[] - CreateProduct - Criação de produto com imagem
 [] - Adicionar imagem ao produto deve ser separado do criar produto
+[] - CreateBudget - Criação de orçamento com produto, cliente e vendedor
+[] - Swagger
+[] - Seed de user e address
+[] - Metodo de find all/get all LIST
+[] - Adicionar valor do frete no calculo de value
 [] - Resolver relações da tabela budget -> customer
 [] - Resolver relações da tabela budget -> salesman
 [] - Resolver relações da tabela budget -> additional items
@@ -38,6 +39,7 @@
 [x] - createBudgetAdditionalItems
 [x] - Add phone_number1 e phone_number2 (customers e salesman)
 [x] - Resolver loop ao criar customer
+[x] - Validar se é PJ ou PF e ai exigir CPF ou CNPJ
 
 ## Testar
 

@@ -19,7 +19,7 @@ const upload = multer(uploadConfig);
 
 productsRouter.post('/', auth, createProductHandler);
 productsRouter.post(
-  '/image/:id',
+  '/images/:id',
   auth,
   upload.array('images'),
   uploadProductImageHandler

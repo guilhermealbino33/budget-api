@@ -256,6 +256,52 @@
         }
       }
     },
+    "/products/images/{id}": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "Upload a product image",
+        "description": "Upload product images",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Product ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Product not found!"
+          }
+        }
+      }
+    },
     "/customers": {
       "post": {
         "tags": ["Customer"],
