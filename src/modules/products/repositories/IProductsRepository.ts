@@ -7,4 +7,5 @@ export interface IProductsRepository {
   findById(product_id: string): Promise<Product>;
   findByIds(product_id: string[]): Promise<Product[]>;
   findByCode(code: string): Promise<Product>;
+  list(): Promise<Product[]>;
 }
