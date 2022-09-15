@@ -6,9 +6,15 @@
 
 **createBudget**
 [x] - Produtos serão criados separadamente e vinculados aos orçametos quando for cria-los?
+[] - Quantidade dos produtos e items adcionais deverão ser consideradas no somatório do total value
+[] - Frete
+[] - Não está criando com array de products_ids. Rever este metodo
 
 **Updates**
 [] - Ver melhor forma de fazer, principalmente customers e salesman
+
+**Products**
+[] - Coluna quantidade irá em produtos?
 
 ## Fazer
 
