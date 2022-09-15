@@ -21,6 +21,8 @@ import { ICitiesRepository } from '../../modules/address/repositories/ICitiesRep
 import CitiesRepository from '../../modules/address/repositories/implementations/citiesRepository';
 import StatesRepository from '../../modules/address/repositories/implementations/statesRepository';
 import { IStatesRepository } from '../../modules/address/repositories/IStatesRepository';
+import { IProductsImagesRepository } from '../../modules/products/repositories/IProductsImagesRepository';
+import ProductsImagesRepository from '../../modules/products/repositories/implementations/productsImagesRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -40,6 +42,10 @@ container.registerSingleton<IProductsRepository>(
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
   CategoriesRepository
+);
+container.registerSingleton<IProductsImagesRepository>(
+  'ProductsImagesRepository',
+  ProductsImagesRepository
 );
 
 // Customers
