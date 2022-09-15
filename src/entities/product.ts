@@ -36,9 +36,6 @@ export class Product {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ nullable: true })
-  img?: string;
-
   @CreateDateColumn()
   created_at: Date;
 
@@ -60,7 +57,6 @@ export interface IProduct {
   value: number;
   size?: string;
   description?: string;
-  img?: string;
   created_at?: Date;
   updated_at?: Date;
 }
