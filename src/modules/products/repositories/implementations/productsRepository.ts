@@ -53,4 +53,8 @@ export default class ProductsRepository implements IProductsRepository {
       ],
     });
   }
+
+  async list(): Promise<Product[]> {
+    return this.repository.find();
+  }
 }
