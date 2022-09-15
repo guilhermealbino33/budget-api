@@ -20,7 +20,6 @@ export default class UploadProductImageUseCase {
       throw new AppError('Product id must be informed!', 400);
     }
 
-    console.log(id, imagesName);
     const product = await this.productsRepository.findById(id);
 
     if (!product) {

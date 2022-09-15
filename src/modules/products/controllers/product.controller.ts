@@ -41,8 +41,6 @@ export async function uploadProductImageHandler(
     UploadProductImageUseCase
   );
 
-  console.log('imgs', imgs);
-
   const imagesNames = imgs.map((file) => file.filename);
 
   await uploadProductImageUseCase.execute(id, imagesNames);
