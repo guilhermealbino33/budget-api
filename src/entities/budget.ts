@@ -76,6 +76,9 @@ export class Budget {
   })
   additional_items?: AdditionalItem[];
 
+  @Column({ default: false, nullable: false })
+  closed: boolean;
+
   @Column()
   total_value: number;
 
@@ -103,6 +106,7 @@ export interface IBudget {
   delivery_value?: number;
   observations?: string;
   additional_items?: AdditionalItem[];
+  closed: boolean;
   total_value?: number;
   created_at?: Date;
   updated_at?: Date;

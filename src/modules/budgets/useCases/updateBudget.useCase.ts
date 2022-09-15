@@ -51,6 +51,10 @@ export default class UpdateBudgetUseCase {
 
     const budgetToUpdate = await this.budgetsRepository.findById(id);
 
+    if (budgetToUpdate.closed) {
+      throw new AppError('Can not update a closed budget!', 400);
+    }
+
     if (!budgetToUpdate) {
       throw new AppError('Budget not found!', 404);
     }
