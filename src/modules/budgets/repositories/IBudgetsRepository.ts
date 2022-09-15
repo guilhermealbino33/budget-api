@@ -5,5 +5,6 @@ export interface IBudgetsRepository {
   updateBudget(budget: IBudget): Promise<void>;
   deleteBudget(budgetID: string): Promise<void>;
   findById(budget_id: string): Promise<Budget>;
+  list(): Promise<Budget[]>;
   findByCode(code: string): Promise<Budget>;
 }
