@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
-import ShowBudgetUseCase from '../useCases/showBudget.useCase';
+import ListBudgetsUseCase from '../useCases/listBudgets.useCase';
 import UpdateBudgetUseCase from '../useCases/updateBudget.useCase';
 
 export async function createBudgetHandler(
@@ -21,16 +21,19 @@ export async function createBudgetHandler(
     additional_items_id,
   } = request.body;
 
+  const closed = false;
+
   const createBudgetUseCase = container.resolve(CreateBudgetUseCase);
   const budget = await createBudgetUseCase.execute({
     code,
     customer_id,
-    products_id,
     salesman_id,
     quantity,
     delivery_type,
     delivery_value,
     observations,
+    closed,
+    products_id,
     additional_items_id,
   });
 
@@ -83,14 +86,18 @@ export async function deleteBudgetHandler(
 }
 
 export async function showBudgetHandler(request: Request, response: Response) {
-  const { id } = request.params;
-  const showBudgetUseCase = container.resolve(ShowBudgetUseCase);
-  const budget = await showBudgetUseCase.execute(id);
+  const listBudgetUseCase = container.resolve(ListBudgetsUseCase);
+  const budget = await listBudgetUseCase.execute();
 
   return response.status(200).json(budget);
 }
 
 // export async function convertToPdfHandler(
+//   request: Request,
+//   response: Response
+// ) {}
+
+// export async function closeBudgetHandler(
 //   request: Request,
 //   response: Response
 // ) {}

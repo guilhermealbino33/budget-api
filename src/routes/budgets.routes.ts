@@ -13,6 +13,6 @@ const budgetsRouter = Router();
 budgetsRouter.post('/', auth, createBudgetHandler);
 budgetsRouter.patch('/:id', auth, updateBudgetHandler);
 budgetsRouter.delete('/:id', auth, ensureAdmin, deleteBudgetHandler);
-budgetsRouter.get('/:id', auth, showBudgetHandler);
+budgetsRouter.get('/', auth, showBudgetHandler);
 
 export { budgetsRouter };
