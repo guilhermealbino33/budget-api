@@ -8,10 +8,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 import { AdditionalItem } from './additionalItem';
+import { IBudgetProducts } from './budgetProducts';
 import { Customer } from './customer';
-import { Product } from './product';
 import { Salesman } from './salesman';
 
 @Entity('budgets')
@@ -29,19 +28,7 @@ export class Budget {
   @Column()
   customer_id: string;
 
-  @ManyToMany(() => Product)
-  @JoinTable({
-    name: 'budget_product',
-    joinColumn: {
-      name: 'product_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'budget_id',
-      referencedColumnName: 'id',
-    },
-  })
-  products: Product[];
+  products: IBudgetProducts[];
 
   @ManyToOne(() => Salesman)
   @JoinColumn({ name: 'salesman_id' })
@@ -49,9 +36,6 @@ export class Budget {
 
   @Column()
   salesman_id: string;
-
-  @Column()
-  quantity: number;
 
   @Column()
   delivery_type: string;
@@ -87,21 +71,14 @@ export class Budget {
 
   @CreateDateColumn()
   updated_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 }
 
 export interface IBudget {
   id?: string;
   code: string;
   customer_id: string;
-  products?: Product[];
+  products?: IBudgetProducts[];
   salesman_id: string;
-  quantity: number;
   delivery_type: string;
   delivery_value?: number;
   observations?: string;
