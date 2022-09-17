@@ -23,6 +23,8 @@ import StatesRepository from '../../modules/address/repositories/implementations
 import { IStatesRepository } from '../../modules/address/repositories/IStatesRepository';
 import { IProductsImagesRepository } from '../../modules/products/repositories/IProductsImagesRepository';
 import ProductsImagesRepository from '../../modules/products/repositories/implementations/productsImagesRepository';
+import BudgetProductsRepository from '../../modules/budgets/repositories/implementations/budgetProductsRepository';
+import { IBudgetProductsRepository } from '../../modules/budgets/repositories/IBudgetProductsRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -46,6 +48,10 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<IProductsImagesRepository>(
   'ProductsImagesRepository',
   ProductsImagesRepository
+);
+container.registerSingleton<IBudgetProductsRepository>(
+  'BudgetProductsRepository',
+  BudgetProductsRepository
 );
 
 // Customers

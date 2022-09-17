@@ -1,13 +1,19 @@
 import { inject, injectable } from 'tsyringe';
+import { v4 as uuid } from 'uuid';
 import { IBudget } from '../../../entities/budget';
+import { IBudgetProducts } from '../../../entities/budgetProducts';
 import { AppError } from '../../../shared/errors/AppError';
 import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { IProductsRepository } from '../../products/repositories/IProductsRepository';
+import { IBudgetProductsRepository } from '../repositories/IBudgetProductsRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
-import { calculateTotalValue } from '../services/calculateTotalValue';
+import {
+  calculateProductTotalPrice,
+  calculateTotalValue,
+} from '../services/calculateTotalValue';
 
 interface ICreateBudget extends IBudget {
-  products_id: string[];
+  products: IBudgetProducts[];
   additional_items_id: string[];
 }
 
@@ -16,6 +22,8 @@ export default class CreateBudgetUseCase {
   constructor(
     @inject('BudgetsRepository')
     private budgetsRepository: IBudgetsRepository,
+    @inject('BudgetProductsRepository')
+    private budgetProductsRepository: IBudgetProductsRepository,
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
     @inject('AdditionalItemsRepository')
@@ -23,6 +31,8 @@ export default class CreateBudgetUseCase {
   ) {}
 
   async execute(budget: ICreateBudget) {
+    budget.id = uuid();
+
     const budgetAlreadyExists = await this.budgetsRepository.findByCode(
       budget.code
     );
@@ -31,14 +41,26 @@ export default class CreateBudgetUseCase {
       throw new AppError('Budget already exists!', 409);
     }
 
-    const products = await this.productsRepository.findByIds(
-      budget.products_id
-    );
-
-    if (!products) {
+    if (!budget.products.length) {
       throw new AppError('Budget must have at least one product!', 400);
-    } else {
-      budget.products = products;
+    }
+
+    for (const product of budget.products) {
+      const productExists = await this.productsRepository.findById(product.id);
+
+      if (!productExists) {
+        throw new AppError(`Product with id ${product.id} not found!`, 404);
+      }
+
+      const budgetProduct = {
+        product_id: product.id,
+        quantity: product.quantity,
+        unit_price: product.unit_price,
+        discount: product.discount,
+        total_price: calculateProductTotalPrice(product),
+      };
+
+      await this.budgetProductsRepository.saveProduct(budgetProduct);
     }
 
     const additionalItems = await this.additionalItemsRepository.findByIds(
@@ -52,5 +74,6 @@ export default class CreateBudgetUseCase {
     budget.total_value = await calculateTotalValue(budget);
 
     await this.budgetsRepository.create(budget);
+    await this.budgetProductsRepository.saveBudgetId(budget.id);
   }
 }

@@ -18,12 +18,13 @@ export default class BudgetProductsRepository
     const budgetProductsToCreate = this.repository.create(budgetProduct);
     this.repository.save(budgetProductsToCreate);
   }
+
   async saveBudgetId(budgetId: string): Promise<void> {
     this.repository
       .createQueryBuilder()
       .update()
       .set({ budget_id: budgetId })
-      .where('budget_id: null')
+      .where('budget_id IS NULL')
       .execute();
   }
 }

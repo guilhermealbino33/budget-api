@@ -15,14 +15,13 @@ export async function createProductHandler(
   request: Request,
   response: Response
 ) {
-  const { name, category_id, code, value, size, description } = request.body;
+  const { name, category_id, code, size, description } = request.body;
 
   const createProductUseCase = container.resolve(CreateProductUseCase);
   const product = await createProductUseCase.execute({
     name,
     category_id,
     code,
-    value,
     size,
     description,
   });
@@ -54,13 +53,12 @@ export async function updateProductHandler(
 ) {
   const { id } = request.params;
 
-  const { name, category_id, value, size, description } = request.body;
+  const { name, category_id, size, description } = request.body;
 
   const updateProductUseCase = container.resolve(UpdateProductUseCase);
   const product = await updateProductUseCase.execute(id, {
     name,
     category_id,
-    value,
     size,
     description,
   });
