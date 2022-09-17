@@ -19,7 +19,7 @@ export class Product {
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
-  category: Category;
+  category?: Category;
 
   @Column()
   category_id: string;
@@ -27,14 +27,11 @@ export class Product {
   @Column()
   code: string;
 
-  @Column()
-  value: number;
+  @Column({ nullable: true })
+  size?: string;
 
   @Column({ nullable: true })
-  size: string;
-
-  @Column({ nullable: true })
-  description: string;
+  description?: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -52,9 +49,9 @@ export class Product {
 export interface IProduct {
   id?: string;
   name: string;
-  category_id: string;
   code: string;
-  value: number;
+  category_id: string;
+  category?: Category;
   size?: string;
   description?: string;
   created_at?: Date;
