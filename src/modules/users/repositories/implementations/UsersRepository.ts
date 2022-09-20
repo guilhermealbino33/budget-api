@@ -16,8 +16,13 @@ export default class UsersRepository implements IUsersRepository {
     this.repository.save(userToCreate);
   }
 
-  async updateUser(user: IUser): Promise<void> {
-    this.repository.save(user);
+  async update(id: string, data: IUser): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
   }
 
   async deleteUser(userID: string): Promise<void> {

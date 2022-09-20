@@ -38,9 +38,9 @@ export class User {
 
 export interface IUser {
   id?: string;
-  name: string;
-  email: string;
-  password: string;
+  name?: string;
+  email?: string;
+  password?: string;
   is_admin?: boolean;
   created_at?: Date;
   updated_at?: Date;

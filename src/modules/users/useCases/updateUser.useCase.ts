@@ -28,13 +28,21 @@ export default class UpdateUserUseCase {
       throw new AppError('User not found!', 404);
     }
 
-    userToUpdate.name = name ? name : userToUpdate.name;
-    userToUpdate.email = email ? email : userToUpdate.email;
-    userToUpdate.password = password
-      ? await hash(password, 8)
-      : userToUpdate.password;
-    userToUpdate.updated_at = new Date();
+    let data = {};
 
-    return this.usersRepository.updateUser(userToUpdate);
+    if (name) {
+      data = { ...data, name };
+    }
+
+    if (email) {
+      data = { ...data, email };
+    }
+
+    if (!password) {
+      const hashPassword = await hash(password, 8);
+      data = { ...data, hashPassword };
+    }
+
+    return this.usersRepository.update(id, data);
   }
 }
