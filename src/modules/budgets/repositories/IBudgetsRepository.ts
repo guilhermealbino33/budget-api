@@ -1,7 +1,7 @@
 import { IBudget, Budget } from '../../../entities/budget';
 
 export interface IBudgetsRepository {
-  create(budget: IBudget): Promise<void>;
+  create(budget: IBudget): Promise<Budget>;
   updateBudget(budget: IBudget): Promise<void>;
   deleteBudget(budgetID: string): Promise<void>;
   findById(budget_id: string): Promise<Budget>;

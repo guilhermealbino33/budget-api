@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 import { v4 as uuid } from 'uuid';
 import { IBudget } from '../../../entities/budget';
 import { IBudgetProducts } from '../../../entities/budgetProducts';
-import logging from '../../../shared/config/logging';
 import { AppError } from '../../../shared/errors/AppError';
 import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { IProductsRepository } from '../../products/repositories/IProductsRepository';
@@ -46,6 +45,8 @@ export default class CreateBudgetUseCase {
       throw new AppError('Budget must have at least one product!', 400);
     }
 
+    const createdBudget = await this.budgetsRepository.create(budget);
+
     for (const product of budget.products) {
       const productExists = await this.productsRepository.findById(product.id);
 
@@ -54,6 +55,7 @@ export default class CreateBudgetUseCase {
       }
 
       const budgetProduct = {
+        budget_id: createdBudget.id,
         product_id: product.id,
         quantity: product.quantity,
         unit_price: product.unit_price,
@@ -72,10 +74,7 @@ export default class CreateBudgetUseCase {
       budget.additional_items = additionalItems;
     }
 
+    // fazer update no valor por ID
     budget.total_value = await calculateTotalValue(budget);
-
-    await this.budgetsRepository.create(budget);
-    console.log('budget.id', budget.id); // se tira o console ele executa o saveBudget antes do create
-    await this.budgetProductsRepository.saveBudgetId(budget.id);
   }
 }

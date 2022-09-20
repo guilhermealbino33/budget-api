@@ -11,9 +11,10 @@ export default class BudgetsRepository implements IBudgetsRepository {
     this.repository = AppDataSource.getRepository(Budget);
   }
 
-  async create(budget: IBudget): Promise<void> {
+  async create(budget: IBudget): Promise<Budget> {
     const budgetToCreate = this.repository.create(budget);
-    this.repository.save(budgetToCreate);
+
+    return this.repository.save(budgetToCreate);
   }
 
   async updateBudget(budget: IBudget): Promise<void> {
