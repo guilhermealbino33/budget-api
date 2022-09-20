@@ -16,8 +16,13 @@ export default class ProductsRepository implements IProductsRepository {
     this.repository.save(productToCreate);
   }
 
-  async updateProduct(product: IProduct): Promise<void> {
-    this.repository.save(product);
+  async updateProduct(id: string, data: IProduct): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
   }
 
   async deleteProduct(productID: string): Promise<void> {

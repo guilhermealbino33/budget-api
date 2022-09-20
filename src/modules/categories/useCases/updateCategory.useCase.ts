@@ -1,13 +1,9 @@
 /* eslint-disable no-unneeded-ternary */
 import { inject, injectable } from 'tsyringe';
+import { ICategory } from '../../../entities/category';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { ICategoriesRepository } from '../repositories/ICategoriesRepository';
-
-interface UpdateCategoryRequest {
-  name?: string;
-  description?: string;
-}
 
 @injectable()
 export default class UpdateCategoryUseCase {
@@ -16,7 +12,9 @@ export default class UpdateCategoryUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  async execute(id: string, { name, description }: UpdateCategoryRequest) {
+  async execute(id: string, { name, description }: ICategory) {
+    let data = {};
+
     if (!isValidId(id)) {
       throw new AppError('Invalid category id!', 400);
     }
@@ -27,10 +25,16 @@ export default class UpdateCategoryUseCase {
       throw new AppError('Category not found!', 404);
     }
 
-    categoryToUpdate.name = name ? name : categoryToUpdate.name;
-    categoryToUpdate.description = description;
-    categoryToUpdate.updated_at = new Date();
+    if (name) {
+      data = {
+        name,
+      };
+    }
 
-    return this.categoriesRepository.updateCategory(categoryToUpdate);
+    if (description) {
+      data = { ...data, description };
+    }
+
+    return this.categoriesRepository.updateCategory(id, data);
   }
 }

@@ -7,22 +7,6 @@ import { ICitiesRepository } from '../../address/repositories/ICitiesRepository'
 import { IStatesRepository } from '../../address/repositories/IStatesRepository';
 import { ICustomersRepository } from '../repositories/ICustomersRepository';
 
-interface IUpdateCustomerRequest {
-  name?: string;
-  email?: string;
-  cpf?: string;
-  cnpj?: string;
-  ie?: string;
-  city_code?: string;
-  state?: string;
-  address?: string;
-  address_number?: string;
-  cep?: string;
-  phone_number_1?: string;
-  phone_number_2?: string;
-  birthday?: Date;
-}
-
 @injectable()
 export default class UpdateCustomerUseCase {
   constructor(
@@ -34,10 +18,29 @@ export default class UpdateCustomerUseCase {
     private statesRepository: IStatesRepository
   ) {}
 
-  async execute(id: string, customer: IUpdateCustomerRequest) {
+  async execute(
+    id: string,
+    {
+      name,
+      email,
+      cpf,
+      cnpj,
+      ie,
+      city_code,
+      state,
+      address,
+      address_number,
+      cep,
+      phone_number_1,
+      phone_number_2,
+      birthday,
+    }: ICustomer
+  ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid customer id!', 400);
     }
+
+    let data = {};
 
     const customerToUpdate = await this.customersRepository.findById(id);
 
@@ -45,8 +48,8 @@ export default class UpdateCustomerUseCase {
       throw new AppError('Customer not found!', 404);
     }
 
-    if (customer.city_code) {
-      const city = await this.citiesRepository.findByCode(customer.city_code);
+    if (city_code) {
+      const city = await this.citiesRepository.findByCode(city_code);
 
       if (!city) {
         throw new AppError('City not found!', 404);
@@ -57,41 +60,58 @@ export default class UpdateCustomerUseCase {
       customerToUpdate.state = state.uf;
     }
 
-    await this.updateCustomer(customerToUpdate, customer);
+    if (name) {
+      data = { ...data, name };
+    }
 
-    return this.customersRepository.updateCustomer(customerToUpdate);
-  }
+    if (email) {
+      data = { ...data, email };
+    }
 
-  private async updateCustomer(
-    customerToUpdate: ICustomer,
-    customer: IUpdateCustomerRequest
-  ) {
-    customerToUpdate.name = customer.name
-      ? customer.name
-      : customerToUpdate.name;
-    customerToUpdate.email = customer.email
-      ? customer.email
-      : customerToUpdate.email;
-    customerToUpdate.cpf = customer.cpf ? customer.cpf : customerToUpdate.cpf;
+    if (cpf) {
+      data = { ...data, cpf };
+    }
 
-    customerToUpdate.address = customer.address
-      ? customer.address
-      : customerToUpdate.address;
-    customerToUpdate.address_number = customer.address_number
-      ? customer.address_number
-      : customerToUpdate.address_number;
-    customerToUpdate.cep = customer.cep ? customer.cep : customerToUpdate.cep;
-    customerToUpdate.birthday = customer.birthday
-      ? customer.birthday
-      : customerToUpdate.birthday;
-    customerToUpdate.phone_number_1 = customer.phone_number_1
-      ? customer.phone_number_1
-      : customerToUpdate.phone_number_1;
-    customerToUpdate.phone_number_2 = customer.phone_number_2
-      ? customer.phone_number_2
-      : customerToUpdate.phone_number_2;
-    customerToUpdate.updated_at = new Date();
+    if (cnpj) {
+      data = { ...data, cnpj };
+    }
 
-    return customerToUpdate;
+    if (ie) {
+      data = { ...data, ie };
+    }
+
+    if (city_code) {
+      data = { ...data, city_code };
+    }
+
+    if (state) {
+      data = { ...data, state };
+    }
+
+    if (address) {
+      data = { ...data, address };
+    }
+
+    if (address_number) {
+      data = { ...data, address_number };
+    }
+
+    if (cep) {
+      data = { ...data, cep };
+    }
+
+    if (phone_number_1) {
+      data = { ...data, phone_number_1 };
+    }
+
+    if (phone_number_2) {
+      data = { ...data, phone_number_2 };
+    }
+
+    if (birthday) {
+      data = { ...data, birthday };
+    }
+
+    return this.customersRepository.update(id, data);
   }
 }

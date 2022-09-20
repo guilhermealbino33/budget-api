@@ -16,8 +16,13 @@ export default class SalesmanRepository implements ISalesmanRepository {
     this.repository.save(salesmanToCreate);
   }
 
-  async updateSalesman(salesman: ISalesman): Promise<void> {
-    this.repository.save(salesman);
+  async update(id: string, data: ISalesman): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
   }
 
   async deleteSalesman(salesmanID: string): Promise<void> {

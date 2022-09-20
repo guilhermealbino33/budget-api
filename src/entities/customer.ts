@@ -72,20 +72,20 @@ export class Customer {
 
 export interface ICustomer {
   id?: string;
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   cpf?: string;
   cnpj?: string;
   ie?: string;
-  city_code: string;
+  city_code?: string;
   city?: ICity;
-  state: string;
-  address: string;
-  address_number: string;
-  cep: string;
-  phone_number_1: string;
-  phone_number_2: string;
-  birthday: Date;
+  state?: string;
+  address?: string;
+  address_number?: string;
+  cep?: string;
+  phone_number_1?: string;
+  phone_number_2?: string;
+  birthday?: Date;
   created_at?: Date;
   updated_at?: Date;
 }

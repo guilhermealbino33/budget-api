@@ -7,22 +7,6 @@ import { ICitiesRepository } from '../../address/repositories/ICitiesRepository'
 import { IStatesRepository } from '../../address/repositories/IStatesRepository';
 import { ISalesmanRepository } from '../repositories/ISalesmanRepository';
 
-interface IUpdateSalesmanRequest {
-  name?: string;
-  email?: string;
-  cpf?: string;
-  cnpj?: string;
-  ie?: string;
-  city_code?: string;
-  state?: string;
-  address?: string;
-  address_number?: string;
-  cep?: string;
-  phone_number_1?: string;
-  phone_number_2?: string;
-  birthday?: Date;
-}
-
 @injectable()
 export default class UpdateSalesmanUseCase {
   constructor(
@@ -34,10 +18,29 @@ export default class UpdateSalesmanUseCase {
     private statesRepository: IStatesRepository
   ) {}
 
-  async execute(id: string, salesman: IUpdateSalesmanRequest) {
+  async execute(
+    id: string,
+    {
+      name,
+      email,
+      cpf,
+      cnpj,
+      ie,
+      city_code,
+      state,
+      address,
+      address_number,
+      cep,
+      phone_number_1,
+      phone_number_2,
+      birthday,
+    }: ISalesman
+  ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid salesman id!', 400);
     }
+
+    let data = {};
 
     const salesmanToUpdate = await this.salesmanRepository.findById(id);
 
@@ -45,8 +48,8 @@ export default class UpdateSalesmanUseCase {
       throw new AppError('Salesman not found!', 404);
     }
 
-    if (salesman.city_code) {
-      const city = await this.citiesRepository.findByCode(salesman.city_code);
+    if (city_code) {
+      const city = await this.citiesRepository.findByCode(city_code);
 
       if (!city) {
         throw new AppError('City not found!', 404);
@@ -57,41 +60,58 @@ export default class UpdateSalesmanUseCase {
       salesmanToUpdate.state = state.uf;
     }
 
-    await this.updateSalesman(salesmanToUpdate, salesman);
+    if (name) {
+      data = { ...data, name };
+    }
 
-    return this.salesmanRepository.updateSalesman(salesmanToUpdate);
-  }
+    if (email) {
+      data = { ...data, email };
+    }
 
-  private async updateSalesman(
-    salesmanToUpdate: ISalesman,
-    salesman: IUpdateSalesmanRequest
-  ) {
-    salesmanToUpdate.name = salesman.name
-      ? salesman.name
-      : salesmanToUpdate.name;
-    salesmanToUpdate.email = salesman.email
-      ? salesman.email
-      : salesmanToUpdate.email;
-    salesmanToUpdate.cpf = salesman.cpf ? salesman.cpf : salesmanToUpdate.cpf;
+    if (cpf) {
+      data = { ...data, cpf };
+    }
 
-    salesmanToUpdate.address = salesman.address
-      ? salesman.address
-      : salesmanToUpdate.address;
-    salesmanToUpdate.address_number = salesman.address_number
-      ? salesman.address_number
-      : salesmanToUpdate.address_number;
-    salesmanToUpdate.cep = salesman.cep ? salesman.cep : salesmanToUpdate.cep;
-    salesmanToUpdate.birthday = salesman.birthday
-      ? salesman.birthday
-      : salesmanToUpdate.birthday;
-    salesmanToUpdate.phone_number_1 = salesman.phone_number_1
-      ? salesman.phone_number_1
-      : salesmanToUpdate.phone_number_1;
-    salesmanToUpdate.phone_number_2 = salesman.phone_number_2
-      ? salesman.phone_number_2
-      : salesmanToUpdate.phone_number_2;
-    salesmanToUpdate.updated_at = new Date();
+    if (cnpj) {
+      data = { ...data, cnpj };
+    }
 
-    return salesmanToUpdate;
+    if (ie) {
+      data = { ...data, ie };
+    }
+
+    if (city_code) {
+      data = { ...data, city_code };
+    }
+
+    if (state) {
+      data = { ...data, state };
+    }
+
+    if (address) {
+      data = { ...data, address };
+    }
+
+    if (address_number) {
+      data = { ...data, address_number };
+    }
+
+    if (cep) {
+      data = { ...data, cep };
+    }
+
+    if (phone_number_1) {
+      data = { ...data, phone_number_1 };
+    }
+
+    if (phone_number_2) {
+      data = { ...data, phone_number_2 };
+    }
+
+    if (birthday) {
+      data = { ...data, birthday };
+    }
+
+    return this.salesmanRepository.update(id, data);
   }
 }

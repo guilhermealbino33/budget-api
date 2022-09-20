@@ -26,21 +26,30 @@ export default class UpdateProductUseCase {
       throw new AppError('Invalid product id!', 400);
     }
 
+    let data = {};
+
     const productToUpdate = await this.productsRepository.findById(id);
 
     if (!productToUpdate) {
       throw new AppError('Product not found!', 404);
     }
 
-    productToUpdate.name = name ? name : productToUpdate.name;
-    productToUpdate.category_id = category_id
-      ? category_id
-      : productToUpdate.category_id;
-    productToUpdate.description = description;
-    productToUpdate.size = size ? size : productToUpdate.size;
+    if (name) {
+      data = { ...data, description };
+    }
 
-    productToUpdate.updated_at = new Date();
+    if (description) {
+      data = { ...data, description };
+    }
 
-    return this.productsRepository.updateProduct(productToUpdate);
+    if (category_id) {
+      data = { ...data, category_id };
+    }
+
+    if (size) {
+      data = { ...data, size };
+    }
+
+    return this.productsRepository.updateProduct(id, data);
   }
 }

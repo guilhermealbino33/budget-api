@@ -16,8 +16,13 @@ export default class CustomersRepository implements ICustomersRepository {
     this.repository.save(customerToCreate);
   }
 
-  async updateCustomer(customer: ICustomer): Promise<void> {
-    this.repository.save(customer);
+  async update(id: string, data: ICustomer): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
   }
 
   async deleteCustomer(customerID: string): Promise<void> {

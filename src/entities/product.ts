@@ -48,9 +48,9 @@ export class Product {
 
 export interface IProduct {
   id?: string;
-  name: string;
-  code: string;
-  category_id: string;
+  name?: string;
+  code?: string;
+  category_id?: string;
   category?: Category;
   size?: string;
   description?: string;

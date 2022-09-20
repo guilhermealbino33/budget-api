@@ -19,8 +19,13 @@ export default class CategoriesRepository implements ICategoriesRepository {
     this.repository.save(categoryToCreate);
   }
 
-  async updateCategory(category: ICategory): Promise<void> {
-    this.repository.save(category);
+  async updateCategory(id: string, data: ICategory): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
   }
 
   async deleteCategory(categoryID: string): Promise<void> {
