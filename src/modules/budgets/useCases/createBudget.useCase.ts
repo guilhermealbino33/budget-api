@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { v4 as uuid } from 'uuid';
 import { IBudget } from '../../../entities/budget';
 import { IBudgetProducts } from '../../../entities/budgetProducts';
+import logging from '../../../shared/config/logging';
 import { AppError } from '../../../shared/errors/AppError';
 import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { IProductsRepository } from '../../products/repositories/IProductsRepository';
@@ -74,6 +75,7 @@ export default class CreateBudgetUseCase {
     budget.total_value = await calculateTotalValue(budget);
 
     await this.budgetsRepository.create(budget);
+    console.log('budget.id', budget.id); // se tira o console ele executa o saveBudget antes do create
     await this.budgetProductsRepository.saveBudgetId(budget.id);
   }
 }

@@ -40,7 +40,13 @@ export class Budget {
   @Column()
   delivery_type: string;
 
-  @Column({ nullable: true })
+  @Column({
+    nullable: true,
+    type: 'numeric',
+    precision: 10,
+    scale: 2,
+    default: 0,
+  })
   delivery_value?: number;
 
   @Column({ nullable: true })
@@ -63,7 +69,7 @@ export class Budget {
   @Column({ default: false, nullable: false })
   closed: boolean;
 
-  @Column()
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
   total_value: number;
 
   @CreateDateColumn()

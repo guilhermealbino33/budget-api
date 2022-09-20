@@ -26,13 +26,13 @@ export class BudgetProducts {
   @Column()
   quantity: number;
 
-  @Column()
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
   unit_price: number;
 
-  @Column()
+  @Column({ type: 'numeric', precision: 10, scale: 2, default: 0 })
   discount: number;
 
-  @Column()
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
   total_price: number;
 
   @CreateDateColumn()
