@@ -6,6 +6,7 @@ import { IProductsRepository } from '../repositories/IProductsRepository';
 
 interface UpdateProductRequest {
   name?: string;
+  code?: string;
   category_id?: string;
   size?: string;
   description?: string;
@@ -20,7 +21,7 @@ export default class UpdateProductUseCase {
 
   async execute(
     id: string,
-    { name, category_id, description, size }: UpdateProductRequest
+    { name, code, category_id, description, size }: UpdateProductRequest
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid product id!', 400);
@@ -35,7 +36,11 @@ export default class UpdateProductUseCase {
     }
 
     if (name) {
-      data = { ...data, description };
+      data = { ...data, name };
+    }
+
+    if (code) {
+      data = { ...data, code };
     }
 
     if (description) {
@@ -50,6 +55,6 @@ export default class UpdateProductUseCase {
       data = { ...data, size };
     }
 
-    return this.productsRepository.updateProduct(id, data);
+    return this.productsRepository.update(id, data);
   }
 }
