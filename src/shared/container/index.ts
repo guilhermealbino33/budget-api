@@ -25,6 +25,8 @@ import { IProductsImagesRepository } from '../../modules/products/repositories/I
 import ProductsImagesRepository from '../../modules/products/repositories/implementations/productsImagesRepository';
 import BudgetProductsRepository from '../../modules/budgets/repositories/implementations/budgetProductsRepository';
 import { IBudgetProductsRepository } from '../../modules/budgets/repositories/IBudgetProductsRepository';
+import { IBudgetAdditionalItemsRepository } from '../../modules/budgets/repositories/IBudgetAdditionalItemsRepository copy';
+import BudgetAdditionalItemsRepository from '../../modules/budgets/repositories/implementations/budgetAdditionalItemsRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -49,10 +51,6 @@ container.registerSingleton<IProductsImagesRepository>(
   'ProductsImagesRepository',
   ProductsImagesRepository
 );
-container.registerSingleton<IBudgetProductsRepository>(
-  'BudgetProductsRepository',
-  BudgetProductsRepository
-);
 
 // Customers
 container.registerSingleton<ICustomersRepository>(
@@ -70,6 +68,14 @@ container.registerSingleton<ISalesmanRepository>(
 container.registerSingleton<IBudgetsRepository>(
   'BudgetsRepository',
   BudgetsRepository
+);
+container.registerSingleton<IBudgetProductsRepository>(
+  'BudgetProductsRepository',
+  BudgetProductsRepository
+);
+container.registerSingleton<IBudgetAdditionalItemsRepository>(
+  'BudgetAdditionalItemsRepository',
+  BudgetAdditionalItemsRepository
 );
 
 // AdditionalItems
