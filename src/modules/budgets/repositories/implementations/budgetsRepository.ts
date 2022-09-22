@@ -17,11 +17,15 @@ export default class BudgetsRepository implements IBudgetsRepository {
     return this.repository.save(budgetToCreate);
   }
 
-  async updateBudget(budget: IBudget): Promise<void> {
+  async save(budget: Budget): Promise<void> {
     this.repository.save(budget);
   }
 
-  async deleteBudget(budgetID: string): Promise<void> {
+  async update(budget: IBudget): Promise<void> {
+    this.repository.save(budget);
+  }
+
+  async delete(budgetID: string): Promise<void> {
     this.repository.delete(budgetID);
   }
 

@@ -21,11 +21,20 @@ export default class AdditionalItemsRepository
     this.repository.save(additionalItemToCreate);
   }
 
-  async updateAdditionalItem(additionalItem: IAdditionalItem): Promise<void> {
+  async update(id: string, data: IAdditionalItem): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
+  }
+
+  async save(additionalItem: IAdditionalItem): Promise<void> {
     this.repository.save(additionalItem);
   }
 
-  async deleteAdditionalItem(additionalItemID: string): Promise<void> {
+  async delete(additionalItemID: string): Promise<void> {
     this.repository.delete(additionalItemID);
   }
 

@@ -9,7 +9,7 @@ export async function createAdditionalItemsHandler(
   request: Request,
   response: Response
 ) {
-  const { code, name, value } = request.body;
+  const { code, name, size, description } = request.body;
 
   const createAdditionalItemsUseCase = container.resolve(
     CreateAdditionalItemsUseCase
@@ -17,7 +17,8 @@ export async function createAdditionalItemsHandler(
   const additionalItems = await createAdditionalItemsUseCase.execute({
     code,
     name,
-    value,
+    size,
+    description,
   });
 
   return response.status(201).json(additionalItems);
@@ -29,7 +30,7 @@ export async function updateAdditionalItemsHandler(
 ) {
   const { id } = request.params;
 
-  const { code, name, value } = request.body;
+  const { code, name, size, description } = request.body;
 
   const updateAdditionalItemsUseCase = container.resolve(
     UpdateAdditionalItemsUseCase
@@ -37,7 +38,8 @@ export async function updateAdditionalItemsHandler(
   const additionalItems = await updateAdditionalItemsUseCase.execute(id, {
     code,
     name,
-    value,
+    size,
+    description,
   });
 
   return response.status(200).json(additionalItems);

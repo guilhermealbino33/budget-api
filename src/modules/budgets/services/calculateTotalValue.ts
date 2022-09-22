@@ -1,4 +1,5 @@
 import { IBudget } from '../../../entities/budget';
+import { IBudgetAdditionalItems } from '../../../entities/budgetAdditionalItems';
 import { IBudgetProducts } from '../../../entities/budgetProducts';
 
 export async function calculateTotalValue(budget: IBudget): Promise<number> {
@@ -9,8 +10,8 @@ export async function calculateTotalValue(budget: IBudget): Promise<number> {
   sum.push(...productsValue);
 
   if (budget.additional_items) {
-    const additionalItemsValue = budget.additional_items.map(
-      (additionalItem) => additionalItem.value
+    const additionalItemsValue = budget.additional_items.map((additionalItem) =>
+      calculateProductTotalPrice(additionalItem)
     );
     sum.push(...additionalItemsValue);
   }
@@ -22,6 +23,8 @@ export async function calculateTotalValue(budget: IBudget): Promise<number> {
   return sum.reduce((partialSum, a) => partialSum + a, 0);
 }
 
-export function calculateProductTotalPrice(product: IBudgetProducts): number {
-  return product.unit_price * product.quantity - product.discount;
+export function calculateProductTotalPrice(
+  item: IBudgetProducts | IBudgetAdditionalItems
+): number {
+  return item.unit_price * item.quantity - item.discount;
 }

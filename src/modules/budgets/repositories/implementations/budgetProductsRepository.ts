@@ -14,17 +14,8 @@ export default class BudgetProductsRepository
   constructor() {
     this.repository = AppDataSource.getRepository(BudgetProducts);
   }
-  async saveProduct(budgetProduct: IBudgetProducts): Promise<void> {
+  async save(budgetProduct: IBudgetProducts): Promise<void> {
     const budgetProductsToCreate = this.repository.create(budgetProduct);
     this.repository.save(budgetProductsToCreate);
-  }
-
-  async saveBudgetId(budgetId: string): Promise<void> {
-    this.repository
-      .createQueryBuilder()
-      .update()
-      .set({ budget_id: budgetId })
-      .where('budget_id IS NULL')
-      .execute();
   }
 }

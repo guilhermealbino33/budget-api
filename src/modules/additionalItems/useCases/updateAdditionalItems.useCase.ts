@@ -1,14 +1,9 @@
 /* eslint-disable no-unneeded-ternary */
 import { inject, injectable } from 'tsyringe';
+import { IAdditionalItem } from '../../../entities/additionalItem';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IAdditionalItemsRepository } from '../repositories/IAdditionalItemsRepository';
-
-interface UpdateAdditionalItemRequest {
-  code?: string;
-  name?: string;
-  value?: number;
-}
 
 @injectable()
 export default class UpdateAdditionalItemUseCase {
@@ -19,11 +14,13 @@ export default class UpdateAdditionalItemUseCase {
 
   async execute(
     id: string,
-    { code, name, value }: UpdateAdditionalItemRequest
+    { code, name, size, description }: IAdditionalItem
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid additionalItem id!', 400);
     }
+
+    let data = {};
 
     const additionalItemToUpdate =
       await this.additionalItemsRepository.findById(id);
@@ -32,14 +29,28 @@ export default class UpdateAdditionalItemUseCase {
       throw new AppError('AdditionalItem not found!', 404);
     }
 
-    additionalItemToUpdate.code = code ? code : additionalItemToUpdate.code;
-    additionalItemToUpdate.name = name ? name : additionalItemToUpdate.name;
-    additionalItemToUpdate.value = value ? value : additionalItemToUpdate.value;
+    const productToUpdate = await this.additionalItemsRepository.findById(id);
 
-    additionalItemToUpdate.updated_at = new Date();
+    if (!productToUpdate) {
+      throw new AppError('Product not found!', 404);
+    }
 
-    return this.additionalItemsRepository.updateAdditionalItem(
-      additionalItemToUpdate
-    );
+    if (name) {
+      data = { ...data, description };
+    }
+
+    if (description) {
+      data = { ...data, description };
+    }
+
+    if (code) {
+      data = { ...data, code };
+    }
+
+    if (size) {
+      data = { ...data, size };
+    }
+
+    return this.additionalItemsRepository.update(id, data);
   }
 }

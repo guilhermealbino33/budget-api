@@ -5,8 +5,9 @@ import {
 
 export interface IAdditionalItemsRepository {
   create(additionalItem: IAdditionalItem): Promise<void>;
-  updateAdditionalItem(additionalItem: IAdditionalItem): Promise<void>;
-  deleteAdditionalItem(additionalItemID: string): Promise<void>;
+  update(id: string, data: IAdditionalItem): Promise<void>;
+  save(additionalItem: IAdditionalItem): Promise<void>;
+  delete(additionalItemID: string): Promise<void>;
   findById(additionalItem_id: string): Promise<AdditionalItem>;
   findByIds(additional_item_id: string[]): Promise<AdditionalItem[]>;
   findByCode(code: string): Promise<AdditionalItem>;

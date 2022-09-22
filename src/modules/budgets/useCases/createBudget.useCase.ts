@@ -1,21 +1,16 @@
 import { inject, injectable } from 'tsyringe';
 import { v4 as uuid } from 'uuid';
-import { IBudget } from '../../../entities/budget';
-import { IBudgetProducts } from '../../../entities/budgetProducts';
+import { Budget, IBudget } from '../../../entities/budget';
 import { AppError } from '../../../shared/errors/AppError';
 import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { IProductsRepository } from '../../products/repositories/IProductsRepository';
+import { IBudgetAdditionalItemsRepository } from '../repositories/IBudgetAdditionalItemsRepository copy';
 import { IBudgetProductsRepository } from '../repositories/IBudgetProductsRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 import {
   calculateProductTotalPrice,
   calculateTotalValue,
 } from '../services/calculateTotalValue';
-
-interface ICreateBudget extends IBudget {
-  products: IBudgetProducts[];
-  additional_items_id: string[];
-}
 
 @injectable()
 export default class CreateBudgetUseCase {
@@ -24,13 +19,15 @@ export default class CreateBudgetUseCase {
     private budgetsRepository: IBudgetsRepository,
     @inject('BudgetProductsRepository')
     private budgetProductsRepository: IBudgetProductsRepository,
+    @inject('BudgetAdditionalItemsRepository')
+    private budgetAdditionalItemsRepository: IBudgetAdditionalItemsRepository,
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
     @inject('AdditionalItemsRepository')
     private additionalItemsRepository: IAdditionalItemsRepository
   ) {}
 
-  async execute(budget: ICreateBudget) {
+  async execute(budget: IBudget) {
     budget.id = uuid();
 
     const budgetAlreadyExists = await this.budgetsRepository.findByCode(
@@ -47,7 +44,19 @@ export default class CreateBudgetUseCase {
 
     const createdBudget = await this.budgetsRepository.create(budget);
 
-    for (const product of budget.products) {
+    await this.addProduct(createdBudget);
+
+    if (createdBudget.additional_items.length) {
+      await this.addAdditionalItem(createdBudget);
+    }
+
+    createdBudget.total_value = await calculateTotalValue(createdBudget);
+
+    await this.budgetsRepository.save(createdBudget);
+  }
+
+  private async addAdditionalItem(createdBudget: Budget) {
+    for (const product of createdBudget.products) {
       const productExists = await this.productsRepository.findById(product.id);
 
       if (!productExists) {
@@ -63,18 +72,32 @@ export default class CreateBudgetUseCase {
         total_price: calculateProductTotalPrice(product),
       };
 
-      await this.budgetProductsRepository.saveProduct(budgetProduct);
+      await this.budgetProductsRepository.save(budgetProduct);
     }
+  }
 
-    const additionalItems = await this.additionalItemsRepository.findByIds(
-      budget.additional_items_id
-    );
+  private async addProduct(createdBudget: Budget) {
+    for (const additional_item of createdBudget.additional_items) {
+      const additionalItemExists =
+        await this.additionalItemsRepository.findById(additional_item.id);
 
-    if (additionalItems) {
-      budget.additional_items = additionalItems;
+      if (!additionalItemExists) {
+        throw new AppError(
+          `Additional item with id ${additionalItemExists.id} not found!`,
+          404
+        );
+      }
+
+      const budgetAdditionalItems = {
+        budget_id: createdBudget.id,
+        additional_item_id: additional_item.id,
+        quantity: additional_item.quantity,
+        unit_price: additional_item.unit_price,
+        discount: additional_item.discount,
+        total_price: calculateProductTotalPrice(additional_item),
+      };
+
+      await this.budgetAdditionalItemsRepository.save(budgetAdditionalItems);
     }
-
-    // fazer update no valor por ID
-    budget.total_value = await calculateTotalValue(budget);
   }
 }

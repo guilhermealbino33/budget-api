@@ -23,6 +23,6 @@ export default class DeleteAdditionalItemUseCase {
       throw new AppError('Additional item not found!', 404);
     }
 
-    await this.additionalItemsRepository.deleteAdditionalItem(additionalItemId);
+    await this.additionalItemsRepository.delete(additionalItemId);
   }
 }

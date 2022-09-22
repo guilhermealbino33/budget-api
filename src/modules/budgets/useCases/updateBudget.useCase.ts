@@ -1,25 +1,12 @@
 // /* eslint-disable no-unneeded-ternary */
 // import { inject, injectable } from 'tsyringe';
+// import { IBudget } from '../../../entities/budget';
 // import { AppError } from '../../../shared/errors/AppError';
 // import { isValidId } from '../../../shared/utils/idValidator';
 // import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 // import { IProductsRepository } from '../../products/repositories/IProductsRepository';
 // import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 // import { calculateTotalValue } from '../services/calculateTotalValue';
-
-// interface UpdateBudgetRequest {
-//   code?: string;
-//   customer_id?: string;
-//   budget_id?: string;
-//   products_id?: string[];
-//   salesman_id?: string;
-//   quantity?: number;
-//   delivery_type?: string;
-//   delivery_value?: number;
-//   observations?: string;
-//   additional_items_id?: string[];
-//   updated_at?: Date;
-// }
 
 // @injectable()
 // export default class UpdateBudgetUseCase {
@@ -36,15 +23,29 @@
 //     {
 //       code,
 //       customer_id,
-//       products_id,
+//       products,
 //       salesman_id,
-//       quantity,
 //       delivery_type,
 //       delivery_value,
 //       observations,
-//       additional_items_id,
-//     }: UpdateBudgetRequest
+//       additional_items,
+//       closed,
+//       total_value,
+//       created_at,
+//       updated_at,
+//     }: IBudget
 //   ) {
+//     /**
+//      * Aqui testar em relaçao ao update de produtos e items adicionais:
+//      * Ao substituir um produto pelo outro:
+//      * - budgetProductsRepository.updateByProductId()
+//      *
+//      * Ao deletar um produto:
+//      * - budgetProductsRepository.deleteByProductId()
+//      *
+//      *
+//      */
+
 //     if (!isValidId(id)) {
 //       throw new AppError('Invalid budget id!', 400);
 //     }

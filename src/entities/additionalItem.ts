@@ -17,8 +17,11 @@ export class AdditionalItem {
   @Column()
   name: string;
 
-  @Column()
-  value: number;
+  @Column({ nullable: true })
+  size?: string;
+
+  @Column({ nullable: true })
+  description?: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -37,7 +40,8 @@ export interface IAdditionalItem {
   id?: string;
   code: string;
   name: string;
-  value: number;
+  size?: string;
+  description?: string;
   created_at?: Date;
   updated_at?: Date;
 }
