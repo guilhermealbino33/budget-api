@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 import { IBudgetAdditionalItems } from './budgetAdditionalItems';
 import { IBudgetProducts } from './budgetProducts';
 import { Customer } from './customer';
@@ -55,7 +56,7 @@ export class Budget {
   @Column({ default: false, nullable: false })
   closed: boolean;
 
-  @Column({ type: 'numeric', precision: 10, scale: 2 })
+  @Column({ type: 'numeric', precision: 10, scale: 2, default: 0 })
   total_value: number;
 
   @CreateDateColumn()
@@ -63,6 +64,12 @@ export class Budget {
 
   @CreateDateColumn()
   updated_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
 
 export interface IBudget {
