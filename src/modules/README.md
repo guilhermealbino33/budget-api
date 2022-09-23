@@ -1,21 +1,20 @@
 ## Fazer
 
-[] - update additionalItem Verificar a questão da tipagem
-[] - updates Verificar a questão da tipagem (se está certo usar interface)
+[] - Seed de user
 [] - Metodo closeBudgetUseCase
 [] - CreateProduct - Criação de produto com imagem https://www.youtube.com/watch?v=srPXMt1Q0nY
 [] - Adicionar imagem ao produto deve ser separado do criar produto
 [] - deleteImage route
-[] - Seed de user
 [] - Addtional items só sera criará items quando eu estiver criando um orçamento
+[] - updates Verificar a questão da tipagem (se está certo usar interface)
 [] - Categoria [x], Tipo de Frete[], Cidade/Estado[x], serão enumereds ou tabelas em banco?
 [] - Salvar como pdf
 [] - Swagger
 
 ## Testar
 
-[] - criar budget com additionalItem
-[] - calculateTotalValue - createBudget
+[] - teste - updateAdditionalItem
+[] - teste - delete budget
 
 ## Duvidas
 
@@ -63,3 +62,6 @@ https://typeorm.io/update-query-builder
 [x] - Resolver relações da tabela customer -> states -> cities
 [x] - Resolver relações da tabela salesman -> states -> cities
 [x] - CreateBudget - Criação de orçamento com produto, cliente e vendedor
+[x] - update additionalItem Verificar a questão da tipagem
+[x] - teste - calculateTotalValue - createBudget
+[x] - teste - criar budget com additionalItem
