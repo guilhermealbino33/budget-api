@@ -1,6 +1,6 @@
 import { ISalesman, Salesman } from '../../../entities/salesman';
 
-export interface ISalesmanRepository {
+export interface ISalesmenRepository {
   create(salesman: ISalesman): Promise<void>;
   update(id: string, salesman: ISalesman): Promise<void>;
   deleteSalesman(salesmanID: string): Promise<void>;

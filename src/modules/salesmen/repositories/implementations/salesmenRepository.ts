@@ -2,9 +2,9 @@ import { Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { ISalesman, Salesman } from '../../../../entities/salesman';
 
-import { ISalesmanRepository } from '../ISalesmanRepository';
+import { ISalesmenRepository } from '../ISalesmenRepository';
 
-export default class SalesmanRepository implements ISalesmanRepository {
+export default class SalesmenRepository implements ISalesmenRepository {
   private repository: Repository<Salesman>;
 
   constructor() {

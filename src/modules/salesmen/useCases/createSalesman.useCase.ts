@@ -3,13 +3,13 @@ import { ISalesman } from '../../../entities/salesman';
 import { AppError } from '../../../shared/errors/AppError';
 import { ICitiesRepository } from '../../address/repositories/ICitiesRepository';
 import { IStatesRepository } from '../../address/repositories/IStatesRepository';
-import { ISalesmanRepository } from '../repositories/ISalesmanRepository';
+import { ISalesmenRepository } from '../repositories/ISalesmenRepository';
 
 @injectable()
 export default class CreateSalesmanUseCase {
   constructor(
-    @inject('SalesmanRepository')
-    private salesmanRepository: ISalesmanRepository,
+    @inject('SalesmenRepository')
+    private salesmenRepository: ISalesmenRepository,
     @inject('CitiesRepository')
     private citiesRepository: ICitiesRepository,
     @inject('StatesRepository')
@@ -35,18 +35,18 @@ export default class CreateSalesmanUseCase {
     salesman.city = city;
     salesman.state = state.uf;
 
-    await this.salesmanRepository.create(salesman);
+    await this.salesmenRepository.create(salesman);
   }
 
   private async salesmanAlreadyExists(salesman: ISalesman): Promise<ISalesman> {
     let salesmanAlreadyExists: ISalesman;
 
     if (salesman.cpf) {
-      salesmanAlreadyExists = await this.salesmanRepository.findByCpf(
+      salesmanAlreadyExists = await this.salesmenRepository.findByCpf(
         salesman.cpf
       );
     } else {
-      salesmanAlreadyExists = await this.salesmanRepository.findByCnpj(
+      salesmanAlreadyExists = await this.salesmenRepository.findByCnpj(
         salesman.cnpj
       );
     }

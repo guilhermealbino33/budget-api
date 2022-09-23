@@ -6,7 +6,6 @@
 [] - CreateProduct - Criação de produto com imagem https://www.youtube.com/watch?v=srPXMt1Q0nY
 [] - Adicionar imagem ao produto deve ser separado do criar produto
 [] - deleteImage route
-[] - CreateBudget - Criação de orçamento com produto, cliente e vendedor
 [] - Seed de user
 [] - Addtional items só sera criará items quando eu estiver criando um orçamento
 [] - Categoria [x], Tipo de Frete[], Cidade/Estado[x], serão enumereds ou tabelas em banco?
@@ -63,3 +62,4 @@ https://typeorm.io/update-query-builder
 [x] - Resolver relações da tabela budget -> products
 [x] - Resolver relações da tabela customer -> states -> cities
 [x] - Resolver relações da tabela salesman -> states -> cities
+[x] - CreateBudget - Criação de orçamento com produto, cliente e vendedor

@@ -5,13 +5,13 @@ import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { ICitiesRepository } from '../../address/repositories/ICitiesRepository';
 import { IStatesRepository } from '../../address/repositories/IStatesRepository';
-import { ISalesmanRepository } from '../repositories/ISalesmanRepository';
+import { ISalesmenRepository } from '../repositories/ISalesmenRepository';
 
 @injectable()
 export default class UpdateSalesmanUseCase {
   constructor(
-    @inject('SalesmanRepository')
-    private salesmanRepository: ISalesmanRepository,
+    @inject('SalesmenRepository')
+    private salesmenRepository: ISalesmenRepository,
     @inject('CitiesRepository')
     private citiesRepository: ICitiesRepository,
     @inject('StatesRepository')
@@ -42,7 +42,7 @@ export default class UpdateSalesmanUseCase {
 
     let data = {};
 
-    const salesmanToUpdate = await this.salesmanRepository.findById(id);
+    const salesmanToUpdate = await this.salesmenRepository.findById(id);
 
     if (!salesmanToUpdate) {
       throw new AppError('Salesman not found!', 404);
@@ -112,6 +112,6 @@ export default class UpdateSalesmanUseCase {
       data = { ...data, birthday };
     }
 
-    return this.salesmanRepository.update(id, data);
+    return this.salesmenRepository.update(id, data);
   }
 }

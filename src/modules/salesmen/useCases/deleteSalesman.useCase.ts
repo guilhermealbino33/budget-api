@@ -2,13 +2,13 @@ import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
-import { ISalesmanRepository } from '../repositories/ISalesmanRepository';
+import { ISalesmenRepository } from '../repositories/ISalesmenRepository';
 
 @injectable()
 export default class DeleteSalesmanUseCase {
   constructor(
-    @inject('SalesmanRepository')
-    private salesmanRepository: ISalesmanRepository
+    @inject('SalesmenRepository')
+    private salesmenRepository: ISalesmenRepository
   ) {}
 
   async execute(salesmanId: string) {
@@ -16,12 +16,12 @@ export default class DeleteSalesmanUseCase {
       throw new AppError('Invalid salesman id!', 400);
     }
 
-    const salesmanToDelete = await this.salesmanRepository.findById(salesmanId);
+    const salesmanToDelete = await this.salesmenRepository.findById(salesmanId);
 
     if (!salesmanToDelete) {
       throw new AppError('Salesman not found!', 404);
     }
 
-    await this.salesmanRepository.deleteSalesman(salesmanId);
+    await this.salesmenRepository.deleteSalesman(salesmanId);
   }
 }
