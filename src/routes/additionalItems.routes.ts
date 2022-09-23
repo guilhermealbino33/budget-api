@@ -18,6 +18,6 @@ additionalItemsRouter.delete(
   ensureAdmin,
   deleteAdditionalItemsHandler
 );
-additionalItemsRouter.get('/:id', auth, showAdditionalItemsHandler);
+additionalItemsRouter.get('/:id?', auth, showAdditionalItemsHandler);
 
 export { additionalItemsRouter };

@@ -13,6 +13,6 @@ const usersRouter = Router();
 usersRouter.post('/', createUserHandler);
 usersRouter.patch('/:id', updateUserHandler);
 usersRouter.delete('/:id', ensureAuthenticated, ensureAdmin, deleteUserHandler);
-usersRouter.get('/:id', showUserHandler);
+usersRouter.get('/:id?', showUserHandler);
 
 export { usersRouter };

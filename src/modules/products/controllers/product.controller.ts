@@ -3,7 +3,6 @@ import { container } from 'tsyringe';
 import CreateProductUseCase from '../useCases/createProduct.useCase';
 import DeleteProductUseCase from '../useCases/deleteProduct.useCase';
 import DeleteProductImageUseCase from '../useCases/deleteProductImage.useCase';
-import ListProductsUseCase from '../useCases/listProducts.useCase';
 import ShowProductUseCase from '../useCases/showProduct.useCase';
 import UpdateProductUseCase from '../useCases/updateProduct.useCase';
 import UploadProductImageUseCase from '../useCases/uploadProductImage.useCase';
@@ -36,11 +35,12 @@ export async function updateProductHandler(
 ) {
   const { id } = request.params;
 
-  const { name, category_id, size, description } = request.body;
+  const { name, code, category_id, size, description } = request.body;
 
   const updateProductUseCase = container.resolve(UpdateProductUseCase);
   const product = await updateProductUseCase.execute(id, {
     name,
+    code,
     category_id,
     size,
     description,
@@ -67,16 +67,6 @@ export async function showProductHandler(request: Request, response: Response) {
   const product = await showProductUseCase.execute(id);
 
   return response.status(200).json(product);
-}
-
-export async function listProductsHandler(
-  request: Request,
-  response: Response
-) {
-  const listProductsUseCase = container.resolve(ListProductsUseCase);
-  const products = await listProductsUseCase.execute();
-
-  return response.status(200).json(products);
 }
 
 export async function uploadProductImageHandler(

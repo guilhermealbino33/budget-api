@@ -4,7 +4,7 @@ import {
   deleteSalesmanHandler,
   listSalesmenHandler,
   updateSalesmanHandler,
-} from '../modules/salesman/controllers/salesman.controller';
+} from '../modules/salesmen/controllers/salesman.controller';
 
 import { ensureAdmin } from '../shared/middlewares/ensureAdmin';
 import { ensureAuthenticated as auth } from '../shared/middlewares/ensureAuthenticated';

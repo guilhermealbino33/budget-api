@@ -1,16 +1,16 @@
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../shared/errors/AppError';
-import { ISalesmanRepository } from '../repositories/ISalesmanRepository';
+import { ISalesmenRepository } from '../repositories/ISalesmenRepository';
 
 @injectable()
-export default class ListSalesmenUseCase {
+export default class ShowSalesmenUseCase {
   constructor(
-    @inject('SalesmanRepository')
-    private salesmanRepository: ISalesmanRepository
+    @inject('SalesmenRepository')
+    private salesmenRepository: ISalesmenRepository
   ) {}
 
   async execute() {
-    const salesman = await this.salesmanRepository.list();
+    const salesman = await this.salesmenRepository.list();
 
     if (!salesman || !salesman.length) {
       throw new AppError('No salesman found!', 404);

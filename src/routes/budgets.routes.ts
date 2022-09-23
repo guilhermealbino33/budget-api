@@ -3,7 +3,7 @@ import {
   createBudgetHandler,
   deleteBudgetHandler,
   showBudgetHandler,
-  updateBudgetHandler,
+  // updateBudgetHandler,
 } from '../modules/budgets/controllers/budget.controller';
 
 import { ensureAdmin } from '../shared/middlewares/ensureAdmin';
@@ -11,8 +11,8 @@ import { ensureAuthenticated as auth } from '../shared/middlewares/ensureAuthent
 
 const budgetsRouter = Router();
 budgetsRouter.post('/', auth, createBudgetHandler);
-budgetsRouter.patch('/:id', auth, updateBudgetHandler);
+// budgetsRouter.patch('/:id', auth, updateBudgetHandler);
 budgetsRouter.delete('/:id', auth, ensureAdmin, deleteBudgetHandler);
-budgetsRouter.get('/', auth, showBudgetHandler);
+budgetsRouter.get('/:id?', auth, showBudgetHandler);
 
 export { budgetsRouter };

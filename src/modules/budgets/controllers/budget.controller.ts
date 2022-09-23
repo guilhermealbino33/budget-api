@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
-import ListBudgetsUseCase from '../useCases/listBudgets.useCase';
+import ShowBudgetsUseCase from '../useCases/showBudgets.useCase';
 // import UpdateBudgetUseCase from '../useCases/updateBudget.useCase';
 
 export async function createBudgetHandler(
@@ -17,7 +17,7 @@ export async function createBudgetHandler(
     delivery_value,
     observations,
     products,
-    additional_items_id,
+    additional_items,
   } = request.body;
 
   const closed = false;
@@ -32,7 +32,7 @@ export async function createBudgetHandler(
     observations,
     closed,
     products,
-    additional_items_id,
+    additional_items,
   });
 
   return response.status(201).json(budget);
@@ -84,10 +84,11 @@ export async function deleteBudgetHandler(
 }
 
 export async function showBudgetHandler(request: Request, response: Response) {
-  const listBudgetUseCase = container.resolve(ListBudgetsUseCase);
-  const budget = await listBudgetUseCase.execute();
+  const { id } = request.params;
+  const showBudgetsUseCase = container.resolve(ShowBudgetsUseCase);
+  const budgets = await showBudgetsUseCase.execute(id);
 
-  return response.status(200).json(budget);
+  return response.status(200).json(budgets);
 }
 
 // export async function convertToPdfHandler(
