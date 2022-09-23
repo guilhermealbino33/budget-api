@@ -14,13 +14,13 @@ export default class UpdateAdditionalItemUseCase {
 
   async execute(
     id: string,
-    { code, name, size, description }: IAdditionalItem
+    { name, code, description, size }: IAdditionalItem
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid additionalItem id!', 400);
     }
 
-    let data = {};
+    let data = {} as IAdditionalItem;
 
     const additionalItemToUpdate =
       await this.additionalItemsRepository.findById(id);
@@ -29,22 +29,16 @@ export default class UpdateAdditionalItemUseCase {
       throw new AppError('AdditionalItem not found!', 404);
     }
 
-    const productToUpdate = await this.additionalItemsRepository.findById(id);
-
-    if (!productToUpdate) {
-      throw new AppError('Product not found!', 404);
-    }
-
     if (name) {
-      data = { ...data, description };
-    }
-
-    if (description) {
-      data = { ...data, description };
+      data = { ...data, name };
     }
 
     if (code) {
       data = { ...data, code };
+    }
+
+    if (description) {
+      data = { ...data, description };
     }
 
     if (size) {

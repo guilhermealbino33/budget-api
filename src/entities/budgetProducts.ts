@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 import { Budget } from './budget';
 import { Product } from './product';
 
-@Entity('budget_product')
+@Entity('budget_products')
 export class BudgetProducts {
   @PrimaryGeneratedColumn('uuid')
   id?: string;

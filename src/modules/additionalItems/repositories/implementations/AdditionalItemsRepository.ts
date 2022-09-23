@@ -1,4 +1,4 @@
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import {
   IAdditionalItem,
@@ -16,9 +16,11 @@ export default class AdditionalItemsRepository
     this.repository = AppDataSource.getRepository(AdditionalItem);
   }
 
-  async create(additionalItem: IAdditionalItem): Promise<void> {
+  async create(additionalItem: IAdditionalItem): Promise<IAdditionalItem> {
     const additionalItemToCreate = this.repository.create(additionalItem);
     this.repository.save(additionalItemToCreate);
+
+    return additionalItemToCreate;
   }
 
   async update(id: string, data: IAdditionalItem): Promise<void> {
@@ -48,14 +50,8 @@ export default class AdditionalItemsRepository
     });
   }
 
-  async findByIds(additional_item_id: string[]): Promise<AdditionalItem[]> {
-    return this.repository.find({
-      where: [
-        {
-          id: In([additional_item_id]),
-        },
-      ],
-    });
+  async list(): Promise<AdditionalItem[]> {
+    return this.repository.find();
   }
 
   async findByCode(code: string): Promise<AdditionalItem> {
