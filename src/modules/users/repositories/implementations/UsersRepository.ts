@@ -25,7 +25,7 @@ export default class UsersRepository implements IUsersRepository {
       .execute();
   }
 
-  async deleteUser(userID: string): Promise<void> {
+  async delete(userID: string): Promise<void> {
     this.repository.delete(userID);
   }
 
@@ -47,5 +47,9 @@ export default class UsersRepository implements IUsersRepository {
         },
       ],
     });
+  }
+
+  async list(): Promise<User[]> {
+    return this.repository.find();
   }
 }
