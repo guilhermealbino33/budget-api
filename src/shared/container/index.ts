@@ -9,8 +9,8 @@ import ProductsRepository from '../../modules/products/repositories/implementati
 import { IProductsRepository } from '../../modules/products/repositories/IProductsRepository';
 import { ICustomersRepository } from '../../modules/customers/repositories/ICustomersRepository';
 import CustomersRepository from '../../modules/customers/repositories/implementations/customerRepository';
-import { ISalesmanRepository } from '../../modules/salesman/repositories/ISalesmanRepository';
-import SalesmanRepository from '../../modules/salesman/repositories/implementations/salesmanRepository';
+import { ISalesmenRepository } from '../../modules/salesmen/repositories/ISalesmenRepository';
+import SalesmenRepository from '../../modules/salesmen/repositories/implementations/salesmenRepository';
 import { IBudgetsRepository } from '../../modules/budgets/repositories/IBudgetsRepository';
 import BudgetsRepository from '../../modules/budgets/repositories/implementations/budgetsRepository';
 import AdditionalItemsRepository from '../../modules/additionalItems/repositories/implementations/AdditionalItemsRepository';
@@ -59,9 +59,9 @@ container.registerSingleton<ICustomersRepository>(
 );
 
 // Salesman
-container.registerSingleton<ISalesmanRepository>(
-  'SalesmanRepository',
-  SalesmanRepository
+container.registerSingleton<ISalesmenRepository>(
+  'SalesmenRepository',
+  SalesmenRepository
 );
 
 // Budgets
