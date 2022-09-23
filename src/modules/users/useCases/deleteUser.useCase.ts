@@ -21,6 +21,6 @@ export default class DeleteUserUseCase {
       throw new AppError('User not found!', 404);
     }
 
-    await this.usersRepository.deleteUser(userId);
+    await this.usersRepository.delete(userId);
   }
 }
