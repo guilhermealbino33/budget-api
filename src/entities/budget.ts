@@ -75,6 +75,22 @@ export class Budget {
 
 export interface IBudget {
   id?: string;
+  code: string;
+  customer_id: string;
+  products: IBudgetProducts[];
+  salesman_id: string;
+  delivery_type?: string;
+  delivery_value: number;
+  observations?: string;
+  additional_items?: IBudgetAdditionalItems[];
+  closed: boolean;
+  total_value?: number;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export interface IUpdateBudget {
+  id?: string;
   code?: string;
   customer_id?: string;
   products?: IBudgetProducts[];
