@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
+import OpenCloseBudgetUseCase from '../useCases/openCloseBudget.useCase';
 import ShowBudgetsUseCase from '../useCases/showBudgets.useCase';
 // import UpdateBudgetUseCase from '../useCases/updateBudget.useCase';
 
@@ -81,6 +82,17 @@ export async function deleteBudgetHandler(
   await deleteBudgetUseCase.execute(id);
 
   return response.status(204);
+}
+
+export async function openCloseBudgetHandler(
+  request: Request,
+  response: Response
+) {
+  const { id } = request.params;
+  const openCloseBudgetUseCase = container.resolve(OpenCloseBudgetUseCase);
+  await openCloseBudgetUseCase.execute(id);
+
+  return response.status(200).send();
 }
 
 export async function showBudgetHandler(request: Request, response: Response) {

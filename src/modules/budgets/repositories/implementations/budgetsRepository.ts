@@ -21,8 +21,13 @@ export default class BudgetsRepository implements IBudgetsRepository {
     this.repository.save(budget);
   }
 
-  async update(budget: IBudget): Promise<void> {
-    this.repository.save(budget);
+  async update(id: string, data: IBudget): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
   }
 
   async delete(budgetID: string): Promise<void> {

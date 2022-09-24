@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  openCloseBudgetHandler,
   createBudgetHandler,
   deleteBudgetHandler,
   showBudgetHandler,
@@ -12,6 +13,7 @@ import { ensureAuthenticated as auth } from '../shared/middlewares/ensureAuthent
 const budgetsRouter = Router();
 budgetsRouter.post('/', auth, createBudgetHandler);
 // budgetsRouter.patch('/:id', auth, updateBudgetHandler);
+budgetsRouter.patch('/:id', auth, openCloseBudgetHandler);
 budgetsRouter.delete('/:id', auth, ensureAdmin, deleteBudgetHandler);
 budgetsRouter.get('/:id?', auth, showBudgetHandler);
 
