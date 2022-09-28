@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Budget } from './budget';
+import { BudgetAdditionalItems } from './budgetAdditionalItems';
 
 @Entity('additional_items')
 export class AdditionalItem {
@@ -23,6 +26,16 @@ export class AdditionalItem {
 
   @Column({ nullable: true })
   description?: string;
+
+  @OneToMany(
+    () => BudgetAdditionalItems,
+    (budgetAdditionalItems) => budgetAdditionalItems.additional_item,
+    {
+      cascade: true,
+      eager: true,
+    }
+  )
+  budgets: Budget[];
 
   @CreateDateColumn()
   created_at: Date;

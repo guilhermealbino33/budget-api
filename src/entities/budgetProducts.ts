@@ -16,12 +16,18 @@ export class BudgetProducts {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
-  @ManyToOne(() => Product)
+  @ManyToOne(() => Product, (product) => product.budgets)
   @JoinColumn({ name: 'product_id' })
+  product: Product;
+
+  @Column()
   product_id: string;
 
-  @ManyToOne(() => Budget)
+  @ManyToOne(() => Budget, (budget) => budget.products)
   @JoinColumn({ name: 'budget_id' })
+  budget: Budget;
+
+  @Column()
   budget_id?: string;
 
   @Column()

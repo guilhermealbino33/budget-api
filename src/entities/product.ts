@@ -4,10 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Budget } from './budget';
+import { BudgetProducts } from './budgetProducts';
 import { Category } from './category';
 
 @Entity('products')
@@ -33,6 +36,12 @@ export class Product {
 
   @Column({ nullable: true })
   description?: string;
+
+  @OneToMany(() => BudgetProducts, (budgetProducts) => budgetProducts.product, {
+    cascade: true,
+    eager: true,
+  })
+  budgets: Budget[];
 
   @CreateDateColumn()
   created_at: Date;

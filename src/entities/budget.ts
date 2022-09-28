@@ -4,12 +4,16 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { IBudgetAdditionalItems } from './budgetAdditionalItems';
-import { IBudgetProducts } from './budgetProducts';
+import {
+  BudgetAdditionalItems,
+  IBudgetAdditionalItems,
+} from './budgetAdditionalItems';
+import { BudgetProducts, IBudgetProducts } from './budgetProducts';
 import { Customer } from './customer';
 import { Salesman } from './salesman';
 
@@ -28,6 +32,10 @@ export class Budget {
   @Column()
   customer_id: string;
 
+  @OneToMany(() => BudgetProducts, (budgetProducts) => budgetProducts.budget, {
+    cascade: true,
+    eager: true,
+  })
   products: IBudgetProducts[];
 
   @ManyToOne(() => Salesman)
@@ -38,7 +46,7 @@ export class Budget {
   salesman_id: string;
 
   @Column()
-  delivery_type: string;
+  delivery_type?: string;
 
   @Column({
     nullable: true,
@@ -52,6 +60,15 @@ export class Budget {
   @Column({ nullable: true })
   observations: string;
 
+  @OneToMany(
+    () => BudgetAdditionalItems,
+    (budgetAdditionalItems) => budgetAdditionalItems.budget,
+    {
+      cascade: true,
+      eager: true,
+      nullable: true,
+    }
+  )
   additional_items?: IBudgetAdditionalItems[];
 
   @Column({ default: false, nullable: false })
@@ -80,7 +97,7 @@ export interface IBudget {
   products: IBudgetProducts[];
   salesman_id: string;
   delivery_type?: string;
-  delivery_value: number;
+  delivery_value?: number;
   observations?: string;
   additional_items?: IBudgetAdditionalItems[];
   closed: boolean;
