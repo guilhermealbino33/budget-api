@@ -15,7 +15,7 @@ export default class BudgetProductsRepository
     this.repository = AppDataSource.getRepository(BudgetProducts);
   }
 
-  async save(budgetProduct: IBudgetProducts): Promise<void> {
+  async create(budgetProduct: IBudgetProducts): Promise<void> {
     const budgetProductsToCreate = this.repository.create(budgetProduct);
     this.repository.save(budgetProductsToCreate);
   }
