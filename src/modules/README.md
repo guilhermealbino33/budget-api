@@ -1,13 +1,10 @@
 ## Fazer
 
-[] - Seed de user
-[] - Metodo closeBudgetUseCase
+[] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
+[] - passar a usar as interfaces IUpdate nas rotas de update
 [] - CreateProduct - Criação de produto com imagem https://www.youtube.com/watch?v=srPXMt1Q0nY
 [] - Adicionar imagem ao produto deve ser separado do criar produto
 [] - deleteImage route
-[] - Addtional items só sera criará items quando eu estiver criando um orçamento
-[] - updates Verificar a questão da tipagem (se está certo usar interface)
-[] - Categoria [x], Tipo de Frete[], Cidade/Estado[x], serão enumereds ou tabelas em banco?
 [] - Salvar como pdf
 [] - Swagger
 
@@ -18,22 +15,7 @@
 
 ## Duvidas
 
-**Address**
-[x] - Cidades e estados, será rodado um script ou pegar da api do IBGE?
-[x] - Relação Cidades e estados, será many to many?
-
-**createBudget**
-[x] - Produtos serão criados separadamente e vinculados aos orçametos quando for cria-los?
-[x] - Quantidade dos produtos e items adcionais deverão ser consideradas no somatório do total value
-[] - Frete
-[] - Não está criando com array de products_ids. Rever este metodo
-
-**Updates**
-https://typeorm.io/update-query-builder
-[] - Ver melhor forma de fazer, principalmente customers e salesmen
-
 **Products**
-[x] - Validar modelo atual
 [] - Validar criação de imagem
 
 ## Observações
@@ -65,3 +47,20 @@ https://typeorm.io/update-query-builder
 [x] - update additionalItem Verificar a questão da tipagem
 [x] - teste - calculateTotalValue - createBudget
 [x] - teste - criar budget com additionalItem
+[x] - Ver melhor forma de fazer, principalmente customers e salesmen - https://typeorm.io/update-query-builder
+[x] - Metodo closeBudgetUseCase
+[x] - Categoria [x], Tipo de Frete[n], Cidade/Estado[x], serão enumereds ou tabelas em banco?
+[x] - Seed de user
+[x] - Addtional items só sera criará items quando eu estiver criando um orçamento
+[x] - updates Verificar a questão da tipagem (se está certo usar interface)
+[x] - show budget com todas as informações
+[x] - Relacionar cidades e estados de forma que estados tenham um aray de cidades, que possam ser listadas quando um estado for selecionado
+
+**Address**
+[x] - Cidades e estados, será rodado um script ou pegar da api do IBGE?
+[x] - Relação Cidades e estados, será many to many?
+
+**createBudget**
+[x] - Produtos serão criados separadamente e vinculados aos orçametos quando for cria-los?
+[x] - Quantidade dos produtos e items adcionais deverão ser consideradas no somatório do total value
+[x] - Frete

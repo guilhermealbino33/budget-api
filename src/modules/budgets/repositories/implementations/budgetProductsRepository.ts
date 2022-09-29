@@ -27,4 +27,13 @@ export default class BudgetProductsRepository
       .where('budget_id = :id', { id: budget_id })
       .execute();
   }
+
+  async update(id: string, product: IBudgetProducts): Promise<void> {
+    this.repository
+      .createQueryBuilder()
+      .update()
+      .set(product)
+      .where('budget_id = :id', { id })
+      .execute();
+  }
 }

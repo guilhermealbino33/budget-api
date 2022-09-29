@@ -100,7 +100,7 @@ export interface IBudget {
   delivery_value?: number;
   observations?: string;
   additional_items?: IBudgetAdditionalItems[];
-  closed: boolean;
+  closed?: boolean;
   total_value?: number;
   created_at?: Date;
   updated_at?: Date;

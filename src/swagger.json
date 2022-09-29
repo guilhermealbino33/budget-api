@@ -28,8 +28,8 @@
                   }
                 },
                 "example": {
-                  "email": "user_alt@email.com",
-                  "password": "1234"
+                  "email": "admin@email.com",
+                  "password": "admin"
                 }
               }
             }
@@ -601,6 +601,9 @@
         "properties": {
           "code": {
             "type": "string"
+          },
+          "products_ids": {
+            "type": "array"
           },
           "customer_id": {
             "type": "string"

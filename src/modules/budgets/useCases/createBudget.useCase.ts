@@ -79,8 +79,6 @@ export default class CreateBudgetUseCase {
 
     createdBudget.total_value = await calculateTotalValue(createdBudget);
 
-    console.log('createdBudget', createdBudget);
-
     await this.budgetsRepository.save(createdBudget);
   }
 }

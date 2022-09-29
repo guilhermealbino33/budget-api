@@ -25,7 +25,7 @@ import { IProductsImagesRepository } from '../../modules/products/repositories/I
 import ProductsImagesRepository from '../../modules/products/repositories/implementations/productsImagesRepository';
 import BudgetProductsRepository from '../../modules/budgets/repositories/implementations/budgetProductsRepository';
 import { IBudgetProductsRepository } from '../../modules/budgets/repositories/IBudgetProductsRepository';
-import { IBudgetAdditionalItemsRepository } from '../../modules/budgets/repositories/IBudgetAdditionalItemsRepository copy';
+import { IBudgetAdditionalItemsRepository } from '../../modules/budgets/repositories/IBudgetAdditionalItemsRepository';
 import BudgetAdditionalItemsRepository from '../../modules/budgets/repositories/implementations/budgetAdditionalItemsRepository';
 
 // Users

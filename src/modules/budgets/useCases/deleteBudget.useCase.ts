@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
-import { IBudgetAdditionalItemsRepository } from '../repositories/IBudgetAdditionalItemsRepository copy';
+import { IBudgetAdditionalItemsRepository } from '../repositories/IBudgetAdditionalItemsRepository';
 import { IBudgetProductsRepository } from '../repositories/IBudgetProductsRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 

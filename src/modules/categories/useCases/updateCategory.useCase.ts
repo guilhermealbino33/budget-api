@@ -26,9 +26,7 @@ export default class UpdateCategoryUseCase {
     }
 
     if (name) {
-      data = {
-        name,
-      };
+      data = { ...data, name };
     }
 
     if (description) {

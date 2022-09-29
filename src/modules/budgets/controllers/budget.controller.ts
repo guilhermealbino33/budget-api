@@ -4,7 +4,7 @@ import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
 import OpenCloseBudgetUseCase from '../useCases/openCloseBudget.useCase';
 import ShowBudgetsUseCase from '../useCases/showBudgets.useCase';
-// import UpdateBudgetUseCase from '../useCases/updateBudget.useCase';
+import UpdateBudgetUseCase from '../useCases/updateBudget.useCase';
 
 export async function createBudgetHandler(
   request: Request,
@@ -39,39 +39,37 @@ export async function createBudgetHandler(
   return response.status(201).json(budget);
 }
 
-// export async function updateBudgetHandler(
-//   request: Request,
-//   response: Response
-// ) {
-//   const { id } = request.params;
+export async function updateBudgetHandler(
+  request: Request,
+  response: Response
+) {
+  const { id } = request.params;
 
-//   const {
-//     code,
-//     customer_id,
-//     products_id,
-//     salesman_id,
-//     quantity,
-//     delivery_type,
-//     delivery_value,
-//     observations,
-//     additional_items_id,
-//   } = request.body;
+  const {
+    code,
+    customer_id,
+    products,
+    salesman_id,
+    delivery_type,
+    delivery_value,
+    observations,
+    additional_items,
+  } = request.body;
 
-//   const updateBudgetUseCase = container.resolve(UpdateBudgetUseCase);
-//   const budget = await updateBudgetUseCase.execute(id, {
-//     code,
-//     customer_id,
-//     products_id,
-//     salesman_id,
-//     quantity,
-//     delivery_type,
-//     delivery_value,
-//     observations,
-//     additional_items_id,
-//   });
+  const updateBudgetUseCase = container.resolve(UpdateBudgetUseCase);
+  const budget = await updateBudgetUseCase.execute(id, {
+    code,
+    customer_id,
+    products,
+    salesman_id,
+    delivery_type,
+    delivery_value,
+    observations,
+    additional_items,
+  });
 
-//   return response.status(200).json(budget);
-// }
+  return response.status(200).json(budget);
+}
 
 export async function deleteBudgetHandler(
   request: Request,

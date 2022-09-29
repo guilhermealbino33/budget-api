@@ -2,13 +2,15 @@ import { Budget } from '../../../entities/budget';
 
 export async function calculateTotalValue(budget: Budget): Promise<number> {
   const sum = [];
-  const productsValue = budget.products.map((product) => product.total_price);
+  const productsValue = budget.products.map((product) =>
+    Number(product.total_price)
+  );
 
   sum.push(...productsValue);
 
   if (budget.additional_items) {
     const additionalItemsValue = budget.additional_items.map(
-      (additional_item) => additional_item.total_price
+      (additional_item) => Number(additional_item.total_price)
     );
     sum.push(...additionalItemsValue);
   }
@@ -25,5 +27,5 @@ export function calculateProductTotalPrice(
   quantity: number,
   discount = 0
 ): number {
-  return unit_price * quantity - discount;
+  return Number(unit_price) * Number(quantity) - Number(discount);
 }
