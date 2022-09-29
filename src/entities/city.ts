@@ -9,7 +9,7 @@ export class City {
   @Column()
   name: string;
 
-  @ManyToOne(() => State)
+  @ManyToOne(() => State, (state) => state.cities)
   @JoinColumn({ name: 'state_code' })
   state: State;
 

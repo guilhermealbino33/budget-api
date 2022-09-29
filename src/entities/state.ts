@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { City } from './city';
 
 @Entity('states')
 export class State {
@@ -10,6 +11,12 @@ export class State {
 
   @Column()
   uf: string;
+
+  @OneToMany(() => City, (city) => city.state, {
+    cascade: true,
+    eager: true,
+  })
+  cities: City[];
 }
 
 export interface IState {
