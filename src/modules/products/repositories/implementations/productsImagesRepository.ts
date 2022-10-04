@@ -12,11 +12,8 @@ export default class ProductsImagesRepository
     this.repository = AppDataSource.getRepository(ProductImage);
   }
 
-  async create(product_id: string, image_name: string): Promise<ProductImage> {
-    const productImage = this.repository.create({
-      product_id,
-      image_name,
-    });
+  async create(product_id: string, img_url: string): Promise<ProductImage> {
+    const productImage = this.repository.create({ product_id, img_url });
 
     await this.repository.save(productImage);
 

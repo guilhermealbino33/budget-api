@@ -27,8 +27,23 @@ export default class UploadProductImageUseCase {
     }
 
     imagesName.map(async (image) => {
-      await this.productsImagesRepository.create(id, image);
       await this.storageProvider.save(image, 'products');
+
+      switch (process.env.disk) {
+        case 'local':
+          return `${
+            process.env.APP_API_URL
+          }/product/${this.productsImagesRepository.create(id, image)}`;
+
+        case 's3':
+          return this.productsImagesRepository.create(
+            id,
+            `${process.env.AWS_BUCKET_URL}/products/${image}`
+          );
+
+        default:
+          return null;
+      }
     });
   }
 }

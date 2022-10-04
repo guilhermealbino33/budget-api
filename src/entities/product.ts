@@ -12,6 +12,7 @@ import { v4 as uuid } from 'uuid';
 import { Budget } from './budget';
 import { BudgetProducts } from './budgetProducts';
 import { Category } from './category';
+import { ProductImage } from './productImage';
 
 @Entity('products')
 export class Product {
@@ -42,6 +43,13 @@ export class Product {
     eager: true,
   })
   budgets: Budget[];
+
+  @OneToMany(() => ProductImage, (productImage) => productImage.product, {
+    cascade: true,
+    eager: true,
+    nullable: true,
+  })
+  images: ProductImage[];
 
   @CreateDateColumn()
   created_at: Date;

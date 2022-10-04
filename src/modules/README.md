@@ -1,11 +1,15 @@
 ## Fazer
 
-[] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
-[] - passar a usar as interfaces IUpdate nas rotas de update
+_Products_
 [] - CreateProduct - Criação de produto com imagem https://www.youtube.com/watch?v=srPXMt1Q0nY
 [] - Adicionar imagem ao produto deve ser separado do criar produto
 [] - deleteImage route
+_Budgets_
+[] - Verificar se a relação está correta
+[] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
+[] - passar a usar as interfaces IUpdate nas rotas de update
 [] - Salvar como pdf
+
 [] - Swagger
 
 ## Testar
