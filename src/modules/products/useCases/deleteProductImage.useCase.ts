@@ -2,13 +2,10 @@ import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../shared/errors/AppError';
 import { IStorageProvider } from '../../../shared/providers/StorageProvider/IStorageProvider';
 import { IProductsImagesRepository } from '../repositories/IProductsImagesRepository';
-import { IProductsRepository } from '../repositories/IProductsRepository';
 
 @injectable()
 export default class DeleteProductImageUseCase {
   constructor(
-    @inject('ProductsRepository')
-    private productsRepository: IProductsRepository,
     @inject('ProductsImagesRepository')
     private productsImagesRepository: IProductsImagesRepository,
     @inject('StorageProvider')
