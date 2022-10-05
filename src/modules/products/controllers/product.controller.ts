@@ -92,15 +92,12 @@ export async function deleteProductImageHandler(
   response: Response
 ) {
   const { id } = request.params;
-  const imgs = request.files as IFiles[];
 
   const deleteProductImageUseCase = container.resolve(
     DeleteProductImageUseCase
   );
 
-  const imagesNames = imgs.map((file) => file.filename);
-
-  await deleteProductImageUseCase.execute(id, imagesNames);
+  await deleteProductImageUseCase.execute(id);
 
   return response.status(200).send();
 }

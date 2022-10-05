@@ -33,11 +33,16 @@ export default class UploadProductImageUseCase {
         case 'local':
           return `${
             process.env.APP_API_URL
-          }/product/${this.productsImagesRepository.create(id, image)}`;
+          }/product/${this.productsImagesRepository.create(
+            id,
+            image,
+            `local: ${image}`
+          )}`;
 
         case 's3':
           return this.productsImagesRepository.create(
             id,
+            image,
             `${process.env.AWS_BUCKET_URL}/products/${image}`
           );
 

@@ -21,6 +21,9 @@ class ProductImage {
   product_id: string;
 
   @Column()
+  file_name: string;
+
+  @Column()
   img_url: string;
 
   @CreateDateColumn()

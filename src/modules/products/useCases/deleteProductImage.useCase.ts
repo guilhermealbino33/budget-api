@@ -15,20 +15,18 @@ export default class DeleteProductImageUseCase {
     private storageProvider: IStorageProvider
   ) {}
 
-  async execute(id: string, imagesName: string[]) {
+  async execute(id: string) {
     if (!id) {
-      throw new AppError('Product id must be informed!', 400);
+      throw new AppError('Product image id must be informed!', 400);
     }
 
-    const product = await this.productsRepository.findById(id);
+    const productImage = await this.productsImagesRepository.findById(id);
 
-    if (!product) {
-      throw new AppError('Product not found!', 404);
+    if (!productImage) {
+      throw new AppError('Product image not found!', 404);
     }
 
-    imagesName.map(async (image) => {
-      await this.productsImagesRepository.create(id, image);
-      await this.storageProvider.delete(image, 'products');
-    });
+    await this.productsImagesRepository.delete(id);
+    await this.storageProvider.delete(productImage.file_name, 'products');
   }
 }

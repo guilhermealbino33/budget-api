@@ -1,11 +1,6 @@
 ## Fazer
 
-_Products_
-[] - CreateProduct - Criação de produto com imagem https://www.youtube.com/watch?v=srPXMt1Q0nY
-[] - Adicionar imagem ao produto deve ser separado do criar produto
-[] - deleteImage route
-_Budgets_
-[] - Verificar se a relação está correta
+**Budgets**
 [] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
 [] - passar a usar as interfaces IUpdate nas rotas de update
 [] - Salvar como pdf
@@ -14,6 +9,7 @@ _Budgets_
 
 ## Testar
 
+[] - teste - delete images (ver se deleta no aws e no repositorio)
 [] - teste - updateAdditionalItem
 [] - teste - delete budget
 
@@ -59,6 +55,16 @@ _Budgets_
 [x] - updates Verificar a questão da tipagem (se está certo usar interface)
 [x] - show budget com todas as informações
 [x] - Relacionar cidades e estados de forma que estados tenham um aray de cidades, que possam ser listadas quando um estado for selecionado
+[x] - Verificar se a relação está correta - budgets
+
+## Products
+
+- Haverá uma propriedade images do tipo array de
+- Na rota uploadImages ele fará o upload com o S3 e chamará o repositório de products salvando a alteração.
+
+[x] - Products deverá possuir um campo images: string []
+[x] - A rota de criação de imagem salvará o link da imagem no objeto do produto
+[x] - O S3 deverá excluir a imagem do tmp depois de subi-la para o AWS
 
 **Address**
 [x] - Cidades e estados, será rodado um script ou pegar da api do IBGE?
