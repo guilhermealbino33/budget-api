@@ -2,14 +2,11 @@
 
 **Budgets**
 [] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
-[] - passar a usar as interfaces IUpdate nas rotas de update
 [] - Salvar como pdf
-
 [] - Swagger
 
 ## Testar
 
-[] - teste - delete images (ver se deleta no aws e no repositorio)
 [] - teste - updateAdditionalItem
 [] - teste - delete budget
 
@@ -56,6 +53,7 @@
 [x] - show budget com todas as informações
 [x] - Relacionar cidades e estados de forma que estados tenham um aray de cidades, que possam ser listadas quando um estado for selecionado
 [x] - Verificar se a relação está correta - budgets
+[x] - teste - delete images (ver se deleta no aws e no repositorio)
 
 ## Products
 
