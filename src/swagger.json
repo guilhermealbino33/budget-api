@@ -300,6 +300,128 @@
             "description": "Product not found!"
           }
         }
+      },
+      "delete": {
+        "tags": ["Product"],
+        "summary": "Delete a product image",
+        "description": "Delete product images",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Image ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Image not found!"
+          }
+        }
+      }
+    },
+    "/additional-items": {
+      "post": {
+        "tags": ["Additional-Item"],
+        "summary": "Create a additional item",
+        "description": "Create a new additional item",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdditionalItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Additional item already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Additional-Item"],
+        "summary": "List all additional items",
+        "description": "List all additional items",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/additional-items/{id}": {
+      "patch": {
+        "tags": ["Additional-Item"],
+        "summary": "Update an additional item",
+        "description": "Update an additional item by id",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Additional item ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/AdditionalItem"
+                  }
+                },
+                "example": {
+                  "name": "Altered Additional Item"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     },
     "/customers": {
@@ -529,6 +651,106 @@
           }
         }
       }
+    },
+    "/budgets": {
+      "post": {
+        "tags": ["Budget"],
+        "summary": "Create a budget",
+        "description": "Create a new budget",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Budget"
+              },
+              "example": {
+                "code": "0005",
+                "customer_id": "6839ef59-1ac5-45dc-b0fe-f188eeb40252",
+                "salesman_id": "f912ba6e-2b1d-4ddf-8a85-ad7c17a6d090",
+                "delivery_type": "",
+                "delivery_value": 150,
+                "products": [
+                  {
+                    "product_id": "6f1fc144-8d9c-40cd-bdb0-b48de8ffa344",
+                    "quantity": 2,
+                    "unit_price": 200
+                  }
+                ],
+                "additional_items": [
+                  {
+                    "additional_item_id": "044f4ee7-fbde-48e3-8e2d-13c112aae4d6",
+                    "quantity": 1,
+                    "unit_price": 200
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Budget already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Budget"],
+        "summary": "List all budgets",
+        "description": "List all budgets",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/budgets/open-close/{id}": {
+      "patch": {
+        "tags": ["Budget"],
+        "summary": "Set budget open or closed",
+        "description": "Open or close a budget. If it is opened, will close. It closed, will open.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Budget ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -552,8 +774,22 @@
           "code": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
+          "size": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "AdditionalItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           },
           "size": {
             "type": "string"
@@ -602,16 +838,16 @@
           "code": {
             "type": "string"
           },
-          "products_ids": {
+          "products": {
+            "type": "array"
+          },
+          "additional_items": {
             "type": "array"
           },
           "customer_id": {
             "type": "string"
           },
           "salesman_id": {
-            "type": "string"
-          },
-          "quantity": {
             "type": "string"
           },
           "delivery_type": {

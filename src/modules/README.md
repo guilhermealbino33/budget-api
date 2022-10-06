@@ -2,7 +2,7 @@
 
 **Budgets**
 [] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
-[] - Salvar como pdf
+[] - Salvar como pdf: -https://medium.com/swlh/generating-pdf-from-html-and-data-json-using-node-js-express-js-handlebars-and-puppeteer-b4a376a98abd
 [] - Swagger
 
 ## Testar
@@ -14,6 +14,7 @@
 
 **Products**
 [] - Validar criação de imagem
+[] - Validar deleção de imagem
 
 ## Observações
 
