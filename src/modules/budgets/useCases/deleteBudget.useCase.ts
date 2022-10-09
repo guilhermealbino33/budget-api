@@ -29,13 +29,17 @@ export default class DeleteBudgetUseCase {
     }
 
     if (budgetToDelete.closed) {
-      throw new AppError('A closed budget can not be deleted!', 404);
+      throw new AppError('A closed budget can not be deleted!', 400);
     }
 
-    await this.budgetProductsRepository.delete(budgetId);
+    for (const product of budgetToDelete.products) {
+      await this.budgetProductsRepository.delete(product.id);
+    }
 
     if (budgetToDelete.additional_items.length) {
-      await this.budgetAdditionalItemsRepository.delete(budgetId);
+      for (const additional_item of budgetToDelete.additional_items) {
+        await this.budgetAdditionalItemsRepository.delete(additional_item.id);
+      }
     }
 
     await this.budgetsRepository.delete(budgetId);

@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Budget API Documentation",
-    "description": "This is an Budget API. You'll need to create a session before run the tests.",
+    "description": "This is an Budget API. You'll need to create a session before run the endpoints.",
     "version": "1.0.0",
     "contact": {
       "email": "guilhermealbino33@gmail.com.br"
@@ -726,6 +726,60 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/budgets/{id}": {
+      "patch": {
+        "tags": ["Budget"],
+        "summary": "Update a budget",
+        "description": "Update a budget.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Budget ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "A closed budget can not be updated!"
+          },
+          "404": {
+            "description": "Budget not found!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Budget"],
+        "summary": "Delete a budget",
+        "description": "Delete an open budget.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Budget ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "A closed budget can not be deleted!"
+          },
+          "404": {
+            "description": "Budget not found!"
           }
         }
       }

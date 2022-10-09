@@ -79,7 +79,7 @@ export async function deleteBudgetHandler(
   const deleteBudgetUseCase = container.resolve(DeleteBudgetUseCase);
   await deleteBudgetUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function openCloseBudgetHandler(
@@ -102,11 +102,6 @@ export async function showBudgetHandler(request: Request, response: Response) {
 }
 
 // export async function convertToPdfHandler(
-//   request: Request,
-//   response: Response
-// ) {}
-
-// export async function closeBudgetHandler(
 //   request: Request,
 //   response: Response
 // ) {}

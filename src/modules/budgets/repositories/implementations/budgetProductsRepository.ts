@@ -20,11 +20,11 @@ export default class BudgetProductsRepository
     this.repository.save(budgetProductsToCreate);
   }
 
-  async delete(budget_id: string): Promise<void> {
+  async delete(budget_product_id: string): Promise<void> {
     this.repository
       .createQueryBuilder()
       .delete()
-      .where('budget_id = :id', { id: budget_id })
+      .where('id = :id', { id: budget_product_id })
       .execute();
   }
 

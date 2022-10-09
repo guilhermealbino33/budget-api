@@ -5,7 +5,7 @@ import {
 
 export interface IBudgetAdditionalItemsRepository {
   create(budgetProduct: IBudgetAdditionalItems): Promise<void>;
-  delete(budget_id: string): Promise<void>;
+  delete(budget_additional_item_id: string): Promise<void>;
   update(id: string, item: IBudgetAdditionalItems): Promise<void>;
   findByBudgetAndItemId(
     budget_id: string,
