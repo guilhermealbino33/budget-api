@@ -11,6 +11,8 @@ export default class ShowUserProfileUseCase {
   ) {}
 
   async execute(userId?: string) {
+    const usersDto = [];
+
     if (userId) {
       if (!isValidId(userId)) {
         throw new AppError('Invalid id!', 400);
@@ -31,6 +33,10 @@ export default class ShowUserProfileUseCase {
       throw new AppError('No users found!', 404);
     }
 
-    return users;
+    for (const user of users) {
+      usersDto.push(ProfileMap.toDTO(user));
+    }
+
+    return usersDto;
   }
 }
