@@ -3,23 +3,20 @@ import { inject, injectable } from 'tsyringe';
 import { Budget, IBudget } from '../../../entities/budget';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
-import { IBudgetAdditionalItemsRepository } from '../repositories/IBudgetAdditionalItemsRepository';
-import { IBudgetProductsRepository } from '../repositories/IBudgetProductsRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
-import {
-  calculateProductTotalPrice,
-  calculateTotalValue,
-} from '../services/calculateTotalValue';
+import { calculateTotalValue } from '../utils/calculateTotalValue';
+import { IUpdateBudgetAdditionalItemsService } from '../services/IUpdateBudgetAdditionalItemsService';
+import { IUpdateBudgetProductsService } from '../services/IUpdateBudgetProductsService';
 
 @injectable()
 export default class UpdateBudgetUseCase {
   constructor(
     @inject('BudgetsRepository')
     private budgetsRepository: IBudgetsRepository,
-    @inject('BudgetProductsRepository')
-    private budgetProductsRepository: IBudgetProductsRepository,
-    @inject('BudgetAdditionalItemsRepository')
-    private budgetAdditionalItemsRepository: IBudgetAdditionalItemsRepository
+    @inject('UpdateBudgetProductsService')
+    private updateBudgetProductsService: IUpdateBudgetProductsService,
+    @inject('UpdateBudgetAdditionalItemsService')
+    private updateBudgetAdditionalItemsService: IUpdateBudgetAdditionalItemsService
   ) {}
 
   async execute(
@@ -65,15 +62,7 @@ export default class UpdateBudgetUseCase {
     }
 
     if (products) {
-      for (const product of products) {
-        product.total_price = calculateProductTotalPrice(
-          product.unit_price,
-          product.quantity,
-          product.discount
-        );
-
-        await this.budgetProductsRepository.update(id, product);
-      }
+      await this.updateBudgetProductsService.execute(products, budgetToUpdate);
     }
 
     if (salesman_id) {
@@ -93,25 +82,10 @@ export default class UpdateBudgetUseCase {
     }
 
     if (additional_items) {
-      for (const item of additional_items) {
-        item.total_price = calculateProductTotalPrice(
-          item.unit_price,
-          item.quantity,
-          item.discount
-        );
-
-        const itemAlreadyInBudget =
-          this.budgetAdditionalItemsRepository.findByBudgetAndItemId(
-            id,
-            item.id
-          );
-
-        if (itemAlreadyInBudget) {
-          await this.budgetAdditionalItemsRepository.update(id, item);
-        } else {
-          await this.budgetAdditionalItemsRepository.create(item);
-        }
-      }
+      await this.updateBudgetAdditionalItemsService.execute(
+        additional_items,
+        budgetToUpdate
+      );
     }
 
     if (products || additional_items || delivery_value) {

@@ -7,7 +7,7 @@ import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 import {
   calculateProductTotalPrice,
   calculateTotalValue,
-} from '../services/calculateTotalValue';
+} from '../utils/calculateTotalValue';
 
 @injectable()
 export default class CreateBudgetUseCase {

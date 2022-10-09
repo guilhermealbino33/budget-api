@@ -27,6 +27,10 @@ import BudgetProductsRepository from '../../modules/budgets/repositories/impleme
 import { IBudgetProductsRepository } from '../../modules/budgets/repositories/IBudgetProductsRepository';
 import { IBudgetAdditionalItemsRepository } from '../../modules/budgets/repositories/IBudgetAdditionalItemsRepository';
 import BudgetAdditionalItemsRepository from '../../modules/budgets/repositories/implementations/budgetAdditionalItemsRepository';
+import { UpdateBudgetAdditionalItemsService } from '../../modules/budgets/services/implementations/updateBudgetAdditionalItems.service';
+import { IUpdateBudgetAdditionalItemsService } from '../../modules/budgets/services/IUpdateBudgetAdditionalItemsService';
+import { IUpdateBudgetProductsService } from '../../modules/budgets/services/IUpdateBudgetProductsService';
+import { UpdateBudgetProductsService } from '../../modules/budgets/services/implementations/updateBudgetProducts.service';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -76,6 +80,14 @@ container.registerSingleton<IBudgetProductsRepository>(
 container.registerSingleton<IBudgetAdditionalItemsRepository>(
   'BudgetAdditionalItemsRepository',
   BudgetAdditionalItemsRepository
+);
+container.registerSingleton<IUpdateBudgetAdditionalItemsService>(
+  'UpdateBudgetAdditionalItemsService',
+  UpdateBudgetAdditionalItemsService
+);
+container.registerSingleton<IUpdateBudgetProductsService>(
+  'UpdateBudgetProductsService',
+  UpdateBudgetProductsService
 );
 
 // AdditionalItems
