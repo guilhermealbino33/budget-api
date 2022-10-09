@@ -29,7 +29,7 @@ export default class CreateSessionUserUseCase {
     private usersTokensRepository: IUsersTokensRepository,
     @inject('DayJsDateProvider') private dateProvider: IDateProvider
   ) {}
-  // TODO convert execute em service
+
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
     const {
