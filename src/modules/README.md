@@ -1,14 +1,10 @@
 ## Fazer
 
 **Budgets**
-[] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
 [] - Salvar como pdf: -https://medium.com/swlh/generating-pdf-from-html-and-data-json-using-node-js-express-js-handlebars-and-puppeteer-b4a376a98abd
 [] - Swagger
 
 ## Testar
-
-[] - teste - updateAdditionalItem
-[] - teste - delete budget
 
 ## Duvidas
 
@@ -55,6 +51,10 @@
 [x] - Relacionar cidades e estados de forma que estados tenham um aray de cidades, que possam ser listadas quando um estado for selecionado
 [x] - Verificar se a relação está correta - budgets
 [x] - teste - delete images (ver se deleta no aws e no repositorio)
+[x] - teste - delete budget
+[x] - list all users. Tirar o password da view
+[x] - teste - updateAdditionalItem
+[x] - Metodo updateBudgetUseCase: Está realizando o update, porém não está incluindo produtos novos, por exemplo. Está sempre substituindo (olhar como está fazendo no additional_items)
 
 ## Products
 
