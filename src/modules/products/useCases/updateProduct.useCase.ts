@@ -40,7 +40,7 @@ export default class UpdateProductUseCase {
     }
 
     if (code) {
-      data = { ...data, code };
+      throw new AppError('Product code can not be changed!', 400);
     }
 
     if (description) {

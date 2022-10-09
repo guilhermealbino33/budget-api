@@ -34,7 +34,7 @@ export default class UpdateAdditionalItemUseCase {
     }
 
     if (code) {
-      data = { ...data, code };
+      throw new AppError('Additional item code can not be changed!', 400);
     }
 
     if (description) {

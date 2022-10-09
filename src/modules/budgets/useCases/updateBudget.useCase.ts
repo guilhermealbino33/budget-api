@@ -50,7 +50,7 @@ export default class UpdateBudgetUseCase {
     }
 
     if (code) {
-      data = { ...data, code };
+      throw new AppError('Budget code can not be changed!', 400);
     }
 
     if (customer_id) {
