@@ -10,7 +10,7 @@ import swagger from './swagger.json';
 
 AppDataSource.initialize().then(() => {
   const corsOptions: cors.CorsOptions = {
-    exposedHeaders: 'x-access-token',
+    allowedHeaders: 'Access-Control-Allow-Origin: *',
   };
   const app = express();
   app.use(express.json());
