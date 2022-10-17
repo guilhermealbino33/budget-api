@@ -9,3 +9,7 @@ docker-compose up
 
 yarn migration:generate
 yarn migration:run
+
+## Documentation
+
+http://localhost:3033/api-docs/
