@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { AppDataSource } from './data-source';
 import { router } from './routes';
@@ -8,9 +9,14 @@ import { AppError } from './shared/errors/AppError';
 import swagger from './swagger.json';
 
 AppDataSource.initialize().then(() => {
+  const corsOptions: cors.CorsOptions = {
+    exposedHeaders: 'x-access-token',
+  };
   const app = express();
   app.use(express.json());
   app.use(router);
+
+  app.use(cors(corsOptions));
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swagger));
   app.use(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
