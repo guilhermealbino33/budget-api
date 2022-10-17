@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import ConvertToPdfUseCase from '../useCases/convertToPdf.useCase';
 import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
 import OpenCloseBudgetUseCase from '../useCases/openCloseBudget.useCase';
@@ -101,7 +102,13 @@ export async function showBudgetHandler(request: Request, response: Response) {
   return response.status(200).json(budgets);
 }
 
-// export async function convertToPdfHandler(
-//   request: Request,
-//   response: Response
-// ) {}
+export async function convertToPdfHandler(
+  request: Request,
+  response: Response
+) {
+  const { id } = request.params;
+  const convertToPdfUseCase = container.resolve(ConvertToPdfUseCase);
+  await convertToPdfUseCase.execute(id);
+
+  return response.status(200).send();
+}

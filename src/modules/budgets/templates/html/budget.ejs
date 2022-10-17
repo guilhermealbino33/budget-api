@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="budget.css">
+</head>
+<body>
+
+<header>
+<div> 
+    <img width="180" height="80"src="https://www.fortbrinq.com.br/img/logo.png" title="logo" class="logo">
+</div>    
+<div class="info-store"> 
+    <p>Tel: (48) 3646-6651</p>
+    <p>contato@fortbrinq.com.br</p>
+    <p>Whats: 48 9 9674 8879</p>
+    <p>BR 101 km 323</p>
+    <p>Estiva - Pescaria Brava - SC CEP: 88790-000.</p>
+</div>    
+</header>
+
+<br>
+
+<div title="info-customer">    
+    <p>Cliente: <%= customer.name %></p>
+    <p>CNPJ: <%=customer.cnpj%> </p>
+    <p>Município: <%=customer.city%> - <%=customer.state%></p>
+    <p>E-mail: <%=customer.email%></p>
+</div>    
+
+<div title="info-budget">    
+<table style="border:1px solid black">  <tr>
+    <th>Código</th>
+    <th>Produto</th>
+    <th>Tamanho</th>
+    <th>Quantidade</th>
+    <th>Valor Unitário</th>
+    <th>Valor Total</th>
+  </tr>
+    <td><%=budget.code%></td>
+    <td><%=budget.product.name%></td>
+    <td><%=budget.product.size%></td>
+    <td><%=budget.product.quantity%></td>
+    <td><%=budget.product.unity_price%></td>
+    <td><%=budget.product.total_price%></td>
+  <tr>
+  </tr>
+  </table>
+</div>
+
+</p>Valor total do orçamento: <b><%=budget.total_value%></b></p>
+
+</body>
+</html>
+

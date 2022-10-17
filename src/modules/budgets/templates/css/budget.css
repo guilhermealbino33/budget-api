@@ -1,0 +1,28 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  
+  .logo {
+  align-items: center;
+  }
+  
+  header {
+  font-size: 15px;
+  line-height: 0.2;
+  -webkit-column-count:2; /* Chrome, Safari, Opera */
+  -moz-column-count:2;    /* Firefox */
+  column-count:2;         /* standard */
+  margin-top: 20px;
+  }
