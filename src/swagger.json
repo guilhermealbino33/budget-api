@@ -41,9 +41,6 @@
           },
           "400": {
             "description": "Bad request"
-          },
-          "409": {
-            "description": "Not found"
           }
         }
       },
