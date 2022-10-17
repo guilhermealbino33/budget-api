@@ -39,8 +39,11 @@
           "201": {
             "description": "Created"
           },
-          "400": {
+          "500": {
             "description": "Bad request"
+          },
+          "400": {
+            "description": "User already exists"
           }
         }
       },
