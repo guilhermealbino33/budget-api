@@ -9,13 +9,6 @@ import { AppError } from './shared/errors/AppError';
 import swagger from './swagger.json';
 
 AppDataSource.initialize().then(() => {
-  // const corsOptions = {
-  //   origin: '*',
-  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  //   preflightContinue: false,
-  //   optionsSuccessStatus: 204,
-  // };
-
   const app = express();
   app.use(express.json());
   app.use(cors());
