@@ -80,6 +80,66 @@
         }
       }
     },
+    "/users/{id}": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update a user",
+        "description": "Update a user by id",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Altered user"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "User not found!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete a user",
+        "description": "Delete a user.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "User not found!"
+          }
+        }
+      }
+    },
     "/sessions": {
       "post": {
         "tags": ["Session"],
@@ -229,6 +289,29 @@
             "description": "Success"
           }
         }
+      },
+      "delete": {
+        "tags": ["Category"],
+        "summary": "Delete a category",
+        "description": "Delete a category.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Category ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Category not found!"
+          }
+        }
       }
     },
     "/products": {
@@ -323,6 +406,29 @@
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Product"],
+        "summary": "Delete a product",
+        "description": "Delete a product.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Product ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Category not found!"
           }
         }
       }
@@ -493,6 +599,29 @@
             "description": "Success"
           }
         }
+      },
+      "delete": {
+        "tags": ["Additional-Item"],
+        "summary": "Delete an Additional item",
+        "description": "Delete an additional item.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Additional item ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Additional item not found!"
+          }
+        }
       }
     },
     "/customers": {
@@ -607,6 +736,29 @@
             "description": "Success"
           }
         }
+      },
+      "delete": {
+        "tags": ["Customer"],
+        "summary": "Delete a customer",
+        "description": "Delete a Customer.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Customer ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Customer not found!"
+          }
+        }
       }
     },
     "/salesmen": {
@@ -719,6 +871,29 @@
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Salesman"],
+        "summary": "Delete a salesman",
+        "description": "Delete a Salesman.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Salesman ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Salesman not found!"
           }
         }
       }
