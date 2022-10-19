@@ -32,6 +32,9 @@ export class Product {
   @Column()
   code: string;
 
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
+  list_price: number;
+
   @Column({ nullable: true })
   size?: string;
 
@@ -68,6 +71,7 @@ export interface IProduct {
   id?: string;
   name?: string;
   code?: string;
+  list_price?: number;
   category_id?: string;
   category?: Category;
   size?: string;

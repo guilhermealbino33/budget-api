@@ -1221,6 +1221,9 @@
           "code": {
             "type": "string"
           },
+          "list_price": {
+            "type": "number"
+          },
           "size": {
             "type": "string"
           },

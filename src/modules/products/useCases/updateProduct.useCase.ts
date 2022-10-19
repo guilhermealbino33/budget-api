@@ -1,16 +1,9 @@
 /* eslint-disable no-unneeded-ternary */
 import { inject, injectable } from 'tsyringe';
+import { IProduct } from '../../../entities/product';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IProductsRepository } from '../repositories/IProductsRepository';
-
-interface UpdateProductRequest {
-  name?: string;
-  code?: string;
-  category_id?: string;
-  size?: string;
-  description?: string;
-}
 
 @injectable()
 export default class UpdateProductUseCase {
@@ -21,7 +14,7 @@ export default class UpdateProductUseCase {
 
   async execute(
     id: string,
-    { name, code, category_id, description, size }: UpdateProductRequest
+    { name, code, list_price, category_id, description, size }: IProduct
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid product id!', 400);
@@ -41,6 +34,10 @@ export default class UpdateProductUseCase {
 
     if (code) {
       throw new AppError('Product code can not be changed!', 400);
+    }
+
+    if (list_price) {
+      data = { ...data, list_price };
     }
 
     if (description) {
