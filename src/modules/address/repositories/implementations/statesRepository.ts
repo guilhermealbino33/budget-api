@@ -19,4 +19,8 @@ export default class StatesRepository implements IStatesRepository {
       ],
     });
   }
+
+  async list(): Promise<State[]> {
+    return this.repository.find();
+  }
 }

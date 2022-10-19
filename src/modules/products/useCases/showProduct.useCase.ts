@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import logging from '../../../shared/config/logging';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IProductsRepository } from '../repositories/IProductsRepository';
@@ -28,7 +29,7 @@ export default class ShowProductUseCase {
     const products = await this.productsRepository.list();
 
     if (!products.length) {
-      throw new AppError('No products found!', 404);
+      logging.debug('No products found!');
     }
 
     return products;

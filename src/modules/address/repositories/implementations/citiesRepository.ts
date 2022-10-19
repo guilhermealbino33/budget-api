@@ -30,4 +30,18 @@ export default class CitiesRepository implements ICitiesRepository {
       ],
     });
   }
+
+  async list(): Promise<City[]> {
+    return this.repository.find();
+  }
+
+  async listByStateCode(state_code: string): Promise<City[]> {
+    return this.repository.find({
+      where: [
+        {
+          state_code,
+        },
+      ],
+    });
+  }
 }

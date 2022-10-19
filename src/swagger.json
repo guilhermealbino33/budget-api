@@ -179,6 +179,139 @@
         }
       }
     },
+    "/cities/": {
+      "get": {
+        "tags": ["City"],
+        "summary": "List all cities",
+        "description": "List all cities",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cities/{code}": {
+      "get": {
+        "tags": ["City"],
+        "summary": "Get city by code",
+        "description": "Get city by code",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "code",
+            "in": "path",
+            "description": "City code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cities/by-state/{state_code}": {
+      "get": {
+        "tags": ["City"],
+        "summary": "List cities by state code",
+        "description": "List cities by state code",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "state_code",
+            "in": "path",
+            "description": "State code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/states/": {
+      "get": {
+        "tags": ["State"],
+        "summary": "List all states",
+        "description": "List all states",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/states/{code}": {
+      "get": {
+        "tags": ["State"],
+        "summary": "Get state by code",
+        "description": "Get state by code",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "code",
+            "in": "path",
+            "description": "State code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": ["Category"],
