@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
-import { State } from './state';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('cities')
 export class City {
@@ -9,10 +8,6 @@ export class City {
   @Column()
   name: string;
 
-  @ManyToOne(() => State, (state) => state.cities)
-  @JoinColumn({ name: 'state_code' })
-  state: State;
-
   @Column()
   state_code: string;
 }
@@ -20,6 +15,5 @@ export class City {
 export interface ICity {
   code: string;
   name: string;
-  state: State;
   state_code: string;
 }
