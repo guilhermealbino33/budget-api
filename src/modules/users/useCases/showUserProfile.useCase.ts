@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import logging from '../../../shared/config/logging';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { ProfileMap } from '../mappers/profileMap';
@@ -30,7 +31,7 @@ export default class ShowUserProfileUseCase {
     const users = await this.usersRepository.list();
 
     if (!users.length) {
-      throw new AppError('No users found!', 404);
+      logging.debug('No users found!');
     }
 
     for (const user of users) {

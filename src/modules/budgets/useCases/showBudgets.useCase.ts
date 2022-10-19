@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import logging from '../../../shared/config/logging';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
@@ -28,7 +29,7 @@ export default class ShowBudgetUseCase {
     const budgets = await this.budgetsRepository.list();
 
     if (!budgets.length) {
-      throw new AppError('No budgets found!', 404);
+      logging.debug('No budgets found!');
     }
 
     return budgets;

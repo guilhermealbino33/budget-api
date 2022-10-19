@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../shared/errors/AppError';
+import logging from '../../../shared/config/logging';
 import { ICategoriesRepository } from '../repositories/ICategoriesRepository';
 
 @injectable()
@@ -13,7 +13,7 @@ export default class ListCategoriesUseCase {
     const category = await this.categoriesRepository.list();
 
     if (!category) {
-      throw new AppError('Category not found!', 404);
+      logging.debug('No categories found!');
     }
 
     return category;

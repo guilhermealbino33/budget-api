@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../shared/errors/AppError';
+import logging from '../../../shared/config/logging';
 import { ICustomersRepository } from '../repositories/ICustomersRepository';
 
 @injectable()
@@ -13,7 +13,7 @@ export default class ListCustomersUseCase {
     const customer = await this.customersRepository.list();
 
     if (!customer || !customer.length) {
-      throw new AppError('No customer found!', 404);
+      logging.debug('No customers found!');
     }
 
     return customer;

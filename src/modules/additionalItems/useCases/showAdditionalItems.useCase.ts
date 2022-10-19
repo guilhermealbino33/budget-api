@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import logging from '../../../shared/config/logging';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IAdditionalItemsRepository } from '../repositories/IAdditionalItemsRepository';
@@ -30,7 +31,7 @@ export default class ShowAdditionalItemUseCase {
     const additionalItems = await this.additionalItemsRepository.list();
 
     if (!additionalItems.length) {
-      throw new AppError('No additional items found!', 404);
+      logging.debug('No additional items found!');
     }
 
     return additionalItems;

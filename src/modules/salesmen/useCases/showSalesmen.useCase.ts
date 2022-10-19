@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../shared/errors/AppError';
+import logging from '../../../shared/config/logging';
 import { ISalesmenRepository } from '../repositories/ISalesmenRepository';
 
 @injectable()
@@ -12,8 +12,8 @@ export default class ShowSalesmenUseCase {
   async execute() {
     const salesman = await this.salesmenRepository.list();
 
-    if (!salesman || !salesman.length) {
-      throw new AppError('No salesman found!', 404);
+    if (!salesman.length) {
+      logging.debug('No salesman found!');
     }
 
     return salesman;
