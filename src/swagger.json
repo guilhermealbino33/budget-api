@@ -18,15 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
+                "$ref": "#/components/schemas/User",
                 "example": {
                   "email": "admin@email.com",
                   "password": "admin"
@@ -1209,6 +1201,23 @@
       }
     },
     "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "e-mail": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "password": {
+            "type": "number"
+          }
+        }
+      },
       "Product": {
         "type": "object",
         "properties": {
