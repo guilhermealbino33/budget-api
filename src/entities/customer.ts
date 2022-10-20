@@ -2,13 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { City, ICity } from './city';
+import { IState, State } from './state';
 
 @Entity('customers')
 export class Customer {
@@ -21,6 +21,12 @@ export class Customer {
   @Column()
   email: string;
 
+  @Column()
+  account_type: string;
+
+  @Column({ nullable: true })
+  requester?: string;
+
   @Column({ nullable: true })
   cpf?: string;
 
@@ -30,18 +36,26 @@ export class Customer {
   @Column({ nullable: true })
   ie?: string;
 
-  @ManyToOne(() => City)
-  @JoinColumn({ name: 'city_code' })
+  @ManyToOne(() => City, {
+    cascade: true,
+    eager: true,
+  })
   city: City;
 
-  @Column()
-  city_code: string;
+  @ManyToOne(() => State, {
+    cascade: true,
+    eager: true,
+  })
+  state: State;
 
   @Column()
-  state: string;
+  district: string;
 
   @Column()
   address: string;
+
+  @Column({ nullable: true })
+  complement: string;
 
   @Column()
   address_number: string;
@@ -54,9 +68,6 @@ export class Customer {
 
   @Column({ nullable: true })
   phone_number_2: string;
-
-  @Column({ nullable: true })
-  birthday: Date;
 
   @CreateDateColumn()
   created_at: Date;
@@ -75,18 +86,22 @@ export interface ICustomer {
   id?: string;
   name?: string;
   email?: string;
+  account_type?: string;
+  requester?: string;
   cpf?: string;
   cnpj?: string;
   ie?: string;
   city_code?: string;
   city?: ICity;
-  state?: string;
+  district?: string;
+  complement?: string;
+  state_code?: string;
+  state?: IState;
   address?: string;
   address_number?: string;
   cep?: string;
   phone_number_1?: string;
   phone_number_2?: string;
-  birthday?: Date;
   created_at?: Date;
   updated_at?: Date;
 }
