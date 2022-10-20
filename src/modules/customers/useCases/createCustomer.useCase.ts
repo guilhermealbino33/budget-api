@@ -33,7 +33,7 @@ export default class CreateCustomerUseCase {
 
     const state = await this.statesRepository.findByCode(city.state_code);
     customer.city = city;
-    customer.state = state.uf;
+    customer.state = state;
 
     await this.customersRepository.create(customer);
   }

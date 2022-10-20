@@ -94,7 +94,7 @@ export async function deleteSalesmanHandler(
   const deleteSalesmanUseCase = container.resolve(DeleteSalesmanUseCase);
   await deleteSalesmanUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function listSalesmenHandler(

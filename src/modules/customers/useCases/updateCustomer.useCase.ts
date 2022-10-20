@@ -27,13 +27,14 @@ export default class UpdateCustomerUseCase {
       cnpj,
       ie,
       city_code,
-      state,
       address,
       address_number,
       cep,
       phone_number_1,
       phone_number_2,
-      birthday,
+      account_type,
+      district,
+      complement,
     }: ICustomer
   ) {
     if (!isValidId(id)) {
@@ -57,7 +58,7 @@ export default class UpdateCustomerUseCase {
 
       const state = await this.statesRepository.findByCode(city.state_code);
       customerToUpdate.city = city;
-      customerToUpdate.state = state.uf;
+      customerToUpdate.state = state;
     }
 
     if (name) {
@@ -66,6 +67,10 @@ export default class UpdateCustomerUseCase {
 
     if (email) {
       data = { ...data, email };
+    }
+
+    if (account_type) {
+      data = { ...data, account_type };
     }
 
     if (cpf) {
@@ -82,10 +87,6 @@ export default class UpdateCustomerUseCase {
 
     if (city_code) {
       data = { ...data, city_code };
-    }
-
-    if (state) {
-      data = { ...data, state };
     }
 
     if (address) {
@@ -108,8 +109,12 @@ export default class UpdateCustomerUseCase {
       data = { ...data, phone_number_2 };
     }
 
-    if (birthday) {
-      data = { ...data, birthday };
+    if (district) {
+      data = { ...data, district };
+    }
+
+    if (complement) {
+      data = { ...data, complement };
     }
 
     return this.customersRepository.update(id, data);

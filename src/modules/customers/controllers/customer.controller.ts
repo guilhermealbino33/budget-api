@@ -16,13 +16,15 @@ export async function createCustomerHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   } = request.body;
   const createCustomerUseCase = container.resolve(CreateCustomerUseCase);
   const customer = await createCustomerUseCase.execute({
@@ -32,13 +34,15 @@ export async function createCustomerHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   });
 
   return response.sendStatus(201).json(customer);
@@ -57,13 +61,15 @@ export async function updateCustomerHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   } = request.body;
 
   const updateCustomerUseCase = container.resolve(UpdateCustomerUseCase);
@@ -74,13 +80,15 @@ export async function updateCustomerHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   });
 
   return response.status(200).json(customer);
@@ -94,7 +102,7 @@ export async function deleteCustomerHandler(
   const deleteCustomerUseCase = container.resolve(DeleteCustomerUseCase);
   await deleteCustomerUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function listCustomersHandler(

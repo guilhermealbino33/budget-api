@@ -41,7 +41,7 @@ export async function deleteCategoryHandler(
   const deleteCategoryUseCase = container.resolve(DeleteCategoryUseCase);
   await deleteCategoryUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function listCategoriesHandler(

@@ -61,7 +61,7 @@ export async function deleteProductHandler(
   const deleteProductUseCase = container.resolve(DeleteProductUseCase);
   await deleteProductUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function showProductHandler(request: Request, response: Response) {
