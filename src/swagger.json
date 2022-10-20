@@ -183,7 +183,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
+                  "$ref": "#/components/schemas/City",
                   "items": {
                     "type": "array"
                   }
@@ -215,6 +215,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/City",
                   "type": "array"
                 }
               }
@@ -244,6 +245,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/City",
                   "type": "array"
                 }
               }
@@ -264,6 +266,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/State",
                   "type": "array",
                   "items": {
                     "type": "array"
@@ -296,6 +299,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/State",
                   "type": "array"
                 }
               }
@@ -762,18 +766,20 @@
                 "type": "object",
                 "properties": {
                   "object": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Customer"
                   }
                 },
                 "example": {
-                  "name": "John Doe",
-                  "email": "john@email.com",
-                  "cpf": "00.000.000-00",
-                  "city_code": "4218707",
-                  "address": "Av. Marcolino Martins Cabral",
-                  "address_number": "111",
-                  "cep": "88.700-000",
-                  "phone_number_1": "3626-5555"
+                  "name": "example",
+                  "cpf": "000.000.000-00",
+                  "account_type": "Pessoa Física",
+                  "email": "example@email.com",
+                  "city_code": "1100049",
+                  "address": "Rua tal",
+                  "address_number": "1010",
+                  "district": "Centro",
+                  "cep": "88.75000",
+                  "phone_number_1": "48 9999-0000"
                 }
               }
             }
@@ -810,7 +816,7 @@
                     "type": "object",
                     "properties": {
                       "object": {
-                        "$ref": "#/components/schemas/Person"
+                        "$ref": "#/components/schemas/Customer"
                       }
                     }
                   }
@@ -846,7 +852,7 @@
                 "type": "object",
                 "properties": {
                   "object": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Customer"
                   }
                 },
                 "example": {
@@ -899,18 +905,20 @@
                 "type": "object",
                 "properties": {
                   "object": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Salesman"
                   }
                 },
                 "example": {
-                  "name": "John Sales",
-                  "email": "john_sales@email.com",
-                  "cpf": "88.999.000-00",
-                  "city_code": "4218707",
-                  "address": "Rua Marechal Teodoro",
-                  "address_number": "1000",
-                  "cep": "88.700-000",
-                  "phone_number_1": "3626-4444"
+                  "name": "Example Sales",
+                  "cpf": "111.000.000-00",
+                  "account_type": "Pessoa Física",
+                  "email": "example@email.com",
+                  "city_code": "1100049",
+                  "address": "Rua tal",
+                  "address_number": "1010",
+                  "district": "Centro",
+                  "cep": "88.75000",
+                  "phone_number_1": "48 9999-0000"
                 }
               }
             }
@@ -947,7 +955,7 @@
                     "type": "object",
                     "properties": {
                       "object": {
-                        "$ref": "#/components/schemas/Person"
+                        "$ref": "#/components/schemas/Salesman"
                       }
                     }
                   }
@@ -983,7 +991,7 @@
                 "type": "object",
                 "properties": {
                   "object": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Salesman"
                   }
                 },
                 "example": {
@@ -1218,6 +1226,34 @@
           }
         }
       },
+      "City": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "state_code": {
+            "type": "string"
+          }
+        }
+      },
+      "State": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          }
+        }
+      },
       "Product": {
         "type": "object",
         "properties": {
@@ -1258,9 +1294,9 @@
           }
         }
       },
-      "Person": {
+      "Customer": {
         "type": "object",
-        "description": "Used in Salesman and Customer",
+        "description": "Customer",
         "properties": {
           "name": {
             "type": "string"
@@ -1268,16 +1304,34 @@
           "email": {
             "type": "string"
           },
+          "account_type": {
+            "type": "string"
+          },
+          "requester": {
+            "type": "string"
+          },
           "cpf": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "ie": {
             "type": "string"
           },
           "city_code": {
             "type": "string"
           },
-          "state": {
+          "state_code": {
             "type": "string"
           },
           "address": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "complement": {
             "type": "string"
           },
           "address_number": {
@@ -1288,9 +1342,64 @@
           },
           "phone_number_1": {
             "type": "string"
+          },
+          "phone_number_2": {
+            "type": "string"
           }
         }
       },
+      "Salesman": {
+        "type": "object",
+        "description": "Salesman",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "account_type": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "ie": {
+            "type": "string"
+          },
+          "city_code": {
+            "type": "string"
+          },
+          "state_code": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "complement": {
+            "type": "string"
+          },
+          "address_number": {
+            "type": "string"
+          },
+          "cep": {
+            "type": "string"
+          },
+          "phone_number_1": {
+            "type": "string"
+          },
+          "phone_number_2": {
+            "type": "string"
+          }
+        }
+      },
+
       "Budget": {
         "type": "object",
         "properties": {
