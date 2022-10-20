@@ -1207,7 +1207,7 @@
           "name": {
             "type": "string"
           },
-          "e-mail": {
+          "email": {
             "type": "string"
           },
           "role": {
