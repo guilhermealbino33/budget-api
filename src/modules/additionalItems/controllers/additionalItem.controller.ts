@@ -55,7 +55,7 @@ export async function deleteAdditionalItemsHandler(
   );
   await deleteAdditionalItemsUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function showAdditionalItemsHandler(
