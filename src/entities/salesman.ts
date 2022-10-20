@@ -10,6 +10,11 @@ import {
 import { v4 as uuid } from 'uuid';
 import { City, ICity } from './city';
 
+enum AccountType {
+  PJ = 'Pessoa Jurídica',
+  PF = 'Pessoa Física',
+}
+
 @Entity('salesman')
 export class Salesman {
   @PrimaryGeneratedColumn('uuid')
@@ -20,6 +25,9 @@ export class Salesman {
 
   @Column()
   email: string;
+
+  @Column()
+  account_type: AccountType;
 
   @Column({ nullable: true })
   cpf?: string;
@@ -41,7 +49,13 @@ export class Salesman {
   state: string;
 
   @Column()
+  district: string;
+
+  @Column()
   address: string;
+
+  @Column()
+  complement: string;
 
   @Column()
   address_number: string;
