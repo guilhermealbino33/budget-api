@@ -15,6 +15,7 @@ export default class UserAdminSeeder implements Seeder {
     const user = {
       name: 'admin',
       password,
+      role: 'admin',
       is_admin: true,
       email: 'admin@email.com',
     };
