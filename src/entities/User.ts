@@ -19,6 +19,9 @@ export class User {
   email: string;
 
   @Column()
+  role: string;
+
+  @Column()
   password: string;
 
   @Column()
@@ -41,6 +44,7 @@ export interface IUser {
   id?: string;
   name?: string;
   email?: string;
+  role?: string;
   password?: string;
   is_admin?: boolean;
   created_at?: Date;

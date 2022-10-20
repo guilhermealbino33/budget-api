@@ -6,11 +6,12 @@ import ShowUserProfileUseCase from '../useCases/showUserProfile.useCase';
 import UpdateUserUseCase from '../useCases/updateUser.useCase';
 
 export async function createUserHandler(request: Request, response: Response) {
-  const { name, email, password, is_admin } = request.body;
+  const { name, email, role, password, is_admin } = request.body;
   const createUserUseCase = container.resolve(CreateUserUseCase);
   const user = await createUserUseCase.execute({
     name,
     email,
+    role,
     password,
     is_admin,
   });
@@ -21,12 +22,13 @@ export async function createUserHandler(request: Request, response: Response) {
 export async function updateUserHandler(request: Request, response: Response) {
   const { id } = request.params;
 
-  const { name, email, password } = request.body;
+  const { name, email, role, password } = request.body;
 
   const updateUserUseCase = container.resolve(UpdateUserUseCase);
   const user = await updateUserUseCase.execute(id, {
     name,
     email,
+    role,
     password,
   });
 

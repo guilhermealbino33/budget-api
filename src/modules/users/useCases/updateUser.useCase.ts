@@ -1,15 +1,10 @@
 /* eslint-disable no-unneeded-ternary */
 import { hash } from 'bcryptjs';
 import { inject, injectable } from 'tsyringe';
+import { IUser } from '../../../entities/user';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IUsersRepository } from '../repositories/IUsersRepository';
-
-interface UpdateUserRequest {
-  name?: string;
-  email?: string;
-  password?: string;
-}
 
 @injectable()
 export default class UpdateUserUseCase {
@@ -17,7 +12,7 @@ export default class UpdateUserUseCase {
     @inject('UsersRepository') private usersRepository: IUsersRepository
   ) {}
 
-  async execute(id: string, { name, email, password }: UpdateUserRequest) {
+  async execute(id: string, { name, email, role, password }: IUser) {
     if (!isValidId(id)) {
       throw new AppError('Invalid id!', 400);
     }
@@ -36,6 +31,10 @@ export default class UpdateUserUseCase {
 
     if (email) {
       data = { ...data, email };
+    }
+
+    if (role) {
+      data = { ...data, role };
     }
 
     if (!password) {
