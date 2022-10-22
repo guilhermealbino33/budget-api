@@ -16,13 +16,15 @@ export async function createSalesmanHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   } = request.body;
   const createSalesmanUseCase = container.resolve(CreateSalesmanUseCase);
   const salesman = await createSalesmanUseCase.execute({
@@ -32,13 +34,15 @@ export async function createSalesmanHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   });
 
   return response.status(201).json(salesman);
@@ -57,13 +61,15 @@ export async function updateSalesmanHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   } = request.body;
 
   const updateSalesmanUseCase = container.resolve(UpdateSalesmanUseCase);
@@ -74,13 +80,15 @@ export async function updateSalesmanHandler(
     cnpj,
     ie,
     city_code,
-    state,
+    state_code,
     address,
     address_number,
     cep,
     phone_number_1,
     phone_number_2,
-    birthday,
+    account_type,
+    district,
+    complement,
   });
 
   return response.status(200).json(salesman);

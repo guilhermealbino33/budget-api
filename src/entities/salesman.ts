@@ -2,18 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { City, ICity } from './city';
-
-enum AccountType {
-  PJ = 'Pessoa Jurídica',
-  PF = 'Pessoa Física',
-}
+import { IState, State } from './state';
 
 @Entity('salesman')
 export class Salesman {
@@ -27,7 +22,7 @@ export class Salesman {
   email: string;
 
   @Column()
-  account_type: AccountType;
+  account_type: string;
 
   @Column({ nullable: true })
   cpf?: string;
@@ -38,15 +33,17 @@ export class Salesman {
   @Column({ nullable: true })
   ie?: string;
 
-  @ManyToOne(() => City)
-  @JoinColumn({ name: 'city_code' })
+  @ManyToOne(() => City, {
+    cascade: true,
+    eager: true,
+  })
   city: City;
 
-  @Column()
-  city_code: string;
-
-  @Column()
-  state: string;
+  @ManyToOne(() => State, {
+    cascade: true,
+    eager: true,
+  })
+  state: State;
 
   @Column()
   district: string;
@@ -54,7 +51,7 @@ export class Salesman {
   @Column()
   address: string;
 
-  @Column()
+  @Column({ nullable: true })
   complement: string;
 
   @Column()
@@ -68,9 +65,6 @@ export class Salesman {
 
   @Column({ nullable: true })
   phone_number_2: string;
-
-  @Column({ nullable: true })
-  birthday: Date;
 
   @CreateDateColumn()
   created_at: Date;
@@ -89,18 +83,21 @@ export interface ISalesman {
   id?: string;
   name?: string;
   email?: string;
+  account_type?: string;
   cpf?: string;
   cnpj?: string;
   ie?: string;
   city_code?: string;
   city?: ICity;
-  state?: string;
+  district?: string;
+  complement?: string;
+  state_code?: string;
+  state?: IState;
   address?: string;
   address_number?: string;
   cep?: string;
   phone_number_1?: string;
   phone_number_2?: string;
-  birthday?: Date;
   created_at?: Date;
   updated_at?: Date;
 }

@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { IBudget } from '../../../entities/budget';
 import { AppError } from '../../../shared/errors/AppError';
+import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { ICustomersRepository } from '../../customers/repositories/ICustomersRepository';
 import { ISalesmenRepository } from '../../salesmen/repositories/ISalesmenRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
@@ -17,7 +18,9 @@ export default class CreateBudgetUseCase {
     @inject('SalesmenRepository')
     private salesmenRepository: ISalesmenRepository,
     @inject('CustomersRepository')
-    private customersRepository: ICustomersRepository
+    private customersRepository: ICustomersRepository,
+    @inject('AdditionalItemsRepository')
+    private additionalItemsRepository: IAdditionalItemsRepository
   ) {}
 
   async execute(budget: IBudget) {
@@ -67,6 +70,15 @@ export default class CreateBudgetUseCase {
 
     if (budget.additional_items) {
       for (const item of budget.additional_items) {
+        const itemOld = await this.additionalItemsRepository.findById(
+          item.additional_item_id
+        );
+
+        if (!itemOld) {
+          // criar novo item caso não exista
+          // await this.additionalItemsRepository.create(itemOld);
+        }
+
         item.total_price = calculateProductTotalPrice(
           item.unit_price,
           item.quantity,

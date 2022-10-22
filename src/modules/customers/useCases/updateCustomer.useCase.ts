@@ -26,6 +26,7 @@ export default class UpdateCustomerUseCase {
       cpf,
       cnpj,
       ie,
+      requester,
       city_code,
       address,
       address_number,
@@ -83,6 +84,10 @@ export default class UpdateCustomerUseCase {
 
     if (ie) {
       data = { ...data, ie };
+    }
+
+    if (requester) {
+      data = { ...data, requester };
     }
 
     if (city_code) {
