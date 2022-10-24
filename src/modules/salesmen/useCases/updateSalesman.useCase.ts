@@ -85,10 +85,6 @@ export default class UpdateSalesmanUseCase {
       data = { ...data, ie };
     }
 
-    if (city_code) {
-      data = { ...data, city_code };
-    }
-
     if (address) {
       data = { ...data, address };
     }
