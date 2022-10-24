@@ -57,8 +57,8 @@ export default class UpdateSalesmanUseCase {
       }
 
       const state = await this.statesRepository.findByCode(city.state_code);
-      salesmanToUpdate.city = city;
-      salesmanToUpdate.state = state;
+
+      data = { ...data, city, state };
     }
 
     if (name) {

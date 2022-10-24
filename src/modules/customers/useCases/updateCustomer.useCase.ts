@@ -59,8 +59,7 @@ export default class UpdateCustomerUseCase {
 
       const state = await this.statesRepository.findByCode(city.state_code);
 
-      data = { ...data, city };
-      data = { ...data, state };
+      data = { ...data, city, state };
     }
 
     if (name) {
