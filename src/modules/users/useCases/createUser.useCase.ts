@@ -21,7 +21,9 @@ export default class CreateUserUseCase {
 
     user.password = await hash(user.password, 8);
 
-    if (!user.is_admin) {
+    if (user.role === 'admin') {
+      user.is_admin = true;
+    } else {
       user.is_admin = false;
     }
 
