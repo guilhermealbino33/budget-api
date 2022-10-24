@@ -12,7 +12,7 @@ export default class UpdateUserUseCase {
     @inject('UsersRepository') private usersRepository: IUsersRepository
   ) {}
 
-  async execute(id: string, { name, email, role, password }: IUser) {
+  async execute(id: string, { name, email, role, is_admin, password }: IUser) {
     if (!isValidId(id)) {
       throw new AppError('Invalid id!', 400);
     }
@@ -34,10 +34,16 @@ export default class UpdateUserUseCase {
     }
 
     if (role) {
-      data = { ...data, role };
+      if (role === 'admin') {
+        is_admin = true;
+        data = { ...data, role, is_admin };
+      } else {
+        is_admin = false;
+        data = { ...data, role, is_admin };
+      }
     }
 
-    if (!password) {
+    if (password) {
       const hashPassword = await hash(password, 8);
       data = { ...data, hashPassword };
     }
