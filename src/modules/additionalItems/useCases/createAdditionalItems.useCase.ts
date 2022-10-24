@@ -15,7 +15,7 @@ export default class CreateAdditionalItemUseCase {
       await this.additionalItemsRepository.findByCode(additionalItem.code);
 
     if (additionalItemAlreadyExists) {
-      throw new AppError('Additional item already exists!', 403);
+      throw new AppError('Additional item already exists!', 409);
     }
 
     await this.additionalItemsRepository.create(additionalItem);

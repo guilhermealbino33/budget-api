@@ -16,7 +16,7 @@ export default class CreateUserUseCase {
     );
 
     if (userAlreadyExists) {
-      throw new AppError('User already exists!', 403);
+      throw new AppError('User already exists!', 409);
     }
 
     user.password = await hash(user.password, 8);
