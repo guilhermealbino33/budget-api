@@ -90,10 +90,6 @@ export default class UpdateCustomerUseCase {
       data = { ...data, requester };
     }
 
-    if (city_code) {
-      data = { ...data, city_code };
-    }
-
     if (address) {
       data = { ...data, address };
     }
