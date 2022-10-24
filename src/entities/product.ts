@@ -22,7 +22,10 @@ export class Product {
   @Column()
   name: string;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, {
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn({ name: 'category_id' })
   category?: Category;
 
