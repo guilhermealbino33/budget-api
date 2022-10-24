@@ -16,7 +16,7 @@ export default class CreateCategoryUseCase {
     );
 
     if (categoryAlreadyExists) {
-      throw new AppError('Category already exists!', 409);
+      throw new AppError('Category already exists!', 403);
     }
 
     await this.categoriesRepository.create(category);

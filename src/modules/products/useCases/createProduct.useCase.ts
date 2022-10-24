@@ -19,7 +19,7 @@ export default class CreateProductUseCase {
     );
 
     if (productAlreadyExists) {
-      throw new AppError('Product already exists!', 409);
+      throw new AppError('Product already exists!', 403);
     }
 
     if (!product.category_id) {

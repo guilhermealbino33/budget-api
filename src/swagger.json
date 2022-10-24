@@ -34,7 +34,7 @@
           "500": {
             "description": "Bad request"
           },
-          "400": {
+          "403": {
             "description": "User already exists"
           }
         }
@@ -165,7 +165,7 @@
           "400": {
             "description": "Bad request"
           },
-          "409": {
+          "404": {
             "description": "Not found"
           }
         }
@@ -342,7 +342,7 @@
           "401": {
             "description": "Unauthorized"
           },
-          "400": {
+          "403": {
             "description": "Category already exists"
           }
         }
@@ -465,7 +465,7 @@
           "401": {
             "description": "Unauthorized"
           },
-          "400": {
+          "403": {
             "description": "Product already exists"
           }
         }
@@ -656,7 +656,7 @@
           "401": {
             "description": "Unauthorized"
           },
-          "400": {
+          "403": {
             "description": "Additional item already exists"
           }
         }
@@ -795,7 +795,7 @@
           "401": {
             "description": "Unauthorized"
           },
-          "409": {
+          "403": {
             "description": "Customer already exists"
           }
         }
@@ -934,7 +934,7 @@
           "401": {
             "description": "Unauthorized"
           },
-          "409": {
+          "403": {
             "description": "Salesman already exists"
           }
         }
@@ -1074,7 +1074,7 @@
           "401": {
             "description": "Unauthorized"
           },
-          "400": {
+          "403": {
             "description": "Budget already exists"
           }
         }

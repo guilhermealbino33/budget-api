@@ -22,7 +22,7 @@ export default class CreateCustomerUseCase {
     }
 
     if (await this.customerAlreadyExists(customer)) {
-      throw new AppError('Customer already exists!', 409);
+      throw new AppError('Customer already exists!', 403);
     }
 
     const city = await this.citiesRepository.findByCode(customer.city_code);
