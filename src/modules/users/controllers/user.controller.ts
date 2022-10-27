@@ -40,7 +40,7 @@ export async function deleteUserHandler(request: Request, response: Response) {
   const deleteUserUseCase = container.resolve(DeleteUserUseCase);
   await deleteUserUseCase.execute(id);
 
-  return response.status(204);
+  return response.status(204).send();
 }
 
 export async function showUserHandler(request: Request, response: Response) {
