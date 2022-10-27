@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  countCustomersHandler,
   createCustomerHandler,
   deleteCustomerHandler,
   listCustomersHandler,
@@ -13,6 +14,7 @@ const customersRouter = Router();
 customersRouter.post('/', auth, createCustomerHandler);
 customersRouter.patch('/:id', auth, updateCustomerHandler);
 customersRouter.delete('/:id', auth, ensureAdmin, deleteCustomerHandler);
+customersRouter.get('/count', auth, countCustomersHandler);
 customersRouter.get('/', auth, listCustomersHandler);
 
 export { customersRouter };
