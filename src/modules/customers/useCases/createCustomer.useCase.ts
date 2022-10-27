@@ -45,7 +45,7 @@ export default class CreateCustomerUseCase {
       customerAlreadyExists = await this.customersRepository.findByCpf(
         customer.cpf
       );
-    } else {
+    } else if (customer.cnpj) {
       customerAlreadyExists = await this.customersRepository.findByCnpj(
         customer.cnpj
       );

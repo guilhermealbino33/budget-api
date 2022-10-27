@@ -5,6 +5,7 @@ import {
   deleteBudgetHandler,
   showBudgetHandler,
   updateBudgetHandler,
+  countBudgetsHandler,
 } from '../modules/budgets/controllers/budget.controller';
 
 import { ensureAdmin } from '../shared/middlewares/ensureAdmin';
@@ -15,6 +16,7 @@ budgetsRouter.post('/', auth, createBudgetHandler);
 budgetsRouter.patch('/:id', auth, updateBudgetHandler);
 budgetsRouter.patch('/open-close/:id', auth, openCloseBudgetHandler);
 budgetsRouter.delete('/:id', auth, ensureAdmin, deleteBudgetHandler);
+budgetsRouter.get('/count', auth, countBudgetsHandler);
 budgetsRouter.get('/:id?', auth, showBudgetHandler);
 
 export { budgetsRouter };

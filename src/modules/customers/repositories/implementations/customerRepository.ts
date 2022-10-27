@@ -12,9 +12,12 @@ export default class CustomersRepository implements ICustomersRepository {
     this.repository = AppDataSource.getRepository(Customer);
   }
 
-  async create(customer: ICustomer): Promise<void> {
+  async create(customer: ICustomer): Promise<Customer> {
     const customerToCreate = this.repository.create(customer);
-    this.repository.save(customerToCreate);
+
+    const createdCustomer = await this.repository.save(customerToCreate);
+
+    return createdCustomer;
   }
 
   async update(id: string, data: ICustomer): Promise<void> {

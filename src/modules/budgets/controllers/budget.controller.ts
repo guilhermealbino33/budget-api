@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import ConvertToPdfUseCase from '../useCases/convertToPdf.useCase';
+import CountBudgetsUseCase from '../useCases/countBudgets.useCase';
 import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
 import OpenCloseBudgetUseCase from '../useCases/openCloseBudget.useCase';
@@ -111,4 +112,14 @@ export async function convertToPdfHandler(
   await convertToPdfUseCase.execute(id);
 
   return response.status(200).send();
+}
+
+export async function countBudgetsHandler(
+  request: Request,
+  response: Response
+) {
+  const countBudgetsUseCase = container.resolve(CountBudgetsUseCase);
+  const budgetsCount = await countBudgetsUseCase.execute();
+
+  return response.status(200).json(budgetsCount);
 }
