@@ -45,7 +45,7 @@ export default class UpdateUserUseCase {
 
     if (password) {
       const hashPassword = await hash(password, 8);
-      data = { ...data, hashPassword };
+      data = { ...data, password: hashPassword };
     }
 
     return this.usersRepository.update(id, data);
