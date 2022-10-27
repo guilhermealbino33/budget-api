@@ -8,4 +8,5 @@ export interface IBudgetsRepository {
   findById(budget_id: string): Promise<Budget>;
   list(): Promise<Budget[]>;
   findByCode(code: string): Promise<Budget>;
+  count(): Promise<number>;
 }

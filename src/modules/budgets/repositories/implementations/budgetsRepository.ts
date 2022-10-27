@@ -57,4 +57,8 @@ export default class BudgetsRepository implements IBudgetsRepository {
   async list(): Promise<Budget[]> {
     return this.repository.find();
   }
+
+  count(): Promise<number> {
+    return this.repository.count();
+  }
 }
