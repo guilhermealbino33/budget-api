@@ -1181,6 +1181,26 @@
         }
       }
     },
+    "/budgets/count": {
+      "get": {
+        "tags": ["Budget"],
+        "summary": "Count all budgets",
+        "description": "Count all budgets",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/budgets/{id}": {
       "patch": {
         "tags": ["Budget"],
