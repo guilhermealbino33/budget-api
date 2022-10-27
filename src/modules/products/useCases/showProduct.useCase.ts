@@ -11,7 +11,7 @@ export default class ShowProductUseCase {
     private productsRepository: IProductsRepository
   ) {}
 
-  async execute(productId?: string) {
+  async execute(page: number, limit: number, productId?: string) {
     if (productId) {
       if (!isValidId(productId)) {
         throw new AppError('Invalid id!', 400);
@@ -26,9 +26,9 @@ export default class ShowProductUseCase {
       return product;
     }
 
-    const products = await this.productsRepository.list();
+    const products = await this.productsRepository.list(page, limit);
 
-    if (!products.length) {
+    if (!products.content.length) {
       logging.debug('No products found!');
     }
 

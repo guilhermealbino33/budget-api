@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import CountProductsUseCase from '../useCases/countProducts.useCase';
 import CreateProductUseCase from '../useCases/createProduct.useCase';
 import DeleteProductUseCase from '../useCases/deleteProduct.useCase';
 import DeleteProductImageUseCase from '../useCases/deleteProductImage.useCase';
@@ -66,9 +67,15 @@ export async function deleteProductHandler(
 
 export async function showProductHandler(request: Request, response: Response) {
   const { id } = request.params;
+  const page = request.query.page as string;
+  const limit = request.query.limit as string;
 
   const showProductUseCase = container.resolve(ShowProductUseCase);
-  const product = await showProductUseCase.execute(id);
+  const product = await showProductUseCase.execute(
+    page ? parseInt(page, 10) : 1,
+    limit ? parseInt(limit, 10) : 10,
+    id
+  );
 
   return response.status(200).json(product);
 }
@@ -104,4 +111,14 @@ export async function deleteProductImageHandler(
   await deleteProductImageUseCase.execute(id);
 
   return response.status(204).send();
+}
+
+export async function countProductHandler(
+  request: Request,
+  response: Response
+) {
+  const countProductsUseCase = container.resolve(CountProductsUseCase);
+  const productsCount = await countProductsUseCase.execute();
+
+  return response.status(200).json(productsCount);
 }

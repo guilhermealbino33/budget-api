@@ -1,6 +1,7 @@
 import { In, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { IProduct, Product } from '../../../../entities/product';
+import Page from '../../../../shared/types/page';
 
 import { IProductsRepository } from '../IProductsRepository';
 
@@ -59,7 +60,21 @@ export default class ProductsRepository implements IProductsRepository {
     });
   }
 
-  async list(): Promise<Product[]> {
-    return this.repository.find();
+  async list(page: number, limit: number): Promise<Page<Product>> {
+    const skip = (page - 1) * limit;
+    const products = await this.repository.find({
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: products, page, totalPages, totalDocuments };
+  }
+
+  async count(): Promise<number> {
+    return this.repository.count();
   }
 }
