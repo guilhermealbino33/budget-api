@@ -3,13 +3,16 @@ import { inject, injectable } from 'tsyringe';
 import { IProduct } from '../../../entities/product';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
+import { ICategoriesRepository } from '../../categories/repositories/ICategoriesRepository';
 import { IProductsRepository } from '../repositories/IProductsRepository';
 
 @injectable()
 export default class UpdateProductUseCase {
   constructor(
     @inject('ProductsRepository')
-    private productsRepository: IProductsRepository
+    private productsRepository: IProductsRepository,
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository
   ) {}
 
   async execute(
@@ -45,6 +48,12 @@ export default class UpdateProductUseCase {
     }
 
     if (category_id) {
+      const category = await this.categoriesRepository.findById(category_id);
+
+      if (!category) {
+        throw new AppError('Category not found!', 404);
+      }
+
       data = { ...data, category_id };
     }
 
