@@ -516,6 +516,26 @@
         }
       }
     },
+    "/products/count": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Count all products",
+        "description": "Count all products",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/products/{id}": {
       "patch": {
         "tags": ["Product"],
@@ -858,6 +878,26 @@
           },
           "404": {
             "description": "No customer found!"
+          }
+        }
+      }
+    },
+    "/customers/count": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "Count all customers",
+        "description": "Count all customers",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
           }
         }
       }
