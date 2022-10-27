@@ -3,6 +3,7 @@ import multer from 'multer';
 import uploadConfig from '../shared/config/upload';
 
 import {
+  countProductHandler,
   createProductHandler,
   deleteProductHandler,
   deleteProductImageHandler,
@@ -18,6 +19,7 @@ const productsRouter = Router();
 const upload = multer(uploadConfig);
 
 productsRouter.post('/', auth, createProductHandler);
+productsRouter.get('/count', auth, countProductHandler);
 productsRouter.get('/:id?', auth, showProductHandler);
 productsRouter.patch('/:id', auth, updateProductHandler);
 productsRouter.delete('/:id', auth, ensureAdmin, deleteProductHandler);
