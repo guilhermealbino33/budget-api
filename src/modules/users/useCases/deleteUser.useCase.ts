@@ -3,11 +3,14 @@ import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
 import { IUsersRepository } from '../repositories/IUsersRepository';
+import { IUsersTokensRepository } from '../repositories/IUsersTokensRepository';
 
 @injectable()
 export default class DeleteUserUseCase {
   constructor(
-    @inject('UsersRepository') private usersRepository: IUsersRepository
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
+    @inject('UsersTokensRepository')
+    private usersTokensRepository: IUsersTokensRepository
   ) {}
 
   async execute(userId: string) {
@@ -21,6 +24,16 @@ export default class DeleteUserUseCase {
       throw new AppError('User not found!', 404);
     }
 
-    await this.usersRepository.delete(userId);
+    const tokensToDelete = await this.usersTokensRepository.findByUserId(
+      userId
+    );
+
+    if (tokensToDelete || tokensToDelete.length) {
+      for (const token of tokensToDelete) {
+        await this.usersTokensRepository.deleteById(token.id);
+      }
+    }
+
+    await this.usersRepository.delete(userToDelete.id);
   }
 }
