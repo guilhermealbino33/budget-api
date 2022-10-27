@@ -73,7 +73,7 @@ export async function showProductHandler(request: Request, response: Response) {
   const showProductUseCase = container.resolve(ShowProductUseCase);
   const product = await showProductUseCase.execute(
     page ? parseInt(page, 10) : 1,
-    limit ? parseInt(limit, 10) : 10,
+    limit ? parseInt(limit, 10) : 5,
     id
   );
 

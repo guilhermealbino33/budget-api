@@ -121,7 +121,7 @@ export async function listCustomersHandler(
   const listCustomersUseCase = container.resolve(ListCustomersUseCase);
   const customers = await listCustomersUseCase.execute(
     page ? parseInt(page, 10) : 1,
-    limit ? parseInt(limit, 10) : 10,
+    limit ? parseInt(limit, 10) : 5,
     id
   );
 
