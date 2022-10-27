@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import CountCustomersUseCase from '../useCases/countCustomers.useCase';
 import CreateCustomerUseCase from '../useCases/createCustomer.useCase';
 import DeleteCustomerUseCase from '../useCases/deleteCustomers.useCase';
 import ListCustomersUseCase from '../useCases/listCustomers.useCase';
@@ -113,8 +114,26 @@ export async function listCustomersHandler(
   request: Request,
   response: Response
 ) {
-  const listCustomersUseCase = container.resolve(ListCustomersUseCase);
-  const customer = await listCustomersUseCase.execute();
+  const { id } = request.params;
+  const page = request.query.page as string;
+  const limit = request.query.limit as string;
 
-  return response.status(200).json(customer);
+  const listCustomersUseCase = container.resolve(ListCustomersUseCase);
+  const customers = await listCustomersUseCase.execute(
+    page ? parseInt(page, 10) : 1,
+    limit ? parseInt(limit, 10) : 10,
+    id
+  );
+
+  return response.status(200).json(customers);
+}
+
+export async function countCustomersHandler(
+  request: Request,
+  response: Response
+) {
+  const countCustomersUseCase = container.resolve(CountCustomersUseCase);
+  const customersCount = await countCustomersUseCase.execute();
+
+  return response.status(200).json(customersCount);
 }
