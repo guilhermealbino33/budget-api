@@ -36,6 +36,9 @@ export class Customer {
   @Column({ nullable: true })
   ie?: string;
 
+  @Column()
+  city_code: string;
+
   @ManyToOne(() => City, {
     cascade: true,
     eager: true,
@@ -57,7 +60,7 @@ export class Customer {
   @Column({ nullable: true })
   complement: string;
 
-  @Column()
+  @Column({ default: 'S/N' })
   address_number: string;
 
   @Column()

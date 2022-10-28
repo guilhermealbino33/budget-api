@@ -33,6 +33,9 @@ export class Salesman {
   @Column({ nullable: true })
   ie?: string;
 
+  @Column()
+  city_code: string;
+
   @ManyToOne(() => City, {
     cascade: true,
     eager: true,
