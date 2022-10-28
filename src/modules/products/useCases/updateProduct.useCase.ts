@@ -17,7 +17,15 @@ export default class UpdateProductUseCase {
 
   async execute(
     id: string,
-    { name, code, list_price, category_id, description, size }: IProduct
+    {
+      name,
+      code,
+      installation_area,
+      list_price,
+      category_id,
+      description,
+      size,
+    }: IProduct
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid product id!', 400);
@@ -45,6 +53,10 @@ export default class UpdateProductUseCase {
 
     if (description) {
       data = { ...data, description };
+    }
+
+    if (installation_area) {
+      data = { ...data, installation_area };
     }
 
     if (category_id) {
