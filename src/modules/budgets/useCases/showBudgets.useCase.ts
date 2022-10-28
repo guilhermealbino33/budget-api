@@ -11,7 +11,7 @@ export default class ShowBudgetUseCase {
     private budgetsRepository: IBudgetsRepository
   ) {}
 
-  async execute(budgetId?: string) {
+  async execute(page: number, limit: number, budgetId?: string) {
     if (budgetId) {
       if (!isValidId(budgetId)) {
         throw new AppError('Invalid id!', 400);
@@ -26,9 +26,9 @@ export default class ShowBudgetUseCase {
       return budget;
     }
 
-    const budgets = await this.budgetsRepository.list();
+    const budgets = await this.budgetsRepository.list(page, limit);
 
-    if (!budgets.length) {
+    if (!budgets.content.length) {
       logging.debug('No budgets found!');
     }
 
