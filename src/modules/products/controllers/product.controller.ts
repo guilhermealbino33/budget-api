@@ -22,7 +22,6 @@ export async function createProductHandler(
     code,
     installation_area,
     list_price,
-    size,
     description,
   } = request.body;
 
@@ -33,7 +32,6 @@ export async function createProductHandler(
     code,
     installation_area,
     list_price,
-    size,
     description,
   });
 
@@ -52,7 +50,6 @@ export async function updateProductHandler(
     installation_area,
     list_price,
     category_id,
-    size,
     description,
   } = request.body;
 
@@ -63,7 +60,6 @@ export async function updateProductHandler(
     installation_area,
     list_price,
     category_id,
-    size,
     description,
   });
 

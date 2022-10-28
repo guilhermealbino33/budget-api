@@ -35,14 +35,11 @@ export class Product {
   @Column()
   code: string;
 
-  @Column({ nullable: true })
-  installation_area: string;
+  @Column({ type: 'numeric', precision: 10, scale: 2, nullable: true })
+  installation_area: number;
 
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   list_price: number;
-
-  @Column({ nullable: true })
-  size?: string;
 
   @Column({ nullable: true })
   description?: string;
@@ -77,11 +74,10 @@ export interface IProduct {
   id?: string;
   name?: string;
   code?: string;
-  installation_area?: string;
+  installation_area?: number;
   list_price?: number;
   category_id?: string;
   category?: Category;
-  size?: string;
   description?: string;
   created_at?: Date;
   updated_at?: Date;

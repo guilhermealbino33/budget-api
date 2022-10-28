@@ -24,7 +24,6 @@ export default class UpdateProductUseCase {
       list_price,
       category_id,
       description,
-      size,
     }: IProduct
   ) {
     if (!isValidId(id)) {
@@ -67,10 +66,6 @@ export default class UpdateProductUseCase {
       }
 
       data = { ...data, category_id };
-    }
-
-    if (size) {
-      data = { ...data, size };
     }
 
     return this.productsRepository.update(id, data);
