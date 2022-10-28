@@ -31,6 +31,8 @@ import { UpdateBudgetAdditionalItemsService } from '../../modules/budgets/servic
 import { IUpdateBudgetAdditionalItemsService } from '../../modules/budgets/services/IUpdateBudgetAdditionalItemsService';
 import { IUpdateBudgetProductsService } from '../../modules/budgets/services/IUpdateBudgetProductsService';
 import { UpdateBudgetProductsService } from '../../modules/budgets/services/implementations/updateBudgetProducts.service';
+import { IProductsCategoriesRepository } from '../../modules/products/repositories/IProductsCategoriesRepository';
+import ProductsCategoriesRepository from '../../modules/products/repositories/implementations/productsCategoriesRepository';
 
 // Users
 container.registerSingleton<IUsersRepository>(
@@ -47,15 +49,21 @@ container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
   ProductsRepository
 );
-container.registerSingleton<ICategoriesRepository>(
-  'CategoriesRepository',
-  CategoriesRepository
+container.registerSingleton<IProductsCategoriesRepository>(
+  'ProductsCategoriesRepository',
+  ProductsCategoriesRepository
 );
 container.registerSingleton<IProductsImagesRepository>(
   'ProductsImagesRepository',
   ProductsImagesRepository
 );
 
+// Categories
+
+container.registerSingleton<ICategoriesRepository>(
+  'CategoriesRepository',
+  CategoriesRepository
+);
 // Customers
 container.registerSingleton<ICustomersRepository>(
   'CustomersRepository',
