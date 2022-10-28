@@ -25,6 +25,9 @@ export class Budget {
   @Column()
   code: string;
 
+  @Column({ default: 'new' })
+  status: string;
+
   @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
@@ -93,6 +96,7 @@ export class Budget {
 export interface IBudget {
   id?: string;
   code: string;
+  status?: string;
   customer_id: string;
   products: IBudgetProducts[];
   salesman_id: string;

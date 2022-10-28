@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import ConvertToPdfUseCase from '../useCases/convertToPdf.useCase';
 import CountBudgetsUseCase from '../useCases/countBudgets.useCase';
+import CountSalesBudgetsUseCase from '../useCases/countSalesBudget.useCase';
 import CreateBudgetUseCase from '../useCases/createBudget.useCase';
 import DeleteBudgetUseCase from '../useCases/deleteBudget.useCase';
 import OpenCloseBudgetUseCase from '../useCases/openCloseBudget.useCase';
@@ -14,6 +15,7 @@ export async function createBudgetHandler(
 ) {
   const {
     code,
+    status,
     customer_id,
     salesman_id,
     delivery_type,
@@ -28,6 +30,7 @@ export async function createBudgetHandler(
   const createBudgetUseCase = container.resolve(CreateBudgetUseCase);
   const budget = await createBudgetUseCase.execute({
     code,
+    status,
     customer_id,
     salesman_id,
     delivery_type,
@@ -49,6 +52,7 @@ export async function updateBudgetHandler(
 
   const {
     code,
+    status,
     customer_id,
     products,
     salesman_id,
@@ -61,6 +65,7 @@ export async function updateBudgetHandler(
   const updateBudgetUseCase = container.resolve(UpdateBudgetUseCase);
   const budget = await updateBudgetUseCase.execute(id, {
     code,
+    status,
     customer_id,
     products,
     salesman_id,
@@ -97,8 +102,15 @@ export async function openCloseBudgetHandler(
 
 export async function showBudgetHandler(request: Request, response: Response) {
   const { id } = request.params;
+  const page = request.query.page as string;
+  const limit = request.query.limit as string;
+
   const showBudgetsUseCase = container.resolve(ShowBudgetsUseCase);
-  const budgets = await showBudgetsUseCase.execute(id);
+  const budgets = await showBudgetsUseCase.execute(
+    page ? parseInt(page, 10) : 1,
+    limit ? parseInt(limit, 10) : 5,
+    id
+  );
 
   return response.status(200).json(budgets);
 }
@@ -120,6 +132,16 @@ export async function countBudgetsHandler(
 ) {
   const countBudgetsUseCase = container.resolve(CountBudgetsUseCase);
   const budgetsCount = await countBudgetsUseCase.execute();
+
+  return response.status(200).json(budgetsCount);
+}
+
+export async function countSalesBudgetsHandler(
+  request: Request,
+  response: Response
+) {
+  const countSalesBudgetsUseCase = container.resolve(CountSalesBudgetsUseCase);
+  const budgetsCount = await countSalesBudgetsUseCase.execute();
 
   return response.status(200).json(budgetsCount);
 }

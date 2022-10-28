@@ -23,6 +23,7 @@ export default class UpdateBudgetUseCase {
     id: string,
     {
       code,
+      status,
       customer_id,
       products,
       salesman_id,
@@ -55,6 +56,14 @@ export default class UpdateBudgetUseCase {
 
     if (customer_id) {
       data = { ...data, customer_id };
+    }
+
+    if (status) {
+      data = { ...data, status };
+
+      if (status === 'approved') {
+        data = { ...data, closed: true };
+      }
     }
 
     if (customer_id) {
