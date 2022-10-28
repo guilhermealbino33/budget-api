@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { IBudget, Budget } from '../../../../entities/budget';
+import Page from '../../../../shared/types/page';
 
 import { IBudgetsRepository } from '../IBudgetsRepository';
 
@@ -54,11 +55,25 @@ export default class BudgetsRepository implements IBudgetsRepository {
     });
   }
 
-  async list(): Promise<Budget[]> {
-    return this.repository.find();
+  async list(page: number, limit: number): Promise<Page<Budget>> {
+    const skip = (page - 1) * limit;
+    const budgets = await this.repository.find({
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: budgets, page, totalPages, totalDocuments };
   }
 
-  count(): Promise<number> {
+  async count(): Promise<number> {
     return this.repository.count();
+  }
+
+  async countSales(): Promise<number> {
+    return this.repository.countBy({ status: 'approved' });
   }
 }
