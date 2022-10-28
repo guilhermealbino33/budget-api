@@ -25,6 +25,18 @@ export default class CreateCustomerUseCase {
       throw new AppError('Customer already exists!', 409);
     }
 
+    if (!customer.name) {
+      throw new AppError('Customer name must be informed!', 400);
+    }
+
+    if (!customer.email) {
+      throw new AppError('Customer e-mail must be informed!', 400);
+    }
+
+    if (!customer.account_type) {
+      throw new AppError('Customer account type must be informed!', 400);
+    }
+
     const city = await this.citiesRepository.findByCode(customer.city_code);
 
     if (!city) {
@@ -34,6 +46,22 @@ export default class CreateCustomerUseCase {
     const state = await this.statesRepository.findByCode(city.state_code);
     customer.city = city;
     customer.state = state;
+
+    if (!customer.address) {
+      throw new AppError('Customer address must be informed!', 400);
+    }
+
+    if (!customer.district) {
+      throw new AppError('Customer district must be informed!', 400);
+    }
+
+    if (!customer.cep) {
+      throw new AppError('Customer CEP must be informed!', 400);
+    }
+
+    if (!customer.phone_number_1) {
+      throw new AppError('Customer phone number 1 must be informed!', 400);
+    }
 
     await this.customersRepository.create(customer);
   }

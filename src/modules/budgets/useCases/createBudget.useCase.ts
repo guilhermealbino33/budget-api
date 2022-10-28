@@ -3,6 +3,7 @@ import { IBudget } from '../../../entities/budget';
 import { AppError } from '../../../shared/errors/AppError';
 import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { ICustomersRepository } from '../../customers/repositories/ICustomersRepository';
+import { IProductsRepository } from '../../products/repositories/IProductsRepository';
 import { ISalesmenRepository } from '../../salesmen/repositories/ISalesmenRepository';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 import {
@@ -19,6 +20,8 @@ export default class CreateBudgetUseCase {
     private salesmenRepository: ISalesmenRepository,
     @inject('CustomersRepository')
     private customersRepository: ICustomersRepository,
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
     @inject('AdditionalItemsRepository')
     private additionalItemsRepository: IAdditionalItemsRepository
   ) {}
@@ -38,6 +41,10 @@ export default class CreateBudgetUseCase {
 
     if (!budget.salesman_id) {
       throw new AppError('Budget must have a salesman!', 400);
+    }
+
+    if (!budget.code) {
+      throw new AppError('Budget must have a code!', 400);
     }
 
     const customerExists = await this.customersRepository.findById(
@@ -60,6 +67,10 @@ export default class CreateBudgetUseCase {
       throw new AppError('Budget must have at least one product!', 400);
     }
 
+    if (!budget.products.length) {
+      throw new AppError('Budget must have at least one product!', 400);
+    }
+
     for (const product of budget.products) {
       product.total_price = calculateProductTotalPrice(
         product.unit_price,
@@ -70,15 +81,6 @@ export default class CreateBudgetUseCase {
 
     if (budget.additional_items) {
       for (const item of budget.additional_items) {
-        const itemOld = await this.additionalItemsRepository.findById(
-          item.additional_item_id
-        );
-
-        if (!itemOld) {
-          // criar novo item caso não exista
-          // await this.additionalItemsRepository.create(itemOld);
-        }
-
         item.total_price = calculateProductTotalPrice(
           item.unit_price,
           item.quantity,
