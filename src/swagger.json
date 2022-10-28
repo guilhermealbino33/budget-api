@@ -1201,6 +1201,26 @@
         }
       }
     },
+    "/budgets/count-sales": {
+      "get": {
+        "tags": ["Budget"],
+        "summary": "Count sales",
+        "description": "Count all approved budgets",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/budgets/{id}": {
       "patch": {
         "tags": ["Budget"],
@@ -1265,28 +1285,6 @@
           },
           "404": {
             "description": "Budget not found!"
-          }
-        }
-      }
-    },
-    "/budgets/open-close/{id}": {
-      "patch": {
-        "tags": ["Budget"],
-        "summary": "Set budget open or closed",
-        "description": "Open or close a budget. If it is opened, will close. It closed, will open.",
-        "security": [{ "bearerAuth": [] }],
-        "parameters": [
-          {
-            "schema": { "type": "string" },
-            "name": "id",
-            "in": "path",
-            "description": "Budget ID",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
           }
         }
       }
@@ -1358,6 +1356,9 @@
           "code": {
             "type": "string"
           },
+          "installation_area": {
+            "type": "string"
+          },
           "list_price": {
             "type": "number"
           },
@@ -1412,9 +1413,6 @@
             "type": "string"
           },
           "city_code": {
-            "type": "string"
-          },
-          "state_code": {
             "type": "string"
           },
           "address": {
@@ -1496,6 +1494,9 @@
         "type": "object",
         "properties": {
           "code": {
+            "type": "string"
+          },
+          "status": {
             "type": "string"
           },
           "products": {
