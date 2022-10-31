@@ -1357,13 +1357,10 @@
             "type": "string"
           },
           "installation_area": {
-            "type": "string"
+            "type": "number"
           },
           "list_price": {
             "type": "number"
-          },
-          "size": {
-            "type": "string"
           },
           "description": {
             "type": "string"
