@@ -18,6 +18,10 @@ export default class CreateAdditionalItemUseCase {
       throw new AppError('Additional item already exists!', 409);
     }
 
+    if (!additionalItem.code) {
+      throw new AppError('Additional item must have a code!', 400);
+    }
+
     if (!additionalItem.name) {
       throw new AppError('Additional item must have a name!', 400);
     }
