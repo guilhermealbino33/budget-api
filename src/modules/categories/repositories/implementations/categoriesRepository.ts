@@ -1,6 +1,7 @@
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { ICategory, Category } from '../../../../entities/category';
+import Page from '../../../../shared/types/page';
 
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
@@ -9,9 +10,6 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
   constructor() {
     this.repository = AppDataSource.getRepository(Category);
-  }
-  async list(): Promise<Category[]> {
-    return this.repository.find();
   }
 
   async create(category: ICategory): Promise<void> {
@@ -40,6 +38,39 @@ export default class CategoriesRepository implements ICategoriesRepository {
         },
       ],
     });
+  }
+
+  async list(page: number, limit: number): Promise<Page<Category>> {
+    const skip = (page - 1) * limit;
+    const categories = await this.repository.find({
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: categories, page, totalPages, totalDocuments };
+  }
+
+  async findByQuery(
+    page: number,
+    limit: number,
+    nameSearch: string
+  ): Promise<Page<Category>> {
+    const skip = (page - 1) * limit;
+    const categories = await this.repository.find({
+      where: { name: ILike(`%${nameSearch}%`) },
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: categories, page, totalPages, totalDocuments };
   }
 
   async findByName(name: string): Promise<Category> {

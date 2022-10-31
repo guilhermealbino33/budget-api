@@ -25,6 +25,38 @@ export default class CreateSalesmanUseCase {
       throw new AppError('Salesman already exists!', 409);
     }
 
+    if (!salesman.name) {
+      throw new AppError('Salesman name must be informed!', 400);
+    }
+
+    if (!salesman.email) {
+      throw new AppError('Salesman e-mail must be informed!', 400);
+    }
+
+    if (!salesman.account_type) {
+      throw new AppError('Salesman account type must be informed!', 400);
+    }
+
+    if (!salesman.address) {
+      throw new AppError('Salesman address must be informed!', 400);
+    }
+
+    if (!salesman.address_number) {
+      throw new AppError('Salesman address number must be informed!', 400);
+    }
+
+    if (!salesman.district) {
+      throw new AppError('Salesman district must be informed!', 400);
+    }
+
+    if (!salesman.cep) {
+      throw new AppError('Salesman CEP must be informed!', 400);
+    }
+
+    if (!salesman.phone_number_1) {
+      throw new AppError('Salesman phone number 1 must be informed!', 400);
+    }
+
     const city = await this.citiesRepository.findByCode(salesman.city_code);
 
     if (!city) {
