@@ -11,7 +11,12 @@ export default class ShowProductUseCase {
     private productsRepository: IProductsRepository
   ) {}
 
-  async execute(page: number, limit: number, productId?: string) {
+  async execute(
+    page: number,
+    limit: number,
+    productId?: string,
+    name?: string
+  ) {
     if (productId) {
       if (!isValidId(productId)) {
         throw new AppError('Invalid id!', 400);
@@ -24,6 +29,16 @@ export default class ShowProductUseCase {
       }
 
       return product;
+    }
+
+    if (name) {
+      const products = await this.productsRepository.findByName(
+        page,
+        limit,
+        name
+      );
+
+      return products;
     }
 
     const products = await this.productsRepository.list(page, limit);
