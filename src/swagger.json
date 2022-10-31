@@ -732,6 +732,29 @@
         "summary": "List all additional items",
         "description": "List all additional items",
         "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "name",
+            "in": "query",
+            "description": "Item name",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
+            "name": "limit",
+            "in": "query",
+            "description": "The number of items that will be displayed per page.",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1468,13 +1491,13 @@
       "AdditionalItem": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
           "code": {
             "type": "string"
           },
-          "size": {
+          "name": {
+            "type": "string"
+          },
+          "list_price": {
             "type": "string"
           },
           "description": {

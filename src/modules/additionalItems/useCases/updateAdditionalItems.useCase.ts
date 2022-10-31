@@ -14,7 +14,7 @@ export default class UpdateAdditionalItemUseCase {
 
   async execute(
     id: string,
-    { name, code, description, size }: IAdditionalItem
+    { name, code, description, list_price }: IAdditionalItem
   ) {
     if (!isValidId(id)) {
       throw new AppError('Invalid additionalItem id!', 400);
@@ -41,8 +41,8 @@ export default class UpdateAdditionalItemUseCase {
       data = { ...data, description };
     }
 
-    if (size) {
-      data = { ...data, size };
+    if (list_price) {
+      data = { ...data, list_price };
     }
 
     return this.additionalItemsRepository.update(id, data);

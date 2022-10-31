@@ -9,7 +9,7 @@ export async function createAdditionalItemsHandler(
   request: Request,
   response: Response
 ) {
-  const { code, name, size, description } = request.body;
+  const { code, name, list_price, description } = request.body;
 
   const createAdditionalItemsUseCase = container.resolve(
     CreateAdditionalItemsUseCase
@@ -17,7 +17,7 @@ export async function createAdditionalItemsHandler(
   const additionalItems = await createAdditionalItemsUseCase.execute({
     code,
     name,
-    size,
+    list_price,
     description,
   });
 
@@ -30,7 +30,7 @@ export async function updateAdditionalItemsHandler(
 ) {
   const { id } = request.params;
 
-  const { code, name, size, description } = request.body;
+  const { code, name, list_price, description } = request.body;
 
   const updateAdditionalItemsUseCase = container.resolve(
     UpdateAdditionalItemsUseCase
@@ -38,7 +38,7 @@ export async function updateAdditionalItemsHandler(
   const additionalItems = await updateAdditionalItemsUseCase.execute(id, {
     code,
     name,
-    size,
+    list_price,
     description,
   });
 
@@ -63,10 +63,19 @@ export async function showAdditionalItemsHandler(
   response: Response
 ) {
   const { id } = request.params;
+  const name = request.query.name as string;
+  const page = request.query.page as string;
+  const limit = request.query.limit as string;
+
   const showAdditionalItemsUseCase = container.resolve(
     ShowAdditionalItemsUseCase
   );
-  const additionalItems = await showAdditionalItemsUseCase.execute(id);
+  const item = await showAdditionalItemsUseCase.execute(
+    page ? parseInt(page, 10) : 1,
+    limit ? parseInt(limit, 10) : 5,
+    id,
+    name
+  );
 
-  return response.status(200).json(additionalItems);
+  return response.status(200).json(item);
 }

@@ -21,8 +21,8 @@ export class AdditionalItem {
   @Column()
   name: string;
 
-  @Column({ nullable: true })
-  size?: string;
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
+  list_price: number;
 
   @Column({ nullable: true })
   description?: string;
@@ -54,7 +54,7 @@ export interface IAdditionalItem {
   id?: string;
   code: string;
   name: string;
-  size?: string;
+  list_price?: number;
   description?: string;
   created_at?: Date;
   updated_at?: Date;

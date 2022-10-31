@@ -5,13 +5,18 @@ import { isValidId } from '../../../shared/utils/idValidator';
 import { IAdditionalItemsRepository } from '../repositories/IAdditionalItemsRepository';
 
 @injectable()
-export default class ShowAdditionalItemUseCase {
+export default class ShowAdditionalItemsUseCase {
   constructor(
     @inject('AdditionalItemsRepository')
     private additionalItemsRepository: IAdditionalItemsRepository
   ) {}
 
-  async execute(additionalItemId?: string) {
+  async execute(
+    page: number,
+    limit: number,
+    additionalItemId?: string,
+    name?: string
+  ) {
     if (additionalItemId) {
       if (!isValidId(additionalItemId)) {
         throw new AppError('Invalid id!', 400);
@@ -22,16 +27,29 @@ export default class ShowAdditionalItemUseCase {
       );
 
       if (!additionalItem) {
-        throw new AppError('Additional item not found!', 404);
+        throw new AppError('Additional items not found!', 404);
       }
 
       return additionalItem;
     }
 
-    const additionalItems = await this.additionalItemsRepository.list();
+    if (name) {
+      const additionalItems = await this.additionalItemsRepository.findByName(
+        page,
+        limit,
+        name
+      );
 
-    if (!additionalItems.length) {
-      logging.debug('No additional items found!');
+      return additionalItems;
+    }
+
+    const additionalItems = await this.additionalItemsRepository.list(
+      page,
+      limit
+    );
+
+    if (!additionalItems.content.length) {
+      logging.debug('No additionalItems found!');
     }
 
     return additionalItems;

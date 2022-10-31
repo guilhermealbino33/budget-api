@@ -1,9 +1,10 @@
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import {
   IAdditionalItem,
   AdditionalItem,
 } from '../../../../entities/additionalItem';
+import Page from '../../../../shared/types/page';
 
 import { IAdditionalItemsRepository } from '../IAdditionalItemsRepository';
 
@@ -50,8 +51,37 @@ export default class AdditionalItemsRepository
     });
   }
 
-  async list(): Promise<AdditionalItem[]> {
-    return this.repository.find();
+  async list(page: number, limit: number): Promise<Page<AdditionalItem>> {
+    const skip = (page - 1) * limit;
+    const products = await this.repository.find({
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: products, page, totalPages, totalDocuments };
+  }
+
+  async findByName(
+    page: number,
+    limit: number,
+    nameSearch: string
+  ): Promise<Page<AdditionalItem>> {
+    const skip = (page - 1) * limit;
+    const products = await this.repository.find({
+      where: { name: ILike(`%${nameSearch}%`) },
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: products, page, totalPages, totalDocuments };
   }
 
   async findByCode(code: string): Promise<AdditionalItem> {
