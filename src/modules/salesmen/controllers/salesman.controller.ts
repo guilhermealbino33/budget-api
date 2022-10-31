@@ -110,6 +110,7 @@ export async function showSalesmenHandler(
   response: Response
 ) {
   const { id } = request.params;
+  const name = request.query.name as string;
   const page = request.query.page as string;
   const limit = request.query.limit as string;
 
@@ -117,7 +118,8 @@ export async function showSalesmenHandler(
   const customers = await showSalesmenUseCase.execute(
     page ? parseInt(page, 10) : 1,
     limit ? parseInt(limit, 10) : 5,
-    id
+    id,
+    name
   );
 
   return response.status(200).json(customers);

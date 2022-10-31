@@ -11,6 +11,10 @@ export default class CreateCategoryUseCase {
   ) {}
 
   async execute(category: ICategory) {
+    if (!category.name) {
+      throw new AppError('Category name must be informed!', 400);
+    }
+
     const categoryAlreadyExists = await this.categoriesRepository.findByName(
       category.name
     );
