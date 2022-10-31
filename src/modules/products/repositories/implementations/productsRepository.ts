@@ -1,4 +1,4 @@
-import { In, Like, Repository } from 'typeorm';
+import { ILike, In, Like, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { IProduct, Product } from '../../../../entities/product';
 import Page from '../../../../shared/types/page';
@@ -81,7 +81,7 @@ export default class ProductsRepository implements IProductsRepository {
   ): Promise<Page<Product>> {
     const skip = (page - 1) * limit;
     const products = await this.repository.find({
-      where: [{ name: Like(`%${nameSer}%`) }],
+      where: { name: ILike(`%${nameSer}%`) },
       order: { created_at: 'DESC' },
       skip,
       take: limit,

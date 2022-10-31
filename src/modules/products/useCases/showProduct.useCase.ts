@@ -35,7 +35,7 @@ export default class ShowProductUseCase {
       const products = await this.productsRepository.findByName(
         page,
         limit,
-        name
+        name.toUpperCase()
       );
 
       return products;
