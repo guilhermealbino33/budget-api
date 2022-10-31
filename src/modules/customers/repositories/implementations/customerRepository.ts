@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { ICustomer, Customer } from '../../../../entities/customer';
 import Page from '../../../../shared/types/page';
@@ -75,6 +75,25 @@ export default class CustomersRepository implements ICustomersRepository {
     const totalPages = Math.ceil(totalDocuments / limit);
 
     return { content: products, page, totalPages, totalDocuments };
+  }
+
+  async findByName(
+    page: number,
+    limit: number,
+    nameSearch: string
+  ): Promise<Page<Customer>> {
+    const skip = (page - 1) * limit;
+    const customer = await this.repository.find({
+      where: { name: ILike(`%${nameSearch}%`) },
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: customer, page, totalPages, totalDocuments };
   }
 
   async count(): Promise<number> {

@@ -3,7 +3,7 @@ import {
   countCustomersHandler,
   createCustomerHandler,
   deleteCustomerHandler,
-  listCustomersHandler,
+  showCustomersHandler,
   updateCustomerHandler,
 } from '../modules/customers/controllers/customer.controller';
 
@@ -15,6 +15,6 @@ customersRouter.post('/', auth, createCustomerHandler);
 customersRouter.patch('/:id', auth, updateCustomerHandler);
 customersRouter.delete('/:id', auth, ensureAdmin, deleteCustomerHandler);
 customersRouter.get('/count', auth, countCustomersHandler);
-customersRouter.get('/', auth, listCustomersHandler);
+customersRouter.get('/', auth, showCustomersHandler);
 
 export { customersRouter };

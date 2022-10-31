@@ -1,6 +1,7 @@
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { ISalesman, Salesman } from '../../../../entities/salesman';
+import Page from '../../../../shared/types/page';
 
 import { ISalesmenRepository } from '../ISalesmenRepository';
 
@@ -59,7 +60,36 @@ export default class SalesmenRepository implements ISalesmenRepository {
     });
   }
 
-  async list(): Promise<Salesman[]> {
-    return this.repository.find();
+  async list(page: number, limit: number): Promise<Page<Salesman>> {
+    const skip = (page - 1) * limit;
+    const salesmen = await this.repository.find({
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: salesmen, page, totalPages, totalDocuments };
+  }
+
+  async findByName(
+    page: number,
+    limit: number,
+    nameSearch: string
+  ): Promise<Page<Salesman>> {
+    const skip = (page - 1) * limit;
+    const salesmen = await this.repository.find({
+      where: { name: ILike(`%${nameSearch}%`) },
+      order: { created_at: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const totalDocuments = await this.repository.count();
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return { content: salesmen, page, totalPages, totalDocuments };
   }
 }

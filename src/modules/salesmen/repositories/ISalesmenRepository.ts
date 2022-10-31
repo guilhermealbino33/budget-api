@@ -1,4 +1,5 @@
 import { ISalesman, Salesman } from '../../../entities/salesman';
+import Page from '../../../shared/types/page';
 
 export interface ISalesmenRepository {
   create(salesman: ISalesman): Promise<void>;
@@ -7,5 +8,10 @@ export interface ISalesmenRepository {
   findById(salesman_id: string): Promise<Salesman>;
   findByCpf(cpf: string): Promise<Salesman>;
   findByCnpj(cnpj: string): Promise<Salesman>;
-  list(): Promise<Salesman[]>;
+  list(page: number, limit: number): Promise<Page<Salesman>>;
+  findByName(
+    page: number,
+    limit: number,
+    name: string
+  ): Promise<Page<Salesman>>;
 }

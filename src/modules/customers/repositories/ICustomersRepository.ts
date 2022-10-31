@@ -9,5 +9,10 @@ export interface ICustomersRepository {
   findByCpf(cpf: string): Promise<Customer>;
   findByCnpj(cnpj: string): Promise<Customer>;
   list(page: number, limit: number): Promise<Page<Customer>>;
+  findByName(
+    page: number,
+    limit: number,
+    name: string
+  ): Promise<Page<Customer>>;
   count(): Promise<number>;
 }

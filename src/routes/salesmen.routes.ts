@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   createSalesmanHandler,
   deleteSalesmanHandler,
-  listSalesmenHandler,
+  showSalesmenHandler,
   updateSalesmanHandler,
 } from '../modules/salesmen/controllers/salesman.controller';
 
@@ -13,6 +13,6 @@ const salesmenRouter = Router();
 salesmenRouter.post('/', auth, createSalesmanHandler);
 salesmenRouter.patch('/:id', auth, updateSalesmanHandler);
 salesmenRouter.delete('/:id', auth, ensureAdmin, deleteSalesmanHandler);
-salesmenRouter.get('/', auth, listSalesmenHandler);
+salesmenRouter.get('/', auth, showSalesmenHandler);
 
 export { salesmenRouter };

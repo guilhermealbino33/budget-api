@@ -1,4 +1,4 @@
-import { ILike, In, Like, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
 import { IProduct, Product } from '../../../../entities/product';
 import Page from '../../../../shared/types/page';
@@ -77,11 +77,11 @@ export default class ProductsRepository implements IProductsRepository {
   async findByName(
     page: number,
     limit: number,
-    nameSer: string
+    nameSearch: string
   ): Promise<Page<Product>> {
     const skip = (page - 1) * limit;
     const products = await this.repository.find({
-      where: { name: ILike(`%${nameSer}%`) },
+      where: { name: ILike(`%${nameSearch}%`) },
       order: { created_at: 'DESC' },
       skip,
       take: limit,

@@ -9,6 +9,10 @@ export interface IProductsRepository {
   findByIds(product_id: string[]): Promise<Product[]>;
   findByCode(code: string): Promise<Product>;
   list(page: number, limit: number): Promise<Page<Product>>;
-  findByName(page: number, limit: number, name: string): Promise<Page<Product>>;
+  findByName(
+    page: number,
+    limit: number,
+    nameSearch: string
+  ): Promise<Page<Product>>;
   count(): Promise<number>;
 }

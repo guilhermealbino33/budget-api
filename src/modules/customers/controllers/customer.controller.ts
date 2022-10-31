@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import CountCustomersUseCase from '../useCases/countCustomers.useCase';
 import CreateCustomerUseCase from '../useCases/createCustomer.useCase';
 import DeleteCustomerUseCase from '../useCases/deleteCustomers.useCase';
-import ListCustomersUseCase from '../useCases/listCustomers.useCase';
+import ShowCustomersUseCase from '../useCases/showCustomers.useCase';
 import UpdateCustomerUseCase from '../useCases/updateCustomer.useCase';
 
 export async function createCustomerHandler(
@@ -110,19 +110,21 @@ export async function deleteCustomerHandler(
   return response.status(204).send();
 }
 
-export async function listCustomersHandler(
+export async function showCustomersHandler(
   request: Request,
   response: Response
 ) {
   const { id } = request.params;
+  const name = request.query.name as string;
   const page = request.query.page as string;
   const limit = request.query.limit as string;
 
-  const listCustomersUseCase = container.resolve(ListCustomersUseCase);
-  const customers = await listCustomersUseCase.execute(
+  const showCustomersUseCase = container.resolve(ShowCustomersUseCase);
+  const customers = await showCustomersUseCase.execute(
     page ? parseInt(page, 10) : 1,
     limit ? parseInt(limit, 10) : 5,
-    id
+    id,
+    name
   );
 
   return response.status(200).json(customers);

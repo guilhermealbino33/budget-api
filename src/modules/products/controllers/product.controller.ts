@@ -4,7 +4,7 @@ import CountProductsUseCase from '../useCases/countProducts.useCase';
 import CreateProductUseCase from '../useCases/createProduct.useCase';
 import DeleteProductUseCase from '../useCases/deleteProduct.useCase';
 import DeleteProductImageUseCase from '../useCases/deleteProductImage.useCase';
-import ShowProductUseCase from '../useCases/showProduct.useCase';
+import ShowProductUseCase from '../useCases/showProducts.useCase';
 import UpdateProductUseCase from '../useCases/updateProduct.useCase';
 import UploadProductImageUseCase from '../useCases/uploadProductImage.useCase';
 

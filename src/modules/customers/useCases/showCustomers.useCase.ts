@@ -5,13 +5,13 @@ import { isValidId } from '../../../shared/utils/idValidator';
 import { ICustomersRepository } from '../repositories/ICustomersRepository';
 
 @injectable()
-export default class ListCustomersUseCase {
+export default class ShowCustomersUseCase {
   constructor(
     @inject('CustomersRepository')
     private customersRepository: ICustomersRepository
   ) {}
 
-  async execute(page: number, limit: number, id?: string) {
+  async execute(page: number, limit: number, id?: string, name?: string) {
     if (id) {
       if (!isValidId(id)) {
         throw new AppError('Invalid id!', 400);
@@ -24,6 +24,16 @@ export default class ListCustomersUseCase {
       }
 
       return customer;
+    }
+
+    if (name) {
+      const salesmen = await this.customersRepository.findByName(
+        page,
+        limit,
+        name
+      );
+
+      return salesmen;
     }
 
     const customers = await this.customersRepository.list(page, limit);

@@ -851,6 +851,13 @@
         "parameters": [
           {
             "schema": { "type": "string" },
+            "name": "name",
+            "in": "query",
+            "description": "Customer name",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
             "name": "page",
             "in": "query",
             "description": "Page",
@@ -1023,6 +1030,29 @@
         "summary": "List all salesmen",
         "description": "List all salesmen",
         "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "name",
+            "in": "query",
+            "description": "Salesman name",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
+            "name": "limit",
+            "in": "query",
+            "description": "The number of items that will be displayed per page.",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1049,6 +1079,44 @@
       }
     },
     "/salesmen/{id}": {
+      "get": {
+        "tags": ["Salesman"],
+        "summary": "List a salesmen",
+        "description": "List a salesmen",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "query",
+            "description": "Salesman id",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "$ref": "#/components/schemas/Salesman"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Salesman not found!"
+          }
+        }
+      },
       "patch": {
         "tags": ["Salesman"],
         "summary": "Update a salesman",
