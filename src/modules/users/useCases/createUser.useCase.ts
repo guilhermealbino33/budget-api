@@ -11,12 +11,28 @@ export default class CreateUserUseCase {
   ) {}
 
   async execute(user: IUser) {
+    if (!user.email) {
+      throw new AppError('User must have an e-mail!', 400);
+    }
+
     const userAlreadyExists = await this.usersRepository.findByEmail(
       user.email
     );
 
     if (userAlreadyExists) {
       throw new AppError('User already exists!', 409);
+    }
+
+    if (!user.name) {
+      throw new AppError('User must have a name!', 400);
+    }
+
+    if (!user.password) {
+      throw new AppError('User must have a password!', 400);
+    }
+
+    if (!user.role) {
+      throw new AppError('User must have a role!', 400);
     }
 
     user.password = await hash(user.password, 8);
