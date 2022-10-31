@@ -352,6 +352,29 @@
         "summary": "List all categories",
         "description": "List all categories",
         "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "name",
+            "in": "query",
+            "description": "Category name",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
+            "name": "limit",
+            "in": "query",
+            "description": "The number of items that will be displayed per page.",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
