@@ -478,6 +478,13 @@
         "parameters": [
           {
             "schema": { "type": "string" },
+            "name": "name",
+            "in": "query",
+            "description": "Product name",
+            "required": false
+          },
+          {
+            "schema": { "type": "string" },
             "name": "page",
             "in": "query",
             "description": "Page",
