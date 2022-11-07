@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3033
 
-CMD [ "yarn dev" ]
+CMD ["yarn", "dev"]
