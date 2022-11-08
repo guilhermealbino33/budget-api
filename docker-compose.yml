@@ -8,7 +8,7 @@ services:
         ports:
             # change the port here and env when return an error as:
             # exposing port TCP 0.0.0.0:5432 -> 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use
-            - 5432:5432
+            - 5430:5432
         environment:
             - POSTGRES_USER=admin
             - POSTGRES_PASSWORD=admin
