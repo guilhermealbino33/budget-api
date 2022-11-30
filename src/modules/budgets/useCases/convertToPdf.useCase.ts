@@ -18,19 +18,17 @@ export default class ConvertToPdfUseCase {
   ) {}
   async execute(id: string) {
     const budgetReceived = await this.budgetsRepository.findById(id);
-    const customerReceived = await this.salesmenRepository.findById(
+    const customerReceived = await this.customersRepository.findById(
       budgetReceived.customer_id
     );
-    const salesmanReceived = await this.customersRepository.findById(
+    const salesmanReceived = await this.salesmenRepository.findById(
       budgetReceived.salesman_id
     );
 
-    const data = {
+    const cover = {
       customer: {
         name: customerReceived.name,
-      },
-      salesman: {
-        name: salesmanReceived.name,
+        contact: `Fone: ${customerReceived.phone_number_1} - E-mail: ${customerReceived.email}`,
       },
       budget: {
         code: budgetReceived.code,
@@ -38,18 +36,25 @@ export default class ConvertToPdfUseCase {
       },
     };
 
-    ejs.renderFile('./templates/html/budget.ejs', data, (err, html) => {
-      if (err) {
-        throw new AppError('Bad Request', 500);
-      }
+    ejs.renderFile(
+      'src/modules/budgets/templates/html/cover-template.ejs',
+      cover,
+      (err, html) => {
+        if (err) {
+          console.log(err);
+          throw new AppError('Error converting Html file', 500);
+        }
 
-      pdf
-        .create(html, { format: 'A4' })
-        .toFile('./pdf-name.pdf', (err, res) => {
-          if (err) {
-            throw new AppError('Error creating PDF.', 500);
-          }
-        });
-    });
+        pdf
+          .create(html, { format: 'A4' })
+          .toFile('tmp/pdf/pdf-name.pdf', (err, res) => {
+            if (err) {
+              throw new AppError('Error creating PDF.', 500);
+            } else {
+              console.log(res);
+            }
+          });
+      }
+    );
   }
 }
