@@ -5,6 +5,7 @@ import { AppError } from '../../../shared/errors/AppError';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 import { ISalesmenRepository } from '../../salesmen/repositories/ISalesmenRepository';
 import { ICustomersRepository } from '../../customers/repositories/ICustomersRepository';
+import { formatDate } from '../utils/date';
 
 @injectable()
 export default class ConvertToPdfUseCase {
@@ -21,24 +22,28 @@ export default class ConvertToPdfUseCase {
     const customerReceived = await this.customersRepository.findById(
       budgetReceived.customer_id
     );
-    const salesmanReceived = await this.salesmenRepository.findById(
-      budgetReceived.salesman_id
-    );
 
     const cover = {
       customer: {
         name: customerReceived.name,
         contact: `Fone: ${customerReceived.phone_number_1} - E-mail: ${customerReceived.email}`,
+        address: `${customerReceived.city.name} - ${customerReceived.state.uf}`,
       },
       budget: {
         code: budgetReceived.code,
+        products: budgetReceived.products,
         total_value: budgetReceived.total_value,
       },
     };
 
     ejs.renderFile(
       'src/modules/budgets/templates/html/cover-template.ejs',
-      cover,
+      {
+        name: cover.customer.name,
+        contact: cover.customer.contact,
+        address: cover.customer.address,
+        date: formatDate(new Date()),
+      },
       (err, html) => {
         if (err) {
           console.log(err);
