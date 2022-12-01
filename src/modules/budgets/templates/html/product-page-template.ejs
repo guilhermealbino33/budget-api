@@ -114,23 +114,27 @@
     </header>
 
     <main class="content">
-      <div class="content__product-infos">
-        <img class="product-infos__image" src="{{image}}" />
-        <p class="product-infos__description">{{description}}</p>
-        <ul class="product-infos__list">
-          <li>Quantidade: {{quantity}}</li>
-          <li>Área de ocupação: {{installation_area}}</li>
-          <li>Forma de entrega: {{delivery_method}}</li>
+      <% for product of products { %>
+        <div class="content__product-infos">
+          <img class="product-infos__image" src="<%= product_image %> " />
+          <p class="product-infos__description"><%= product_description %> </p>
+          <ul class="product-infos__list">
+            <li>Quantidade: <%= product.quantity %> </li>
+            <li>Área de ocupação: <%= product.installation_area %> </li>
+            <li>Forma de entrega: <%= product_delivery_method %> </li>
 
-          {{#if observations}}
-          <li><i>Observações: {{observations}}</i></li>
-          {{/if}}
+            <%= if observations %> 
+            <li><i>Observações: <%= product_observations %> </i></li>
+            <%= /if %> 
 
-          <li><mark>Valor total: {{total_value}}</mark></li>
-        </ul>
-      </div>
+          </ul>
+        </div>
+
+      <% } %>
 
       <div class="content__final-messages">
+        <li><mark>Valor total: <%= total_value %> </mark></li>
+
         <p>
           <strong>Á vista 10% de desconto para qualquer equipamento;</strong
           ><br />
@@ -138,7 +142,7 @@
         </p>
         <p>
           Sem mais para o momento:<br />
-          Att: {{seller_name}}
+          Att: <%= salesman_name %> 
         </p>
       </div>
     </main>
