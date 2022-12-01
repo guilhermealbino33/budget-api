@@ -136,20 +136,20 @@
       </svg>
     </header>
     <main class="content">
-      <span class="content__budget">Orçamento nº: 127/2022</span>
+      <span class="content__budget">Orçamento nº: <%= budget_code %>/<%= budget_year %></span>
 
       <table class="content__client-table">
         <tr>
           <td>Cliente</td>
-          <td><%= name %></td>
+          <td><%= customer_name %></td>
         </tr>
         <tr>
           <td>Contato</td>
-          <td><%= contact %></td>
+          <td><%= customer_contact %></td>
         </tr>
         <tr>
           <td>Cidade</td>
-          <td><%= address %></td>
+          <td><%= customer_address %></td>
         </tr>
       </table>
 
@@ -242,3 +242,4 @@
     </footer>
   </body>
 </html>
+
