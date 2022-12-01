@@ -22,27 +22,47 @@ export default class ConvertToPdfUseCase {
     const customerReceived = await this.customersRepository.findById(
       budgetReceived.customer_id
     );
+    const salesmanReceived = await this.salesmenRepository.findById(
+      budgetReceived.salesman_id
+    );
 
-    const cover = {
+    const data = {
       customer: {
         name: customerReceived.name,
         contact: `Fone: ${customerReceived.phone_number_1} - E-mail: ${customerReceived.email}`,
         address: `${customerReceived.city.name} - ${customerReceived.state.uf}`,
       },
+      salesman: {
+        name: salesmanReceived.name,
+      },
       budget: {
         code: budgetReceived.code,
+        year: new Date().getFullYear(),
         products: budgetReceived.products,
         total_value: budgetReceived.total_value,
       },
+      products: budgetReceived.products,
     };
 
     ejs.renderFile(
       'src/modules/budgets/templates/html/cover-template.ejs',
+
       {
-        name: cover.customer.name,
-        contact: cover.customer.contact,
-        address: cover.customer.address,
+        customer_name: data.customer.name,
+        customer_contact: data.customer.contact,
+        customer_address: data.customer.address,
         date: formatDate(new Date()),
+        budget_code: data.budget.code,
+        budget_year: data.budget.year,
+        // product_image: 'url',
+        // product_description: '',
+        // product_quantity: '',
+        // product_installation_area: '',
+        // product_delivery_method: '',
+        // product_observations: '',
+        products: data.budget.products,
+        total_value: data.budget.total_value,
+        salesman_name: data.salesman.name,
       },
       (err, html) => {
         if (err) {
@@ -55,8 +75,6 @@ export default class ConvertToPdfUseCase {
           .toFile('tmp/pdf/pdf-name.pdf', (err, res) => {
             if (err) {
               throw new AppError('Error creating PDF.', 500);
-            } else {
-              console.log(res);
             }
           });
       }
