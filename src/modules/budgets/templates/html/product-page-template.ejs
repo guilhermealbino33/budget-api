@@ -114,18 +114,21 @@
     </header>
 
     <main class="content">
-      <% for product of products { %>
+      <% for(var i=0; i < products.length; i++) { %>
         <div class="content__product-infos">
-          <img class="product-infos__image" src="<%= product_image %> " />
-          <p class="product-infos__description"><%= product_description %> </p>
+          <!-- <img class="product-infos__image" src="<%= product_image %> " /> -->
+          <!-- <p class="product-infos__description"><%= product_description %> </p> -->
           <ul class="product-infos__list">
-            <li>Quantidade: <%= product.quantity %> </li>
-            <li>Área de ocupação: <%= product.installation_area %> </li>
-            <li>Forma de entrega: <%= product_delivery_method %> </li>
+            <li>Quantidade: <%= products[i].quantity %> </li>
+            <!-- <li>Valor unitário: <%= products[i].unit_price %> </li>
+            <li>Desconto: <%= products[i].discount %> </li>
+            <li>Valor total do produto: <%= products[i].total_price %> </li> -->
+            <!-- <li>Área de ocupação: <%= products[i].installation_area %> </li>
+            <li>Forma de entrega: <%= products[i].delivery_method %> </li>
 
             <%= if observations %> 
-            <li><i>Observações: <%= product_observations %> </i></li>
-            <%= /if %> 
+            <li><i>Observações: <%= products[i].observations %> </i></li>
+            <%= /if %>  -->
 
           </ul>
         </div>
