@@ -15,6 +15,6 @@ customersRouter.post('/', auth, createCustomerHandler);
 customersRouter.patch('/:id', auth, updateCustomerHandler);
 customersRouter.delete('/:id', auth, ensureAdmin, deleteCustomerHandler);
 customersRouter.get('/count', auth, countCustomersHandler);
-customersRouter.get('/', auth, showCustomersHandler);
+customersRouter.get('/:id?', auth, showCustomersHandler);
 
 export { customersRouter };
