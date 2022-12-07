@@ -40,12 +40,13 @@ export default class ConvertToPdfUseCase {
         year: new Date().getFullYear(),
         products: budgetReceived.products,
         total_value: budgetReceived.total_value,
+        delivery_type: budgetReceived.delivery_type,
       },
       products: budgetReceived.products,
     };
 
     ejs.renderFile(
-      'src/modules/budgets/templates/html/cover-template.ejs',
+      'src/modules/budgets/templates/html/budget-template.ejs',
 
       {
         customer_name: data.customer.name,
@@ -54,15 +55,10 @@ export default class ConvertToPdfUseCase {
         date: formatDate(new Date()),
         budget_code: data.budget.code,
         budget_year: data.budget.year,
-        // product_image: 'url',
-        // product_description: '',
-        // product_quantity: '',
-        // product_installation_area: '',
-        // product_delivery_method: '',
-        // product_observations: '',
         products: data.budget.products,
         total_value: data.budget.total_value,
         salesman_name: data.salesman.name,
+        delivery_type: data.budget.delivery_type,
       },
       (err, html) => {
         if (err) {
