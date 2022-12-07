@@ -46,7 +46,6 @@ export class Product {
 
   @OneToMany(() => BudgetProducts, (budgetProducts) => budgetProducts.product, {
     cascade: true,
-    eager: true,
   })
   budgets: Budget[];
 
