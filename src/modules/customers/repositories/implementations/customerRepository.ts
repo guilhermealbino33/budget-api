@@ -65,7 +65,7 @@ export default class CustomersRepository implements ICustomersRepository {
 
   async list(page: number, limit: number): Promise<Page<Customer>> {
     const skip = (page - 1) * limit;
-    const products = await this.repository.find({
+    const customer = await this.repository.find({
       order: { created_at: 'DESC' },
       skip,
       take: limit,
@@ -74,7 +74,7 @@ export default class CustomersRepository implements ICustomersRepository {
     const totalDocuments = await this.repository.count();
     const totalPages = Math.ceil(totalDocuments / limit);
 
-    return { content: products, page, totalPages, totalDocuments };
+    return { content: customer, page, totalPages, totalDocuments };
   }
 
   async findByName(
