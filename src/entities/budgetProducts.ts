@@ -16,7 +16,7 @@ export class BudgetProducts {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
-  @ManyToOne(() => Product, (product) => product.budgets)
+  @ManyToOne(() => Product, (product) => product.budgets, { eager: true })
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
