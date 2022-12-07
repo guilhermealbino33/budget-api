@@ -31,6 +31,16 @@ export default class CreateBudgetUseCase {
       budget.code
     );
 
+    for (const product of budget.products) {
+      const productExists = await this.productsRepository.findById(
+        product.product_id
+      );
+
+      if (!productExists) {
+        throw new AppError('Product not found!', 404);
+      }
+    }
+
     if (budgetAlreadyExists) {
       throw new AppError('Budget already exists!', 409);
     }
