@@ -1409,6 +1409,31 @@
           }
         }
       }
+    },
+    "/budgets/pdf/{id}": {
+      "post": {
+        "tags": ["Budget"],
+        "summary": "Print a budget as PDF",
+        "description": "Print a budget as PDF",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "schema": { "type": "string" },
+            "name": "id",
+            "in": "path",
+            "description": "Budget ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
     }
   },
   "components": {
