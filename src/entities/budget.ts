@@ -28,7 +28,7 @@ export class Budget {
   @Column({ default: 'new' })
   status: string;
 
-  @ManyToOne(() => Customer)
+  @ManyToOne(() => Customer, { eager: true })
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
