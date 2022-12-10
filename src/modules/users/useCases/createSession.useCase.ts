@@ -15,6 +15,7 @@ interface IRequest {
 interface IResponse {
   user: {
     id: string;
+    salesman_id?: string;
     name: string;
     email: string;
   };
@@ -74,6 +75,8 @@ export default class CreateSessionUserUseCase {
     const tokenReturn: IResponse = {
       token,
       user: {
+        id: user.id,
+        salesman_id: user.salesman_id || undefined,
         name: user.name,
         email: user.email,
       },

@@ -6,14 +6,14 @@ import ShowUserProfileUseCase from '../useCases/showUserProfile.useCase';
 import UpdateUserUseCase from '../useCases/updateUser.useCase';
 
 export async function createUserHandler(request: Request, response: Response) {
-  const { name, email, role, password, is_admin } = request.body;
+  const { name, email, role, password, salesman_id } = request.body;
   const createUserUseCase = container.resolve(CreateUserUseCase);
   const user = await createUserUseCase.execute({
     name,
     email,
     role,
     password,
-    is_admin,
+    salesman_id,
   });
 
   return response.status(201).json(user);
