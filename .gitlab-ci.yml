@@ -1,0 +1,36 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+variables:
+  REGISTRY_HOSTNAME: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  image: docker:stable
+  only:
+    - main
+  services:
+    - docker:dind
+  before_script:
+    - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY  amazon/aws-cli ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REGISTRY_HOSTNAME
+  script:
+    - docker build -f Dockerfile-prod --tag $REGISTRY_HOSTNAME/$DOCKER_IMAGE_NAME:api-${CI_COMMIT_SHORT_SHA} .
+    - docker push $REGISTRY_HOSTNAME/$DOCKER_IMAGE_NAME:api-${CI_COMMIT_SHORT_SHA}
+
+deploy-job:
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  only:
+    - main
+  before_script:
+  - apt-get update -qq
+  - apt-get install -qq git
+  # Setup SSH deploy keys
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'  
+  script:
+    - ssh ubuntu@${IPV4_ADDRESS} "export API_TAG=api-${CI_COMMIT_SHORT_SHA} && docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY  amazon/aws-cli ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REGISTRY_HOSTNAME && docker pull $REGISTRY_HOSTNAME/$DOCKER_IMAGE_NAME:api-${CI_COMMIT_SHORT_SHA} && cd appfortbrinq/api/ && ./deploy.sh && exit"

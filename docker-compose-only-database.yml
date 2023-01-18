@@ -3,10 +3,10 @@ version: "3.7"
 services:
     database_fortbrinq:
         image: postgres
-        container_name: budget_api
+        container_name: budget-api
         restart: always
         ports:
-            - 5430:5432
+            - 5432:5432
         environment:
             - POSTGRES_USER=admin
             - POSTGRES_PASSWORD=admin

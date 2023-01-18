@@ -4,12 +4,15 @@ import { inject, injectable } from 'tsyringe';
 import { IUser } from '../../../entities/user';
 import { AppError } from '../../../shared/errors/AppError';
 import { isValidId } from '../../../shared/utils/idValidator';
+import { ISalesmenRepository } from '../../salesmen/repositories/ISalesmenRepository';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
 export default class UpdateUserUseCase {
   constructor(
-    @inject('UsersRepository') private usersRepository: IUsersRepository
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
+    @inject('SalesmenRepository')
+    private salesmenRepository: ISalesmenRepository
   ) {}
 
   async execute(
@@ -43,14 +46,27 @@ export default class UpdateUserUseCase {
       } else if (role === 'salesman') {
         is_admin = false;
         is_salesman = true;
-        data = { ...data, role, is_admin, is_salesman };
+
+        if (!salesman_id) {
+          throw new AppError('Salesman user must have a salesman id!', 400);
+        }
+
+        if (salesman_id) {
+          const salesmenExists = await this.salesmenRepository.findById(
+            salesman_id
+          );
+
+          if (!salesmenExists) {
+            throw new AppError('Salesman not found!', 404);
+          }
+
+          name = salesmenExists.name;
+        }
+
+        data = { ...data, role, is_admin, is_salesman, name };
       } else {
         is_admin = false;
         data = { ...data, role, is_admin };
-      }
-
-      if (is_salesman && !salesman_id) {
-        throw new AppError('Salesman user must have a salesman id!', 400);
       }
     }
 
