@@ -50,42 +50,43 @@ export default class ConvertToPdfUseCase {
       products: budgetReceived.products,
     };
 
-    const pdf = ejs.renderFile(
-      'src/modules/budgets/templates/html/budget-template.ejs',
+    const path = `tmp/pdf/${id}.pdf`;
 
-      {
-        customer_name: data.customer.name,
-        customer_contact: data.customer.contact,
-        customer_address: data.customer.address,
-        date: formatDate(new Date()),
-        budget_code: data.budget.code,
-        budget_year: data.budget.year,
-        products: data.budget.products,
-        total_value: data.budget.total_value,
-        salesman_name: data.salesman.name,
-        delivery_type: data.budget.delivery_type,
-      },
-      async (err, html) => {
-        if (err) {
-          throw new AppError(`Error converting Html file: ${err}`, 500);
-        }
+    try {
+      const html = await ejs.renderFile(
+        'src/modules/budgets/templates/html/budget-template.ejs',
 
-        const browser = await puppeteer.launch({
-          args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        });
-        const page = await browser.newPage();
-        await page.setContent(html);
-        const pdf = await page.pdf({
-          path: 'tmp/pdf/pdf-name.pdf',
-          format: 'A4',
-          printBackground: true,
-        });
-        await browser.close();
+        {
+          customer_name: data.customer.name,
+          customer_contact: data.customer.contact,
+          customer_address: data.customer.address,
+          date: formatDate(new Date()),
+          budget_code: data.budget.code,
+          budget_year: data.budget.year,
+          products: data.budget.products,
+          total_value: data.budget.total_value,
+          salesman_name: data.salesman.name,
+          delivery_type: data.budget.delivery_type,
+        },
+        { async: true }
+      );
 
-        return pdf;
-      }
-    );
+      const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
+      const page = await browser.newPage();
+      await page.setContent(html);
 
-    return pdf;
+      await page.pdf({
+        path,
+        format: 'A4',
+        printBackground: true,
+      });
+      await browser.close();
+    } catch (error) {
+      throw new Error('error on convert to pdf');
+    }
+
+    return path;
   }
 }
