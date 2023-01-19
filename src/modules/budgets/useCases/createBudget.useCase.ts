@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { IBudget } from '../../../entities/budget';
+import { Budget, IBudget } from '../../../entities/budget';
 import { AppError } from '../../../shared/errors/AppError';
 import { IAdditionalItemsRepository } from '../../additionalItems/repositories/IAdditionalItemsRepository';
 import { ICustomersRepository } from '../../customers/repositories/ICustomersRepository';
@@ -26,7 +26,7 @@ export default class CreateBudgetUseCase {
     private additionalItemsRepository: IAdditionalItemsRepository
   ) {}
 
-  async execute(budget: IBudget) {
+  async execute(budget: IBudget): Promise<Budget> {
     const budgetAlreadyExists = await this.budgetsRepository.findByCode(
       budget.code
     );
@@ -91,11 +91,20 @@ export default class CreateBudgetUseCase {
 
     if (budget.additional_items) {
       for (const item of budget.additional_items) {
-        item.total_price = calculateProductTotalPrice(
-          item.unit_price,
-          item.quantity,
-          item.discount
-        );
+        const additionalItemExists =
+          await this.additionalItemsRepository.findById(
+            item.additional_item_id
+          );
+
+        if (!additionalItemExists) {
+          throw new AppError('Additional item not found!', 404);
+        } else {
+          item.total_price = calculateProductTotalPrice(
+            item.unit_price,
+            item.quantity,
+            item.discount
+          );
+        }
       }
     }
 
@@ -104,5 +113,7 @@ export default class CreateBudgetUseCase {
     createdBudget.total_value = await calculateTotalValue(createdBudget);
 
     await this.budgetsRepository.save(createdBudget);
+
+    return createdBudget;
   }
 }

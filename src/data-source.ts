@@ -10,7 +10,7 @@ import MainSeeder from './shared/seeds/mainSeeder';
 
 const options: DataSourceOptions & SeederOptions = {
   type: 'postgres',
-  host: process.env.DB_HOST,
+  host: 'database',
   port: process.env.DB_PORT,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,

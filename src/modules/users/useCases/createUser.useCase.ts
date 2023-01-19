@@ -46,25 +46,25 @@ export default class CreateUserUseCase {
     } else if (user.role === 'salesman') {
       user.is_admin = false;
       user.is_salesman = true;
+
+      if (!user.salesman_id) {
+        throw new AppError('Salesman user must have a salesman id!', 400);
+      }
+
+      if (user.salesman_id) {
+        const salesmenExists = await this.salesmenRepository.findById(
+          user.salesman_id
+        );
+
+        if (!salesmenExists) {
+          throw new AppError('Salesman not found!', 404);
+        }
+
+        user.name = salesmenExists.name;
+      }
     } else {
       user.is_admin = false;
       user.is_salesman = false;
-    }
-
-    if (user.is_salesman && !user.salesman_id) {
-      throw new AppError('Salesman user must have a salesman id!', 400);
-    }
-
-    if (user.salesman_id) {
-      const salesmenExists = await this.salesmenRepository.findById(
-        user.salesman_id
-      );
-
-      if (!salesmenExists) {
-        throw new AppError('Salesman not found!', 404);
-      }
-
-      user.name = salesmenExists.name;
     }
 
     await this.usersRepository.create(user);

@@ -13,6 +13,6 @@ const salesmenRouter = Router();
 salesmenRouter.post('/', auth, createSalesmanHandler);
 salesmenRouter.patch('/:id', auth, updateSalesmanHandler);
 salesmenRouter.delete('/:id', auth, ensureAdmin, deleteSalesmanHandler);
-salesmenRouter.get('/', auth, showSalesmenHandler);
+salesmenRouter.get('/:id?', auth, showSalesmenHandler);
 
 export { salesmenRouter };

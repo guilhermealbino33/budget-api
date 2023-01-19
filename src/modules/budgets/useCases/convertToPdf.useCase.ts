@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import pdf from 'html-pdf';
+import puppeteer from 'puppeteer';
 import ejs from 'ejs';
 import { AppError } from '../../../shared/errors/AppError';
 import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
@@ -19,6 +19,11 @@ export default class ConvertToPdfUseCase {
   ) {}
   async execute(id: string) {
     const budgetReceived = await this.budgetsRepository.findById(id);
+
+    if (!budgetReceived) {
+      throw new AppError('Budget not found!', 404);
+    }
+
     const customerReceived = await this.customersRepository.findById(
       budgetReceived.customer_id
     );
@@ -45,7 +50,7 @@ export default class ConvertToPdfUseCase {
       products: budgetReceived.products,
     };
 
-    ejs.renderFile(
+    const pdf = ejs.renderFile(
       'src/modules/budgets/templates/html/budget-template.ejs',
 
       {
@@ -60,20 +65,27 @@ export default class ConvertToPdfUseCase {
         salesman_name: data.salesman.name,
         delivery_type: data.budget.delivery_type,
       },
-      (err, html) => {
+      async (err, html) => {
         if (err) {
-          console.log(err);
-          throw new AppError('Error converting Html file', 500);
+          throw new AppError(`Error converting Html file: ${err}`, 500);
         }
 
-        pdf
-          .create(html, { format: 'A4' })
-          .toFile('tmp/pdf/pdf-name.pdf', (err, res) => {
-            if (err) {
-              throw new AppError('Error creating PDF.', 500);
-            }
-          });
+        const browser = await puppeteer.launch({
+          args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        });
+        const page = await browser.newPage();
+        await page.setContent(html);
+        const pdf = await page.pdf({
+          path: 'tmp/pdf/pdf-name.pdf',
+          format: 'A4',
+          printBackground: true,
+        });
+        await browser.close();
+
+        return pdf;
       }
     );
+
+    return pdf;
   }
 }
