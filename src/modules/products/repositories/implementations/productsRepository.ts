@@ -12,9 +12,11 @@ export default class ProductsRepository implements IProductsRepository {
     this.repository = AppDataSource.getRepository(Product);
   }
 
-  async create(product: IProduct): Promise<void> {
+  async create(product: IProduct): Promise<Product> {
     const productToCreate = this.repository.create(product);
     this.repository.save(productToCreate);
+
+    return productToCreate;
   }
 
   async update(id: string, data: IProduct): Promise<void> {
