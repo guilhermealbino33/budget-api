@@ -10,12 +10,12 @@ services:
             # exposing port TCP 0.0.0.0:5432 -> 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use
             - 5432:5432
         environment:
-            - POSTGRES_USER=admin
-            - POSTGRES_PASSWORD=admin
-            - POSTGRES_DB=postgres
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_DB=${DB_CONNECTION}
         volumes:
             - pgdata:/data/postgres
-
+        env_file: .env
     app:
         build: 
            context: .
