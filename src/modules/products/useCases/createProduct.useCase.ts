@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { IProduct } from '../../../entities/product';
+import { IProduct, Product } from '../../../entities/product';
 import { AppError } from '../../../shared/errors/AppError';
 import { IProductsCategoriesRepository } from '../repositories/IProductsCategoriesRepository';
 import { IProductsRepository } from '../repositories/IProductsRepository';
@@ -13,7 +13,7 @@ export default class CreateProductUseCase {
     private categoriesRepository: IProductsCategoriesRepository
   ) {}
 
-  async execute(product: IProduct) {
+  async execute(product: IProduct): Promise<Product> {
     const productAlreadyExists = await this.productsRepository.findByCode(
       product.code
     );
@@ -46,6 +46,6 @@ export default class CreateProductUseCase {
       throw new AppError('Category not found!', 404);
     }
 
-    await this.productsRepository.create(product);
+    return this.productsRepository.create(product);
   }
 }

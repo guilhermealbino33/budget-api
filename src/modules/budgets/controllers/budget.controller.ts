@@ -121,9 +121,9 @@ export async function convertToPdfHandler(
 ) {
   const { id } = request.params;
   const convertToPdfUseCase = container.resolve(ConvertToPdfUseCase);
-  const pdf = await convertToPdfUseCase.execute(id);
+  const pdfPath = await convertToPdfUseCase.execute(id);
 
-  return response.status(200).json(pdf);
+  return response.status(200).download(pdfPath);
 }
 
 export async function countBudgetsHandler(
