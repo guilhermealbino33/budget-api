@@ -8,9 +8,9 @@ services:
         ports:
             - 5432:5432
         environment:
-            - POSTGRES_USER=admin
-            - POSTGRES_PASSWORD=admin
-            - POSTGRES_DB=postgres
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_DB=${DB_CONNECTION}
         volumes:
             - pgdata:/data/postgres
 volumes:

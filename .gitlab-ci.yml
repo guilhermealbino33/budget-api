@@ -15,7 +15,7 @@ build-job:       # This job runs in the build stage, which runs first.
   before_script:
     - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY  amazon/aws-cli ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REGISTRY_HOSTNAME
   script:
-    - docker build -f Dockerfile-prod --tag $REGISTRY_HOSTNAME/$DOCKER_IMAGE_NAME:api-${CI_COMMIT_SHORT_SHA} .
+    - docker build --tag $REGISTRY_HOSTNAME/$DOCKER_IMAGE_NAME:api-${CI_COMMIT_SHORT_SHA} .
     - docker push $REGISTRY_HOSTNAME/$DOCKER_IMAGE_NAME:api-${CI_COMMIT_SHORT_SHA}
 
 deploy-job:
