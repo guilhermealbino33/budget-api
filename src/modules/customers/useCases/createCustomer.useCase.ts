@@ -29,10 +29,6 @@ export default class CreateCustomerUseCase {
       throw new AppError('Customer name must be informed!', 400);
     }
 
-    if (!customer.email) {
-      throw new AppError('Customer e-mail must be informed!', 400);
-    }
-
     if (!customer.account_type) {
       throw new AppError('Customer account type must be informed!', 400);
     }
