@@ -36,4 +36,14 @@ export default class BudgetProductsRepository
       .where('budget_id = :id', { id })
       .execute();
   }
+
+  async findByProductId(product_id: string): Promise<IBudgetProducts[]> {
+    return this.repository.find({
+      where: [
+        {
+          product_id,
+        },
+      ],
+    });
+  }
 }

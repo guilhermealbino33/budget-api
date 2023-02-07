@@ -18,8 +18,8 @@ export class Customer {
   @Column()
   name: string;
 
-  @Column()
-  email: string;
+  @Column({ nullable: true })
+  email?: string;
 
   @Column()
   account_type: string;

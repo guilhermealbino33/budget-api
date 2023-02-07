@@ -324,7 +324,9 @@
 
       <main class="content pg1">
         <div class="content__product-infos">
-          <img class="product-infos__image" src="<%= products[i].product.images[0].img_url %> " /> 
+          <% if (products[i].product.images.length) { %>
+            <img class="product-infos__image" src="<%= products[i].product.images[0].img_url %> " /> 
+          <% } %>
            <p class="product-infos__description"><%= products[i].product.name %> </p>
           <ul class="product-infos__list">
             <li>Quantidade: <%= products[i].quantity %> </li>

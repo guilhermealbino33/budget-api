@@ -84,7 +84,7 @@ export default class ConvertToPdfUseCase {
       });
       await browser.close();
     } catch (error) {
-      throw new Error('error on convert to pdf');
+      throw new Error(`error on convert to pdf: ${error}`);
     }
 
     return path;
