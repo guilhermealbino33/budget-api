@@ -27,9 +27,15 @@ export default class CreateBudgetUseCase {
   ) {}
 
   async execute(budget: IBudget): Promise<Budget> {
-    const budgetAlreadyExists = await this.budgetsRepository.findByCode(
-      budget.code
-    );
+    if (budget.code) {
+      const budgetAlreadyExists = await this.budgetsRepository.findByCode(
+        budget.code
+      );
+
+      if (budgetAlreadyExists) {
+        throw new AppError('Budget already exists!', 409);
+      }
+    }
 
     for (const product of budget.products) {
       const productExists = await this.productsRepository.findById(
@@ -41,20 +47,12 @@ export default class CreateBudgetUseCase {
       }
     }
 
-    if (budgetAlreadyExists) {
-      throw new AppError('Budget already exists!', 409);
-    }
-
     if (!budget.customer_id) {
       throw new AppError('Budget must have a customer!', 400);
     }
 
     if (!budget.salesman_id) {
       throw new AppError('Budget must have a salesman!', 400);
-    }
-
-    if (!budget.code) {
-      throw new AppError('Budget must have a code!', 400);
     }
 
     const customerExists = await this.customersRepository.findById(
