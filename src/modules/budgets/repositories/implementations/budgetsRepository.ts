@@ -45,7 +45,7 @@ export default class BudgetsRepository implements IBudgetsRepository {
     });
   }
 
-  async findByCode(code: string): Promise<Budget> {
+  async findByCode(code: number): Promise<Budget> {
     return this.repository.findOne({
       where: [
         {

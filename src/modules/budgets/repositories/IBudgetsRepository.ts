@@ -8,7 +8,7 @@ export interface IBudgetsRepository {
   delete(budgetID: string): Promise<void>;
   findById(budget_id: string): Promise<Budget>;
   list(page: number, limit: number): Promise<Page<Budget>>;
-  findByCode(code: string): Promise<Budget>;
+  findByCode(code: number): Promise<Budget>;
   count(): Promise<number>;
   countSales(): Promise<number>;
 }
