@@ -46,6 +46,7 @@ export default class ConvertToPdfUseCase {
         products: budgetReceived.products,
         total_value: budgetReceived.total_value,
         delivery_type: budgetReceived.delivery_type,
+        delivery_value: budgetReceived.delivery_value,
       },
       products: budgetReceived.products,
     };
@@ -67,6 +68,7 @@ export default class ConvertToPdfUseCase {
           total_value: data.budget.total_value,
           salesman_name: data.salesman.name,
           delivery_type: data.budget.delivery_type,
+          delivery_value: data.budget.delivery_value,
         },
         { async: true }
       );
