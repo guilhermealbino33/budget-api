@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -23,7 +24,8 @@ export class Budget {
   id?: string;
 
   @Column()
-  code: string;
+  @Generated('increment')
+  code: number;
 
   @Column({ default: 'new' })
   status: string;
@@ -95,7 +97,7 @@ export class Budget {
 
 export interface IBudget {
   id?: string;
-  code: string;
+  code: number;
   status?: string;
   customer_id: string;
   products: IBudgetProducts[];
@@ -112,7 +114,7 @@ export interface IBudget {
 
 export interface IUpdateBudget {
   id?: string;
-  code?: string;
+  code?: number;
   customer_id?: string;
   products?: IBudgetProducts[];
   salesman_id?: string;
