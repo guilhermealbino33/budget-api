@@ -42,6 +42,9 @@ export class BudgetProducts {
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   total_price: number;
 
+  @Column({ nullable: true })
+  observations?: string;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -63,6 +66,7 @@ export interface IBudgetProducts {
   unit_price: number;
   discount: number;
   total_price: number;
+  observations?: string;
   created_at?: Date;
   updated_at?: Date;
 }
