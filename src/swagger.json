@@ -1666,7 +1666,16 @@
           "delivery_value": {
             "type": "number"
           },
+          "delivery_date": {
+            "type": "string"
+          },
           "observations": {
+            "type": "string"
+          },
+          "payment_conditions": {
+            "type": "string"
+          },
+          "proposal_validity": {
             "type": "string"
           },
           "total_value": {
