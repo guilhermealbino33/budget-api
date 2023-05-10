@@ -63,6 +63,9 @@ export class Budget {
   delivery_value?: number;
 
   @Column({ nullable: true })
+  delivery_date?: string;
+
+  @Column({ nullable: true })
   observations: string;
 
   @OneToMany(
@@ -81,6 +84,12 @@ export class Budget {
 
   @Column({ type: 'numeric', precision: 10, scale: 2, default: 0 })
   total_value: number;
+
+  @Column({ nullable: true })
+  payment_conditions?: string;
+
+  @Column({ nullable: true })
+  proposal_validity?: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -104,10 +113,13 @@ export interface IBudget {
   salesman_id: string;
   delivery_type?: string;
   delivery_value?: number;
+  delivery_date?: string;
   observations?: string;
   additional_items?: IBudgetAdditionalItems[];
   closed?: boolean;
   total_value?: number;
+  payment_conditions?: string;
+  proposal_validity?: string;
   created_at?: Date;
   updated_at?: Date;
 }
@@ -120,6 +132,7 @@ export interface IUpdateBudget {
   salesman_id?: string;
   delivery_type?: string;
   delivery_value?: number;
+  delivery_date?: string;
   observations?: string;
   additional_items?: IBudgetAdditionalItems[];
   closed?: boolean;

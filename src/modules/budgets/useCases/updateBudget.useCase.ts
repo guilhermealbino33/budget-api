@@ -29,7 +29,10 @@ export default class UpdateBudgetUseCase {
       salesman_id,
       delivery_type,
       delivery_value,
+      delivery_date,
       observations,
+      payment_conditions,
+      proposal_validity,
       additional_items,
       total_value,
     }: IBudget
@@ -86,8 +89,20 @@ export default class UpdateBudgetUseCase {
       data = { ...data, delivery_value };
     }
 
+    if (delivery_date) {
+      data = { ...data, delivery_date };
+    }
+
     if (observations) {
       data = { ...data, observations };
+    }
+
+    if (payment_conditions) {
+      data = { ...data, payment_conditions };
+    }
+
+    if (proposal_validity) {
+      data = { ...data, proposal_validity };
     }
 
     if (additional_items) {

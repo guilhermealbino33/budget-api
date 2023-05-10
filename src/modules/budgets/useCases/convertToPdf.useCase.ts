@@ -6,6 +6,7 @@ import { IBudgetsRepository } from '../repositories/IBudgetsRepository';
 import { ISalesmenRepository } from '../../salesmen/repositories/ISalesmenRepository';
 import { ICustomersRepository } from '../../customers/repositories/ICustomersRepository';
 import { formatDate } from '../utils/date';
+import dayjs from 'dayjs';
 
 @injectable()
 export default class ConvertToPdfUseCase {
@@ -43,10 +44,14 @@ export default class ConvertToPdfUseCase {
       budget: {
         code: budgetReceived.code,
         year: new Date().getFullYear(),
+        date: dayjs(budgetReceived.created_at).format('DD/MM/YYYY'),
         products: budgetReceived.products,
         total_value: budgetReceived.total_value,
         delivery_type: budgetReceived.delivery_type,
         delivery_value: budgetReceived.delivery_value,
+        delivery_date: budgetReceived.delivery_date,
+        proposal_validity: budgetReceived.proposal_validity,
+        payment_conditions: budgetReceived.payment_conditions,
       },
       products: budgetReceived.products,
     };
@@ -64,11 +69,15 @@ export default class ConvertToPdfUseCase {
           date: formatDate(new Date()),
           budget_code: data.budget.code,
           budget_year: data.budget.year,
+          budget_date: data.budget.date,
           products: data.budget.products,
           total_value: data.budget.total_value,
           salesman_name: data.salesman.name,
           delivery_type: data.budget.delivery_type,
           delivery_value: data.budget.delivery_value,
+          delivery_date: data.budget.delivery_date,
+          proposal_validity: data.budget.proposal_validity,
+          payment_conditions: data.budget.payment_conditions,
         },
         { async: true }
       );

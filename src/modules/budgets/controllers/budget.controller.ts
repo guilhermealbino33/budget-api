@@ -20,7 +20,10 @@ export async function createBudgetHandler(
     salesman_id,
     delivery_type,
     delivery_value,
+    delivery_date,
     observations,
+    payment_conditions,
+    proposal_validity,
     products,
     additional_items,
   } = request.body;
@@ -35,7 +38,10 @@ export async function createBudgetHandler(
     salesman_id,
     delivery_type,
     delivery_value,
+    delivery_date,
     observations,
+    payment_conditions,
+    proposal_validity,
     closed,
     products,
     additional_items,
@@ -58,7 +64,10 @@ export async function updateBudgetHandler(
     salesman_id,
     delivery_type,
     delivery_value,
+    delivery_date,
     observations,
+    payment_conditions,
+    proposal_validity,
     additional_items,
   } = request.body;
 
@@ -71,7 +80,10 @@ export async function updateBudgetHandler(
     salesman_id,
     delivery_type,
     delivery_value,
+    delivery_date,
     observations,
+    payment_conditions,
+    proposal_validity,
     additional_items,
   });
 
