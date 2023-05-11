@@ -1686,6 +1686,6 @@
     }
   },
   "servers": [
-    { "url": "http://localhost:3033/api", "description": "API for tests" }
+    { "url": "http://localhost:3033/api-docs/", "description": "API for tests" }
   ]
 }

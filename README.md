@@ -9,7 +9,7 @@ docker-compose -f docker-compose-only-database.yml up --build
 yarn migration:generate
 yarn migration:run
 
-## Documentation
+## Swagger Documentation
 
 http://localhost:3033/api-docs/
 
